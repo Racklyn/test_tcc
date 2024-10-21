@@ -66,6 +66,8 @@ def summarizePublication(pubText: str, brand: str) -> str:
 
 
 def getAnalysis(pubText: str, comments: list[str]) -> str:
+    # print(comments)
+
     prompt = ChatPromptTemplate(
         [
             (
@@ -74,44 +76,57 @@ def getAnalysis(pubText: str, comments: list[str]) -> str:
                     Você é um assistente responsável por fazer análise de sentimentos em comentários de publicações de marcas no Facebook.
                     Você receberá o texto de uma publicação e uma lista de comentários da publicação.
                     Analise detalhadamente cada comentário de maneira INDIVIDUAL e com base no texto da publicação.
+                    Os comentários estão separados pela tag <comment-separator/>
                     Analise cada comentário e retorne 0 se for negativo, 0.5 se for neutro e 1 se for positivo.
                     Em caso de dúvida, retorne 0.5.
-                    Retorne uma lista de inteiros chamada "analysis" com o resultado das análises.
                 '''
 
-                # ou se o comentário não tiver nenhuma relação com o texto da publicação.
+                    #Além de retornar a lista com o resultado das análises, você irá retornar também a lista com os comentários que foram providos.
+                    # Retorne uma lista de floats chamada "analysis" com o resultado das análises.
+                # ou se o comentário não tiver nenhuma relação com o texto da publicação ou com a marca...
             ),
             ("user",
                 '''
                     Texto da publicação: {publication}
-                
-                    Lista de comentários: \n{comments}
+
+                    Tamanho da lista de análise a ser retornada: {anylisis_size}
+
+                    Lista de comentários: \n\n\n\n\n<comment-separator/> {comments} <comment-separator/>
+
                 '''
             )
         ]
     )
 
     # output_parser = ...
-    dict_schema = convert_to_openai_function(PublicationAnalysis)
+    dict_schema = convert_to_openai_function(PublicationAnalysis) # TODO: Verify if this is a good approach
     structured_llm = llm.with_structured_output(dict_schema)
     chain = prompt | structured_llm # | output_parser
 
 
-    formatedComments = "\n\n**********************\n".join(comments)
-    print(formatedComments)
+    # TODO: Verify is this separator is ok
+    formatedComments = "\n\n\n\n<comment-separator/>\n\n\n\n".join(comments)
+    #print(formatedComments)
 
     resp = chain.invoke({
         "publication": pubText,
+        "anylisis_size": len(comments),
         "comments": formatedComments
     })
 
-    return resp
+    print(resp)
+
+    if (len(resp) > 0):
+        return resp[0]['args']['analysis'] #TODO: Verify this. Should return only 'resp'?
+    else:
+        return []
 
 
 class PublicationAnalysis(BaseModel):
     """ Classe contendo a lista com a análise dos comentários """
 
-    analysis: list[float] = Field(description="A lista na qual cada item corresponde à análise de um comentário.")
+    analysis: list[float] = Field(description="A lista com {anylisis_size} itens na qual cada item é um float que corresponde à análise de um comentário.")
+    #comments: list[str] = Field(description='A lista de comentários que foi enviada para análise')
     
 
 
@@ -129,6 +144,13 @@ if __name__ == "__main__":
     #print(getAnalysis(pub["text"], pub["comments"]))
     pubText = pub["text"]
     comments = pub["comments"]#[5:6]
-    analysis = getAnalysis(pub["text"], comments)[0]['args']['analysis']
+    analysis = getAnalysis(pub["text"], comments)#[0]['args']['analysis']
     for i, c in enumerate(comments):
         print(f"[{i}] - {c}\nAnálise: {analysis[i]}\n-------------")
+
+    # prompt = ChatPromptTemplate([
+    #     ('user', 'Meu nome é Racklyn')
+    # ])
+    # chain = prompt | llm
+    # r = chain.invoke({})
+    # print(r)
