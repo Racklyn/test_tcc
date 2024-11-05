@@ -46,6 +46,7 @@ def run_analysis():
 
 def get_statistics():
     comments_with_analysis = pd.read_csv('test_data/analysis_result.csv')
+    #print(comments_with_analysis)
     #label_analysis = comments_with_analysis[['CONTENT', 'LABEL', 'ANALYSIS']]
     
     matrix_columns = {
