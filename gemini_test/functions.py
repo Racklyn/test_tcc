@@ -1,7 +1,7 @@
 from langchain.prompts import ChatPromptTemplate
 from langchain_core.utils.function_calling import convert_to_openai_function
 from model import llm
-from publications import publications
+from mocks.publications_dump import publications
 from typing import Optional
 from pydantic import BaseModel, Field
 

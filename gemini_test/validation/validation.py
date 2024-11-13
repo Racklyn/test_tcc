@@ -4,8 +4,8 @@ import asyncio
 import math
 
 def run_analysis():
-    comments = pd.read_csv('test_data/comments.csv')
-    postsInfo = pd.read_csv('test_data/posts.csv')
+    comments = pd.read_csv('./test_data/comments.csv')
+    postsInfo = pd.read_csv('./test_data/posts.csv')
 
     posts = []
 
@@ -35,7 +35,7 @@ def run_analysis():
 
     print(all_analysis)
     comments['ANALYSIS'] = all_analysis
-    comments.to_csv('test_data/analysis_result.csv')
+    comments.to_csv('./test_data/analysis_result.csv')
 
 
 # n = 2
@@ -45,7 +45,7 @@ def run_analysis():
 # print(len(a))
 
 def get_statistics():
-    comments_with_analysis = pd.read_csv('test_data/analysis_result.csv')
+    comments_with_analysis = pd.read_csv('./test_data/analysis_result.csv')
     #print(comments_with_analysis)
     #label_analysis = comments_with_analysis[['CONTENT', 'LABEL', 'ANALYSIS']]
     
