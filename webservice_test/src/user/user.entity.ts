@@ -4,12 +4,12 @@ import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'user' })
 export class User extends AbstractEntity {
-    @Column({ name: 'email', nullable: false, unique: true })
+    @Column({ name: 'email', unique: true })
     email: string;
 
-    @Column({ name: 'access_key', nullable: false })
+    @Column({ name: 'access_key' })
     access_key: string;
 
     @OneToMany(() => Brand, (brand) => brand.user)
-    brand: Brand[];
+    brands: Brand[];
 }

@@ -3,6 +3,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './user/user.module';
 import { BrandModule } from './brand/brand.module';
+import { ItemModule } from './item/item.module';
+import { ItemAnalysisResultModule } from './item-analysis-result/item-analysis-result.module';
+import { PageModule } from './page/page.module';
+import { PostModule } from './post/post.module';
+import { CommentModule } from './comment/comment.module';
+import { CommentAnalysisModule } from './comment-analysis/comment-analysis.module';
 
 @Module({
   imports: [
@@ -21,6 +27,12 @@ import { BrandModule } from './brand/brand.module';
     }),
     UsersModule,
     BrandModule,
+    ItemModule,
+    ItemAnalysisResultModule,
+    PageModule,
+    PostModule,
+    CommentModule,
+    CommentAnalysisModule,
   ],
   controllers: [],
   providers: [],
