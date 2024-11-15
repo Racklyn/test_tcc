@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDomain } from './user.domain';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +12,7 @@ export class UsersService {
         private readonly usersRepository: Repository<User>
     ) {}
 
-    async findById(id: string): Promise<User> {
+    async findById(id: number): Promise<User> {
         return await this.usersRepository.findOne({
             where: {
                 id: id
@@ -21,20 +20,22 @@ export class UsersService {
         });
     }
 
-    async findAllUsers(): Promise<User[]> {
-        const users = await this.usersRepository.find();
-
+    async findAll(): Promise<User[]> {
+        try {
+            const users = await this.usersRepository.find();
+            return users;
+        } catch(error) {
+            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         // O seguinte código lança uma exceção, mas ela não quebra o código (parece ser automaticamente 'lidada')
-        if (users.length === 0) throw new HttpException('Users not found', HttpStatus.NOT_FOUND);
-
-        return users;
+        //if (users.length === 0) throw new HttpException('Users not found', HttpStatus.NOT_FOUND);
     }
 
-    async createUser(userDto: UserDomain): Promise<UserDomain> {
+    async create(userDto: CreateUserDto): Promise<User> {
         return await this.usersRepository.save(userDto);
     }
 
-    async updateUser(userDto: UpdateUserDto): Promise<UpdateUserDto> {
+    async update(userDto: UpdateUserDto): Promise<UpdateUserDto> {
         // const user = await this.findOne(id);
 
         // if (!user) {
