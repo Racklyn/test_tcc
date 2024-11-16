@@ -19,5 +19,5 @@ export class Page extends AbstractEntity {
         () => Post,
         (posts) => posts.page
     )
-    posts: Post[]
+    posts: Post[];
 }

@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -12,12 +12,30 @@ export class UsersService {
         private readonly usersRepository: Repository<User>
     ) {}
 
-    async findById(id: number): Promise<User> {
-        return await this.usersRepository.findOne({
-            where: {
-                id: id
-            },
-        });
+    async create(userDto: CreateUserDto): Promise<User> {
+        try {
+            const user = new User();
+            user.email = userDto.email;
+            user.access_key = userDto.access_key;
+    
+            return await this.usersRepository.save(user);
+        } catch(error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async findOne(id: number): Promise<User> {
+        try {
+            return await this.usersRepository.findOne({
+                where: {
+                    id: id
+                },
+            });
+        } catch(error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     async findAll(): Promise<User[]> {
@@ -25,30 +43,36 @@ export class UsersService {
             const users = await this.usersRepository.find();
             return users;
         } catch(error) {
-            throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        // O seguinte código lança uma exceção, mas ela não quebra o código (parece ser automaticamente 'lidada')
-        //if (users.length === 0) throw new HttpException('Users not found', HttpStatus.NOT_FOUND);
     }
 
-    async create(userDto: CreateUserDto): Promise<User> {
-        return await this.usersRepository.save(userDto);
+    async update(id:number, userDto: UpdateUserDto): Promise<UpdateUserDto> {
+        try {
+            const user = await this.findOne(id);
+    
+            if (!user) {
+            throw new NotFoundException('User not found.');
+            }
+    
+            const { id: dtoId, ...dtoWithoutId } = userDto;
+            Object.assign(user, dtoWithoutId);
+    
+            const updatedUser = await this.usersRepository.save(userDto);
+            return updatedUser;
+        } catch(error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    async update(userDto: UpdateUserDto): Promise<UpdateUserDto> {
-        // const user = await this.findOne(id);
-
-        // if (!user) {
-        //     throw new NotFoundException('Usuário não encontrado');
-        // }
-
-        // const { id: dtoId, ...dtoWithoutId } = userDto;
-
-        // Object.assign(user, dtoWithoutId);
-        //const updatedUser = await this.usersRepository.save(user);
-
-        const updatedUser = await this.usersRepository.save(userDto);
-        return updatedUser;
+    async remove(id: number) {
+        try {
+          await this.usersRepository.delete(id);
+        } catch (error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-
 }

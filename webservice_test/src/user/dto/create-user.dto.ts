@@ -5,6 +5,4 @@ export class CreateUserDto {
     email: string;
     access_key: string;
     brand: Brand[];
-    created_at?: string;
-    updated_at?: string;
 }

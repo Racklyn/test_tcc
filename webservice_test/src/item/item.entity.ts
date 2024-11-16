@@ -28,8 +28,8 @@ export class Item extends AbstractEntity {
         () => ItemAnalysisResult,
         (item_analysis_result) => item_analysis_result.item
     )
-    item_analysis_result: ItemAnalysisResult[]
+    item_analysis_result: ItemAnalysisResult[];
 
     @OneToMany(() => Post, (post) => post.item)
-    posts: Post[]
+    posts: Post[];
 }

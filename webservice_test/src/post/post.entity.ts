@@ -35,5 +35,5 @@ export class Post extends AbstractEntity {
     item: Item;
 
     @OneToMany(() => Comment, (comment) => comment.post)
-    comments: Comment[]
+    comments: Comment[];
 }

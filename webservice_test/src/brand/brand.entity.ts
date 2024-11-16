@@ -17,8 +17,8 @@ export class Brand extends AbstractEntity {
     user: User;
 
     @OneToMany(() => Item, (item) => item.brand)
-    items: Item[]
+    items: Item[];
 
     @OneToMany(() => Page, (page) => page.brand)
-    pages: Page[]
+    pages: Page[];
 }

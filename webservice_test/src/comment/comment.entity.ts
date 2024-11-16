@@ -23,5 +23,5 @@ export class Comment extends AbstractEntity {
         () => CommentAnalysis,
         (comment_analysis) => comment_analysis.comment
     )
-    comment_analysis: CommentAnalysis[]
+    comment_analysis: CommentAnalysis[];
 }
