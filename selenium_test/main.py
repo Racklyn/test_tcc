@@ -14,6 +14,8 @@ from datetime import datetime
 from time import sleep
 from utils.posts_data_to_string import posts_data_to_string
 from utils.get_text import get_text_with_emojis
+from service.database_conection import DatabaseConnection
+from service import endpoints
 
 
 
@@ -300,7 +302,7 @@ def run(page: str):
     options = Options()
     #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
     options.add_argument('--disable-dev-tools')
-    #options.add_argument('--headless=new') # para não abrir a interface gráfica do browser # TODO: descomentar
+    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser # TODO: descomentar
     options.add_argument('window-size=1600,1000')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
@@ -337,9 +339,21 @@ def run(page: str):
         posts_data_to_string(posts, 'posts.txt')
         print(f'\nExtração de {len(posts)} publicações concluída com sucesso!')
 
+    driver.close()
+
+
+def run_all_pages(pages):
+    pass
+
 
 
 if __name__ == '__main__':
     PAGE = ['fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA'][5]
-
     run(PAGE)
+
+    # brand_id = 1
+
+    # db_connection = DatabaseConnection()
+    # db_connection.generic_getter(endpoints.PAGE, )
+
+    # run_all_pages()

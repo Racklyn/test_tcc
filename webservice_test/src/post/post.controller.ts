@@ -25,7 +25,7 @@ export class PostController {
     }
 
     @Get(':id/withComments')
-    @ApiQuery({ name: 'page_id' })
+    @ApiQuery({ name: 'page_id', required: false  })
     async findOneWithComments(
         @Param('id') id: number,
         @Query() query: PostCommentsQuery

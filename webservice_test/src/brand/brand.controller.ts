@@ -24,9 +24,9 @@ export class BrandController {
     }
 
     @Get()
-    @ApiQuery({ name: 'user_id', required: true })
-    @ApiQuery({ name: 'sort_by' })
-    @ApiQuery({ name: 'sort_order' })
+    @ApiQuery({ name: 'user_id' })
+    @ApiQuery({ name: 'sort_by', required: false })
+    @ApiQuery({ name: 'sort_order', required: false })
     async findAllByUser(@Query() query: BrandQuery){
         const brands = await this.brandService.findAllByUser(query);
         return brands;

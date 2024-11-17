@@ -40,9 +40,15 @@ export class PageService {
         }
     }
 
-    async findAll(): Promise<Page[]> {
+    async findAll(brand_id: number): Promise<Page[]> {
         try {
-            const page = await this.pageRepository.find();
+            const page = await this.pageRepository.find({
+                where: {
+                    brand: {
+                        id: brand_id
+                    }
+                }
+            });
             return page;
         } catch(error) {
             console.log(error);

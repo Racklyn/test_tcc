@@ -24,10 +24,10 @@ export class ItemController {
     }
 
     @Get()
-    @ApiQuery({ name: 'brand_id' })
-    @ApiQuery({ name: 'type' })
-    @ApiQuery({ name: 'sort_by' })
-    @ApiQuery({ name: 'sort_order' })
+    @ApiQuery({ name: 'brand_id', required: false  })
+    @ApiQuery({ name: 'type', required: false  })
+    @ApiQuery({ name: 'sort_by', required: false  })
+    @ApiQuery({ name: 'sort_order', required: false  })
     async findAll(@Query() query: ItemQuery){
         const items = await this.itemService.findAll(query);
         return items;

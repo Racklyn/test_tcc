@@ -1,8 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { PageService } from './page.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('page')
 @Controller('page')
@@ -23,8 +23,9 @@ export class PageController {
     }
 
     @Get()
-    async findAll(){
-        const pages = await this.pageService.findAll();
+    @ApiQuery({ name: 'brand_id', required: false })
+    async findAll(@Query() brand_id?: string){
+        const pages = await this.pageService.findAll(+brand_id);
         return pages;
     }
 

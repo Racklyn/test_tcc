@@ -76,5 +76,39 @@
         "date": "2024-11-05 07:33:00"
       }
     ]
+  },
+  {
+    "text": "Ih, tem previsão de chuva aí? Relaxa, a tela do novo moto g35 tem tecnologia Smart Water Touch, que funciona perfeitamente até se tiver molhada. Quem aí já teve que esperar a chuva passar pra usar o celular na rua?",
+    "date": "2024-11-04 19:48:00",
+    "comments": [
+      {
+        "text": "Meu celular moto g84 foi enviado para assistência dia 28/10 e até agora nem avaliação do problema fizeram.Tive que comprar um aparelho novo pois aqui em campo grande MS não tem assistência e eu uso o aparelho para trabalhar, isso é uma vergonha.14 anos usando apenas uma marca ( Motorola) e a hora que precisei estou passando por esse prejuízo material e desperdício de tempo.Se você mora em mato grosso do sul ou mato grosso não compre Motorola pois eles não tem nenhuma assistência técnica e você vai se ferrar se não tiver condições de comprar outro celular ou não tiver um reserva.Minha esposa está no final de uma gestação, já imaginou se não tivesse dinheiro pra comprar outro aparelho o que eu faria?????Descaso total, pois aqui tinha uma autorizada Motorola e a empresa cancelou a parceria.Não comprem essa marca, comprem qualquer outra que tenha assistência próxima a você.🤬🤡😡",
+        "date": "2024-11-05 10:17:00"
+      },
+      {
+        "text": "Pior celular que já comprei pois não atualiza mais o MotoG 5 play essa marca já foi boa agora não presta mais bateria muito ruim pois não dura nem dois dias depois que carrega.",
+        "date": "2024-11-16 09:37:00"
+      },
+      {
+        "text": "Não comprem motoruim moto g100 apenas uma atualização do android absurdooooo!!!!!",
+        "date": "2024-11-09 07:52:00"
+      },
+      {
+        "text": "Comprei meu celular a mais de 20 dias e até agora não recebi, ligo no atendimento e ninguém resolve nada e me tratam como um palhaço.... Nota 0",
+        "date": "2024-11-12 13:11:00"
+      },
+      {
+        "text": "Safados",
+        "date": "2024-11-05 11:51:00"
+      },
+      {
+        "text": "MOTOROLA E22 SE NÃO O PIOR UM DOS PIORES CELULARES DA MOTOROLA NÃO COMPREM,",
+        "date": "2024-11-11 23:32:00"
+      },
+      {
+        "text": "Respondeu e me mandou esperar.A moça da assistência falou em até 14 dias úteis ou seja quase um mês pra resolver.Quer passar raiva?Compre Motorola.",
+        "date": "2024-11-05 11:21:00"
+      }
+    ]
   }
 ]
