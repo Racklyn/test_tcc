@@ -18,7 +18,7 @@ export class PageService {
             page.title = pageDto.title;
             page.page_description = pageDto.page_description;
             page.brand = pageDto.brand;
-            page.posts = pageDto.posts;
+            page.posts = pageDto.posts ?? [];
             
             return await this.pageRepository.save(page);
         } catch(error) {
@@ -61,7 +61,7 @@ export class PageService {
             const { id: dtoId, ...dtoWithoutId } = pageDto;
             Object.assign(page, dtoWithoutId);
     
-            const updatedPage = await this.pageRepository.save(pageDto);
+            const updatedPage = await this.pageRepository.save(page);
             return updatedPage;
         } catch(error) {
             console.log(error);

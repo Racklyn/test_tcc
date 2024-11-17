@@ -62,7 +62,7 @@ export class CommentAnalysisService {
             const { id: dtoId, ...dtoWithoutId } = commentAnalysisDto;
             Object.assign(commentAnalysis, dtoWithoutId);
     
-            const updatedCommentAnalysis = await this.commentAnalysisRepository.save(commentAnalysisDto);
+            const updatedCommentAnalysis = await this.commentAnalysisRepository.save(commentAnalysis);
             return updatedCommentAnalysis;
         } catch(error) {
             console.log(error);

@@ -2,9 +2,10 @@ import { Comment } from 'src/comment/comment.entity';
 import { AbstractEntity } from 'src/common/entities/abstract.entity';
 import { Item } from 'src/item/item.entity';
 import { Page } from 'src/page/page.entity';
-import { Column, Entity, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, JoinColumn, Index } from 'typeorm';
 
 @Entity({ name: 'post' })
+@Index(['post_date', 'page'], { unique: true })
 export class Post extends AbstractEntity {
     @Column({ name: 'content', nullable: true })
     content?: string;
@@ -26,7 +27,7 @@ export class Post extends AbstractEntity {
     @JoinColumn({ name: 'last_analysis' })
     last_analysis?: Date;
 
-    @ManyToOne(() => Page, (page) => page.posts)
+    @ManyToOne(() => Page, (page) => page.posts, { nullable: false })
     @JoinColumn({ name: 'page_id' })
     page: Page;
 

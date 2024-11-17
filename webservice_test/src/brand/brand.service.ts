@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Brand } from './brand.entity';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
+import { BrandQuery } from './query/item.query';
 
 @Injectable()
 export class BrandService {
@@ -18,8 +19,8 @@ export class BrandService {
             brand.name = brandDto.name;
             brand.about = brandDto.about;
             brand.user = brandDto.user;
-            brand.pages = brandDto.pages;
-            brand.items = brandDto.items;
+            brand.pages = brandDto.pages ?? [];
+            brand.items = brandDto.items ?? [];
             
             return await this.brandRepository.save(brand);
         } catch(error) {
@@ -41,9 +42,23 @@ export class BrandService {
         }
     }
 
-    async findAll(): Promise<Brand[]> {
+    async findAllByUser(
+        query?: BrandQuery
+    ): Promise<Brand[]> {
         try {
-            const brand = await this.brandRepository.find();
+            const brand = await this.brandRepository.find({
+                where: {
+                    user: {
+                        id: +query.user_id,
+                    }
+                },
+                order: {
+                    [query.sort_by ?? 'updated_date'] : query.sort_order ?? 'ASC',
+                },
+                relations: {
+                    pages: true,
+                }
+            });
             return brand;
         } catch(error) {
             console.log(error);
@@ -62,7 +77,7 @@ export class BrandService {
             const { id: dtoId, ...dtoWithoutId } = brandDto;
             Object.assign(brand, dtoWithoutId);
     
-            const updatedBrand = await this.brandRepository.save(brandDto);
+            const updatedBrand = await this.brandRepository.save(brand);
             return updatedBrand;
         } catch(error) {
             console.log(error);

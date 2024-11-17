@@ -15,7 +15,7 @@ export class Comment extends AbstractEntity {
     @Column({ name: 'reactions', nullable: true })
     reactions?: number;
 
-    @ManyToOne(() => Post, (post) => post.comments)
+    @ManyToOne(() => Post, (post) => post.comments, { nullable: false })
     @JoinColumn({ name: 'post_id' })
     post: Post;
 

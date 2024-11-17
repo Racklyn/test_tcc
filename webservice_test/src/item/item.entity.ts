@@ -20,7 +20,11 @@ export class Item extends AbstractEntity {
     @JoinColumn({ name: 'last_analysis' })
     last_analysis?: Date;
 
-    @ManyToOne(() => Brand, (brand) => brand.items)
+    @ManyToOne(
+        () => Brand,
+        (brand) => brand.items,
+        { nullable: false }
+    )
     @JoinColumn({ name: 'brand_id' })
     brand: Brand;
 

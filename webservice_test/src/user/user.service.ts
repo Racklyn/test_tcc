@@ -17,6 +17,7 @@ export class UsersService {
             const user = new User();
             user.email = userDto.email;
             user.access_key = userDto.access_key;
+            user.brands = userDto.brands ?? [];
     
             return await this.usersRepository.save(user);
         } catch(error) {
@@ -59,7 +60,7 @@ export class UsersService {
             const { id: dtoId, ...dtoWithoutId } = userDto;
             Object.assign(user, dtoWithoutId);
     
-            const updatedUser = await this.usersRepository.save(userDto);
+            const updatedUser = await this.usersRepository.save(user);
             return updatedUser;
         } catch(error) {
             console.log(error);

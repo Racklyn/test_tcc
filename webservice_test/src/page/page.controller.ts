@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { PageService } from './page.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('page')
 @Controller('page')
 export class PageController {
     constructor(

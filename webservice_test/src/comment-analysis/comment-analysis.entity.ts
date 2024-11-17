@@ -18,7 +18,11 @@ export class CommentAnalysis extends AbstractEntity {
     @JoinColumn({ name: 'analysis_date' })
     analysis_date: Date;
 
-    @ManyToOne(() => Comment, (comment) => comment.comment_analysis)
+    @ManyToOne(
+        () => Comment,
+        (comment) => comment.comment_analysis,
+        { nullable: false }
+    )
     @JoinColumn({ name: 'comment_id' })
     comment: Comment;
 }

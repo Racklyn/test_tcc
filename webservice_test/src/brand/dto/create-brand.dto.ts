@@ -1,12 +1,34 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Item } from 'src/item/item.entity';
 import { Page } from 'src/page/page.entity';
 import { User } from 'src/user/user.entity';
 
 export class CreateBrandDto {
-    id?: number;
+    @ApiProperty()
+    id: number;
+
+    @ApiProperty({
+        example: 'Samsung'
+    })
     name: string;
+
+    @ApiProperty({
+        example: 'Marca de celulares, notebooks, TVs e outros eletrônicos.'
+    })
     about: string;
+
+    @ApiProperty()
     user: User;
-    items: Item[];
-    pages: Page[];
+
+    @ApiProperty({
+        example: [],
+        nullable: true
+    })
+    items?: Item[];
+
+    @ApiProperty({
+        example: [],
+        nullable: true
+    })
+    pages?: Page[];
 }

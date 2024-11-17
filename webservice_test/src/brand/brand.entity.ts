@@ -12,7 +12,7 @@ export class Brand extends AbstractEntity {
     @Column({ name: 'about' })
     about: string;
 
-    @ManyToOne(() => User, (user) => user.brands)
+    @ManyToOne(() => User, (user) => user.brands, { nullable: false })
     @JoinColumn({ name: 'user_id' })
     user: User;
 

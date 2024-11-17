@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { ItemAnalysisResultService } from './item-analysis-result.service';
 import { CreateItemAnalysisResultDto } from './dto/create-item-analysis-result.dto';
 import { UpdateItemAnalysisResultDto } from './dto/update-item-analysis-result.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('itemAnalysisResult')
 @Controller('itemAnalysisResult')
 export class ItemAnalysisResultController {
     constructor(

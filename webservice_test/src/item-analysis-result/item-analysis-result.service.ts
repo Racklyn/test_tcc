@@ -63,7 +63,7 @@ export class ItemAnalysisResultService {
             const { id: dtoId, ...dtoWithoutId } = itemAnalysisResultDto;
             Object.assign(itemAnalysisResult, dtoWithoutId);
     
-            const updatedItemAnalysisResult = await this.itemAnalysisResultRepository.save(itemAnalysisResultDto);
+            const updatedItemAnalysisResult = await this.itemAnalysisResultRepository.save(itemAnalysisResult);
             return updatedItemAnalysisResult;
         } catch(error) {
             console.log(error);

@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CommentAnalysisService } from './comment-analysis.service';
 import { CreateCommentAnalysisDto } from './dto/create-comment-analysis.dto';
 import { UpdateCommentAnalysisDto } from './dto/update-comment-analysis.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('commentAnalysis')
 @Controller('commentAnalysis')
 export class CommentAnalysisController {
     constructor(

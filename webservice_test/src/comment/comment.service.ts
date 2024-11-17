@@ -19,7 +19,7 @@ export class CommentService {
             comment.date = commentDto.date;
             comment.reactions = commentDto.reactions;
             comment.post = commentDto.post;
-            comment.comment_analysis = commentDto.comment_analysis;
+            comment.comment_analysis = commentDto.comment_analysis ?? [];
             
             return await this.commentRepository.save(comment);
         } catch(error) {
@@ -62,7 +62,7 @@ export class CommentService {
             const { id: dtoId, ...dtoWithoutId } = commentDto;
             Object.assign(comment, dtoWithoutId);
     
-            const updatedComment = await this.commentRepository.save(commentDto);
+            const updatedComment = await this.commentRepository.save(comment);
             return updatedComment;
         } catch(error) {
             console.log(error);

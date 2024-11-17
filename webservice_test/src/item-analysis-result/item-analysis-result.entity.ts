@@ -20,7 +20,11 @@ export class ItemAnalysisResult extends AbstractEntity {
     @Column({ name: 'version' })
     version: number;
 
-    @ManyToOne(() => Item, (item) => item.item_analysis_result)
+    @ManyToOne(
+        () => Item,
+        (item) => item.item_analysis_result,
+        { nullable: false }
+    )
     @JoinColumn({ name: 'item_id' })
     item: Item;
 }

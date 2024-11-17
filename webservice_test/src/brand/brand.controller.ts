@@ -1,8 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
+import { BrandQuery } from './query/item.query';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('brand')
 @Controller('brand')
 export class BrandController {
     constructor(
@@ -16,13 +19,16 @@ export class BrandController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.brandService.findOne(id);
+    async findOne(@Param('id') id: string) {
+        return await this.brandService.findOne(+id);
     }
 
     @Get()
-    async findAll(){
-        const brands = await this.brandService.findAll();
+    @ApiQuery({ name: 'user_id', required: true })
+    @ApiQuery({ name: 'sort_by' })
+    @ApiQuery({ name: 'sort_order' })
+    async findAllByUser(@Query() query: BrandQuery){
+        const brands = await this.brandService.findAllByUser(query);
         return brands;
     }
 
@@ -36,6 +42,6 @@ export class BrandController {
 
     @Delete(':id')
     async remove(@Param('id') id: string) {
-        return this.brandService.remove(+id);
+        await this.brandService.remove(+id);
     }
 }

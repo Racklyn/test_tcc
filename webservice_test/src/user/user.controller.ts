@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Res } from '@nestjs/
 import { UsersService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 //import { Response } from 'express';
 
-@Controller('users')
+@ApiTags('user')
+@Controller('user')
 export class UsersController {
     constructor(
         private readonly usersService: UsersService
