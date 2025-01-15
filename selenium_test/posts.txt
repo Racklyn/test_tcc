@@ -1,114 +1,72 @@
 [
   {
-    "text": "A tecnologia exclusiva Smart Water Touch permite que o smartphone funcione até se a tela estiver molhada. Deixe a tela travada no passado com o novo moto g35.Saiba mais: https://www.motorola.com.br/smartphone-moto-g35-5g.../p...",
-    "date": "2024-11-04 20:08:00",
+    "content": "Nublou bem na vez da sua viagem dos sonhos? \n Relaxa, a IA do Google Fotos do seu Motorola entra em ação e deixa a cor do céu muito mais viva e impactante.☁️",
+    "post_date": "2025-01-13 12:10:00",
     "comments": [
       {
-        "text": "Meu celular moto g84 foi enviado para assistência dia 28/10 e até agora nem avaliação do problema fizeram.Tive que comprar um aparelho novo pois aqui em campo grande MS não tem assistência e eu uso o aparelho para trabalhar, isso é uma vergonha.14 anos usando apenas uma marca ( Motorola) e a hora que precisei estou passando por esse prejuízo material e desperdício de tempo.Se você mora em mato grosso do sul ou mato grosso não compre Motorola pois eles não tem nenhuma assistência técnica e você vai se ferrar se não tiver condições de comprar outro celular ou não tiver um reserva.Minha esposa está no final de uma gestação, já imaginou se não tivesse dinheiro pra comprar outro aparelho o que eu faria?????Descaso total, pois aqui tinha uma autorizada Motorola e a empresa cancelou a parceria.Não comprem essa marca, comprem qualquer outra que tenha assistência próxima a você.🤬🤡😡",
-        "date": "2024-11-05 10:15:00"
+        "text": "Pessoal, tô passando por aqui para alertar você consumidor que usa o aparelho de celular da Motorola é um lixo, pois mesmo tendo espaço de memória RAM vive travando. O fabricante da Motorola já fabricam esse lixo com problema para obrigar você. Trocar de aparelho de celular é uma modalidade para roubar você, fique atento.",
+        "date": "2025-01-13 16:13:00"
       },
       {
-        "text": "Deveriam atualizar esse gravador de tela, tá horrível caindo bastante o FPS dos jogos, coisa que não acontecia antes .",
-        "date": "2024-11-06 04:29:00"
-      },
-      {
-        "text": "Eu Tenho Um Moto Edge 30 Neo! A Câmera é Show de Bola e a Bateria Dura o Dia Todo! E Fora o Processador Que é Excelente! Responde Bem As Minhas Expectativas!",
-        "date": "2024-11-08 13:59:00"
-      },
-      {
-        "text": "Eu troquei meu moto g24 por o g34 5g o aparelho e excelente não trava câmera muito boa amei",
-        "date": "2024-11-08 19:50:00"
-      },
-      {
-        "text": "Onde acho película para o Motorola 40 neo. A tela é curvada e rodei a minha cidade atrás e ninguém tem. Na Tim a moça tem uma máquina que faz a película na HR mas mesmo assim não preenche toda a tela e custou R$149\n. Que arrependimento, sempre tive Motorola mas esse me decepcionou🥲",
-        "date": "2024-11-05 17:16:00"
-      },
-      {
-        "text": "Alguém pode me ajudar?Meu Motorola moto g 34 não capta som ao redor ao enviar áudio no whatsapp. Os modelos antigos todos captavam tudo ao redor esse não.Será só o meu que é assim?",
-        "date": "2024-11-13 15:27:00"
-      },
-      {
-        "text": "Comprei um Motorola que chegou no Sábado. Três dias depois ele já não reinicia. Decepção total.",
-        "date": "2024-11-12 11:50:00"
-      },
-      {
-        "text": "Tenho um moto g53, o celular e ótimo, mas essa última atualização ferrou com ele\n, a tela ficou se arrastando, ficou lento!!! Não era assim até entrar essa nova atualização\n, uma porcaria, não dá pra atualizar mais.🙄🙄🙄🤦🤦🤦😕",
-        "date": "2024-11-05 10:24:00"
-      },
-      {
-        "text": "MOTOROLA E22 SE NÃO O PIOR UM DOS PIORES CELULARES DA MOTOROLA NÃO COMPREM,",
-        "date": "2024-11-11 23:31:00"
-      },
-      {
-        "text": "Comprei meu celular a mais de 20 dias e até agora não recebi, ligo no atendimento e ninguém resolve nada e me tratam como um palhaço.... Nota 0",
-        "date": "2024-11-12 13:10:00"
-      },
-      {
-        "text": "Não comprem motoruim moto g100 apenas uma atualização do android absurdooooo!!!!!",
-        "date": "2024-11-09 07:52:00"
-      },
-      {
-        "text": "Aquí en RD no hay muchos Motorola",
-        "date": "2024-11-06 15:00:00"
-      },
-      {
-        "text": "👍👍👍👍😄",
-        "date": "2024-11-10 08:58:00"
-      },
-      {
-        "text": "Comprei o Razr 50 Ultra e pra minha surpresa, ele não filma desfocando o fundo (Filme Retrato), coisa que o Edge 40 Neo faz e o Razr 40 Ultra tb. Fiz atualização do software e todos os apps, não resolveu. Descobri que nenhum da linha 50 (Edge e Razr) tem essa função, andaram pra trás... Poderiam pedir pra galera do software aí re-adicionar essa função e disponibilizar o app Camera atualizado para download, por favor? Ou melhor eu devolver e comprar um Samsung?",
-        "date": "2024-11-05 19:07:00"
-      },
-      {
-        "text": "Inúteis",
-        "date": "2024-11-05 11:50:00"
-      },
-      {
-        "text": "Publicidade da Motorola por e-mail:Começou o esquenta Motorola!!!Tem tempo que começou..... KkkkkkPiada pronta",
-        "date": "2024-11-06 17:16:00"
-      },
-      {
-        "text": "Lixo",
-        "date": "2024-11-06 11:58:00"
-      },
-      {
-        "text": "Lixo",
-        "date": "2024-11-05 07:33:00"
+        "text": "Rosivaldo Travassos de Melo Qual marca tu recomenda?",
+        "date": "2025-01-13 16:36:00"
       }
-    ]
+    ],
+    "page": 2
   },
   {
-    "text": "Ih, tem previsão de chuva aí? Relaxa, a tela do novo moto g35 tem tecnologia Smart Water Touch, que funciona perfeitamente até se tiver molhada. Quem aí já teve que esperar a chuva passar pra usar o celular na rua?",
-    "date": "2024-11-04 19:48:00",
+    "content": "Que tal mais elegância e harmonia na rotina, com a cor que é tendência esse ano? Conheça os novos motorola razr 50 ultra e motorola edge 50 neo com a Pantone Color of the Year 2025, Mocha Mousse. 🤎#coloroftheyear #COY2025 #mochamousse #hellomoto #motorolabr",
+    "post_date": "2025-01-10 19:19:00",
     "comments": [
       {
-        "text": "Meu celular moto g84 foi enviado para assistência dia 28/10 e até agora nem avaliação do problema fizeram.Tive que comprar um aparelho novo pois aqui em campo grande MS não tem assistência e eu uso o aparelho para trabalhar, isso é uma vergonha.14 anos usando apenas uma marca ( Motorola) e a hora que precisei estou passando por esse prejuízo material e desperdício de tempo.Se você mora em mato grosso do sul ou mato grosso não compre Motorola pois eles não tem nenhuma assistência técnica e você vai se ferrar se não tiver condições de comprar outro celular ou não tiver um reserva.Minha esposa está no final de uma gestação, já imaginou se não tivesse dinheiro pra comprar outro aparelho o que eu faria?????Descaso total, pois aqui tinha uma autorizada Motorola e a empresa cancelou a parceria.Não comprem essa marca, comprem qualquer outra que tenha assistência próxima a você.🤬🤡😡",
-        "date": "2024-11-05 10:17:00"
+        "text": "Estou com um MOTO G6 ATE HJ, NAO TROCO MOTOROLA POR NADA!",
+        "date": "2025-01-10 20:07:00"
       },
       {
-        "text": "Pior celular que já comprei pois não atualiza mais o MotoG 5 play essa marca já foi boa agora não presta mais bateria muito ruim pois não dura nem dois dias depois que carrega.",
-        "date": "2024-11-16 09:37:00"
+        "text": "O Moto G55 terá quantas atualizações do Android?Por que não colocam a informação no site, é para a pessoa não se decepcionar e desistir da compra?",
+        "date": "2025-01-12 11:17:00"
       },
       {
-        "text": "Não comprem motoruim moto g100 apenas uma atualização do android absurdooooo!!!!!",
-        "date": "2024-11-09 07:52:00"
+        "text": "Tenho um moto G53, infelizmente, depois de um ano começou a dar problema , acho que não memória. Quando saio de um aplicativo e vou pra outro, seja jogo ou qualquer outro aplicativo, ele reinicia, como se estivesse entrando pela primeira vez nele . No jogo, em alguns jogos, eu acabo perdendo a continua ao dele e volta ao início.",
+        "date": "2025-01-13 07:59:00"
       },
       {
-        "text": "Comprei meu celular a mais de 20 dias e até agora não recebi, ligo no atendimento e ninguém resolve nada e me tratam como um palhaço.... Nota 0",
-        "date": "2024-11-12 13:11:00"
+        "text": "Massa!",
+        "date": "2025-01-11 17:05:00"
       },
       {
-        "text": "Safados",
-        "date": "2024-11-05 11:51:00"
+        "text": "Moto g 62 5g pode explodir cuidado",
+        "date": "2025-01-10 19:41:00"
       },
       {
-        "text": "MOTOROLA E22 SE NÃO O PIOR UM DOS PIORES CELULARES DA MOTOROLA NÃO COMPREM,",
-        "date": "2024-11-11 23:32:00"
+        "text": "Pessoal, tô passando por aqui para alertar você consumidor que usa o aparelho de celular da Motorola é um lixo, pois mesmo tendo espaço de memória RAM vive travando. O fabricante da Motorola já fabricam esse lixo com problema para obrigar você. Trocar de aparelho de celular é uma modalidade para roubar você, fique atento.",
+        "date": "2025-01-13 16:13:00"
       },
       {
-        "text": "Respondeu e me mandou esperar.A moça da assistência falou em até 14 dias úteis ou seja quase um mês pra resolver.Quer passar raiva?Compre Motorola.",
-        "date": "2024-11-05 11:21:00"
+        "text": "Tenho moto Edge 40 neo ta muito bem por enquanto...",
+        "date": "2025-01-11 16:48:00"
+      },
+      {
+        "text": "Tô com meu Edge 40 daqui uns dias pego o 50 pro",
+        "date": "2025-01-11 08:34:00"
+      },
+      {
+        "text": "Coloca essa cor no Edge pro e no edge ultra também.",
+        "date": "2025-01-11 10:40:00"
+      },
+      {
+        "text": "make a transparent cell phone",
+        "date": "2025-01-11 00:08:00"
+      },
+      {
+        "text": "Não gosto nem de marrom nem de vermelho",
+        "date": "2025-01-10 19:39:00"
+      },
+      {
+        "text": "🙀",
+        "date": "2025-01-11 10:58:00"
       }
-    ]
+    ],
+    "page": 2
   }
 ]

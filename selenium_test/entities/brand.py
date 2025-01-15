@@ -1,4 +1,6 @@
-class Brand:
+from typing import TypedDict
+
+class Brand(TypedDict):
     id: int
     name: str
     about: str

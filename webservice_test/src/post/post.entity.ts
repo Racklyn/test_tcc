@@ -20,8 +20,8 @@ export class Post extends AbstractEntity {
     @Column({ name: 'reactions', nullable: true })
     reactions?: number;
 
-    @Column({ name: 'url' })
-    url: string; //TODO: verificar se é necessário isso
+    @Column({ name: 'url', nullable: true })
+    url?: string; //TODO: verificar se é necessário esse campo
 
     @Column({ name: 'last_analysis', nullable: true })
     @JoinColumn({ name: 'last_analysis' })

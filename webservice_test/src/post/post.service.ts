@@ -87,7 +87,8 @@ export class PostService {
                     }
                 },
                 relations: {
-                    comments: true
+                    comments: true,
+                    page: true, // TODO: verificar se é necessário
                 }
             });
         } catch(error) {

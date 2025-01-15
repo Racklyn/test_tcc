@@ -16,7 +16,10 @@ from utils.posts_data_to_string import posts_data_to_string
 from utils.get_text import get_text_with_emojis
 from service.database_conection import DatabaseConnection
 from service import endpoints
+from entities.post_comment import Comment, Post
 
+
+db = DatabaseConnection()
 
 
 def get_post_card_date(driver: webdriver.Remote, post_card: WebElement) -> datetime:
@@ -137,8 +140,8 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
     return posts_to_be_scrapped
 
 
-def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts_since_date: datetime):
-    posts = []
+def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts_since_date: datetime) -> list[Post]:
+    posts: list[Post] = []
     for i, post_card in enumerate(post_cards):
         try:
             post_date = get_post_card_date(driver, post_card)
@@ -180,9 +183,10 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
             post_comments = get_post_comments(driver, post_card)
 
             posts.append({
-                'text': post_text,
-                'date': post_date,
+                'content': post_text,
+                'post_date': str(post_date),
                 'comments': post_comments,
+                'page': 2 # TODO: mudar para pegar id dinamicamente
             })
 
         except Exception as e:
@@ -195,7 +199,7 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
     return posts
 
 
-def get_post_comments(driver: webdriver.Remote, post_card: WebElement):
+def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[Comment]:
     post_details_elem = post_card.find_element(By.XPATH, './/div[@class="x6s0dn4 xi81zsa x78zum5 x6prxxf x13a6bvl xvq8zen xdj266r xat24cr x1d52u69 xktsk01 x889kno x1a8lsjc xkhd6sd x4uap5 x80vd3b x1q0q8m5 xso031l"]')
 
     try:
@@ -261,7 +265,7 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement):
 
     comment_elems = dialog_elem.find_elements(By.XPATH, './/div[@class="x1r8uery x1iyjqo2 x6ikm8r x10wlt62 x1pi30zi"]')
     print(f'Elementos de comentário: {len(comment_elems)}')
-    comments = []
+    comments: list[Comment] = []
 
     for i, comment_elem in enumerate(comment_elems):
         print(f'Extraindo comentário {i}')
@@ -278,14 +282,20 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement):
             continue
 
         comments.append({
-            "text": comm_text,
-            "date": comm_date
+            'text': comm_text,
+            'date': str(comm_date)
         })
 
     # fechando dialog
     driver.find_element(By.XPATH, '//div[@aria-label="Fechar"][@role="button"]').click()
 
     return comments
+
+
+
+def save_posts(posts: list[Post]):
+    for p in posts:
+        db.generic_insertion('post', p)
 
 
 
@@ -339,6 +349,8 @@ def run(page: str):
         posts_data_to_string(posts, 'posts.txt')
         print(f'\nExtração de {len(posts)} publicações concluída com sucesso!')
 
+        save_posts(posts)
+
     driver.close()
 
 
@@ -346,12 +358,11 @@ def run_all_pages(pages):
     pass
 
 
-
 if __name__ == '__main__':
     PAGE = ['fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA'][5]
     run(PAGE)
 
-    # brand_id = 1
+    brand_id = 2 # Motorola id = 2
 
     # db_connection = DatabaseConnection()
     # db_connection.generic_getter(endpoints.PAGE, )

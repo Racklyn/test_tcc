@@ -6,6 +6,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  // Ativa o ValidationPipe global com transformação
+  app.useGlobalPipes(new ValidationPipe({ transform: true })); // TODO: verificar
+
   //app.enableCors();
 
   if (process.env.WEBSERVICE_SWAGGER === 'true') {

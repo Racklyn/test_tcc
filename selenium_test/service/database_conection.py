@@ -4,9 +4,9 @@ import requests
 
 from datetime import datetime, timedelta
 import json
-import endpoints
+from service import endpoints # TODO: Verificar se a importação está correta
 
-from logger import log
+#from logger import log
 
 class DatabaseConnection():
     def __init__(self):
@@ -16,21 +16,23 @@ class DatabaseConnection():
         self.requests = requests
 
     def generic_update(self, route: str, data: dict) -> requests.Response:
-        response = self.requests.patch(route, json=data)
+        response = self.requests.patch(f'{self.base_url}/{route}', json=data)
         if response.status_code != 200:
-            self.log.database_error(
-                f'Atualização falhou.\nDados: {str(data)}\nResponse: {str(response.json())}')
+            print(f'Atualização falhou.\nDados: {str(data)}\nResponse: {str(response.json())}')
+            # self.log.database_error(
+            #     f'Atualização falhou.\nDados: {str(data)}\nResponse: {str(response.json())}')
         return response.status_code
 
     def generic_insertion(self, route: str, data: dict) -> json:
-        response = self.requests.post(route, json=data)
+        response = self.requests.post(f'{self.base_url}/{route}', json=data)
         if response.status_code != 201:
-            self.log.database_error(
-                f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
+            print(f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
+            # self.log.database_error(
+            #     f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
         return response.json()
 
     def generic_getter(self, route: str) -> json:
-        response = self.requests.get(route)
+        response = self.requests.get(f'{self.base_url}/{route}')
         if response.status_code == 404:
             response = dict()
         else:
