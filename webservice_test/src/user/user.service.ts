@@ -17,7 +17,9 @@ export class UsersService {
             const user = new User();
             user.email = userDto.email;
             user.access_key = userDto.access_key;
-            user.brands = userDto.brands ?? [];
+
+            //TODO: verificar se faz sentido inserir essa lista:
+            // user.brands = userDto.brands ?? [];
     
             return await this.usersRepository.save(user);
         } catch(error) {

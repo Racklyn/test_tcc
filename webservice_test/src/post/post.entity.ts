@@ -13,8 +13,8 @@ export class Post extends AbstractEntity {
     @Column({ name: 'summary', nullable: true })
     summary?: string;
 
-    @Column({ name: 'post_date' })
-    @JoinColumn({ name: 'post_date' })
+    @Column({ name: 'post_date', type: 'timestamptz' }) //TODO: verificar se 'type' é necessário
+    //@JoinColumn({ name: 'post_date' })
     post_date: Date;
 
     @Column({ name: 'reactions', nullable: true })
@@ -27,7 +27,7 @@ export class Post extends AbstractEntity {
     @JoinColumn({ name: 'last_analysis' })
     last_analysis?: Date;
 
-    @ManyToOne(() => Page, (page) => page.posts, { nullable: false })
+    @ManyToOne(() => Page, (page) => page.posts, { nullable: false }) //TODO: verificar, aparentemente é possível inserir com page_id sendo nulo
     @JoinColumn({ name: 'page_id' })
     page: Page;
 
@@ -35,6 +35,6 @@ export class Post extends AbstractEntity {
     @JoinColumn({ name: 'item_id' })
     item: Item;
 
-    @OneToMany(() => Comment, (comment) => comment.post)
+    @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
     comments: Comment[];
 }

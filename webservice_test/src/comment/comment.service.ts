@@ -19,7 +19,9 @@ export class CommentService {
             comment.date = commentDto.date;
             comment.reactions = commentDto.reactions;
             comment.post = commentDto.post;
-            comment.comment_analysis = commentDto.comment_analysis ?? [];
+
+            //TODO: verificar se faz sentido inserir essa lista:
+            //comment.comment_analysis = commentDto.comment_analysis ?? [];
             
             return await this.commentRepository.save(comment);
         } catch(error) {

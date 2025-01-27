@@ -13,12 +13,16 @@ export class PageService {
     ) {}
 
     async create(pageDto: CreatePageDto): Promise<Page> {
+        console.log(pageDto.brand)
+
         try {
             const page = new Page();
             page.title = pageDto.title;
             page.page_description = pageDto.page_description;
             page.brand = pageDto.brand;
-            page.posts = pageDto.posts ?? [];
+
+            //TODO: verificar se faz sentido inserir essas listas:
+            // page.posts = pageDto.posts ?? [];
             
             return await this.pageRepository.save(page);
         } catch(error) {

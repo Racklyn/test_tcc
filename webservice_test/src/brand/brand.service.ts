@@ -19,8 +19,10 @@ export class BrandService {
             brand.name = brandDto.name;
             brand.about = brandDto.about;
             brand.user = brandDto.user;
-            brand.pages = brandDto.pages ?? [];
-            brand.items = brandDto.items ?? [];
+            
+            //TODO: verificar se faz sentido inserir essas listas:
+            // brand.pages = brandDto.pages ?? [];
+            // brand.items = brandDto.items ?? [];
             
             return await this.brandRepository.save(brand);
         } catch(error) {

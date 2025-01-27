@@ -23,9 +23,8 @@ export class PageController {
     }
 
     @Get()
-    @ApiQuery({ name: 'brand_id', required: false })
-    async findAll(@Query() brand_id?: string){
-        console.log(brand_id.toString() + '\n\n\n');
+    @ApiQuery({ name: 'brand_id' })
+    async findAll(@Query('brand_id') brand_id: string){
         const pages = await this.pageService.findAll(+brand_id);
         return pages;
     }

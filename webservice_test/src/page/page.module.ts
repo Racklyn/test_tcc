@@ -9,6 +9,7 @@ import { Page } from './page.entity';
     TypeOrmModule.forFeature([Page])
   ],
   providers: [PageService],
-  controllers: [PageController]
+  controllers: [PageController],
+  exports: [PageService]
 })
 export class PageModule {}

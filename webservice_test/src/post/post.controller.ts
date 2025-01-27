@@ -13,7 +13,7 @@ export class PostController {
         private readonly postService: PostService
     ) { }
 
-    @Post()
+    @Post('createOrUpdate')
     async create(@Body() post: CreatePostDto) {
         const created_post = await this.postService.createOrUpdate(post);
         return created_post;
@@ -34,9 +34,9 @@ export class PostController {
     }
 
     @Get()
-    @ApiQuery({ name: 'brand_id' })
-    @ApiQuery({ name: 'sort_by' })
-    @ApiQuery({ name: 'sort_order' })
+    @ApiQuery({ name: 'brand_id', required: false })
+    @ApiQuery({ name: 'sort_by', required: false })
+    @ApiQuery({ name: 'sort_order', required: false })
     async findAll(@Query() query: PostQuery){
         const posts = await this.postService.findAll(query);
         return posts;

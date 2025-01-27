@@ -16,9 +16,9 @@ export class CreateUserDto {
     })
     access_key: string;
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    brands?: Brand[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // brands?: Brand[];
 }

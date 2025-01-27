@@ -31,12 +31,13 @@ export class CreateItemDto {
     @ApiProperty()
     brand: Brand;
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    item_analysis_result?: ItemAnalysisResult[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // item_analysis_result?: ItemAnalysisResult[];
 
+    //TODO: verificar se é necessário essa lista no momento da inserção
     @ApiProperty({
         example: [],
         nullable: true

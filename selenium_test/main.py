@@ -62,8 +62,9 @@ def login(driver: webdriver.Remote, credencials: str = None):
         not_logged_in_footer = driver.find_element(By.XPATH, '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x1ey2m1c xayqjjm x9f619 xds687c x17qophe x1xy6bms xn6708d x1s14bel x1ye3gou xixxii4 x8hos8a x1u8a7rm"]')
         driver.execute_script('arguments[0].setAttribute("style", "visibility: hidden")', not_logged_in_footer)
         sleep(0.5)
-    except:
+    except Exception as e:
         print('Falha ao logar')
+        print(e)
         return False
 
     # TODO: implementar acesso logado
@@ -186,7 +187,7 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                 'content': post_text,
                 'post_date': str(post_date),
                 'comments': post_comments,
-                'page': 2 # TODO: mudar para pegar id dinamicamente
+                'page': 1 # TODO: mudar para pegar id dinamicamente
             })
 
         except Exception as e:
@@ -295,7 +296,8 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
 
 def save_posts(posts: list[Post]):
     for p in posts:
-        db.generic_insertion('post', p)
+        res = db.generic_insertion('post/createOrUpdate', p)
+        print(res)
 
 
 
@@ -362,7 +364,7 @@ if __name__ == '__main__':
     PAGE = ['fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA'][5]
     run(PAGE)
 
-    brand_id = 2 # Motorola id = 2
+    brand_id = 1 # Motorola id = 1
 
     # db_connection = DatabaseConnection()
     # db_connection.generic_getter(endpoints.PAGE, )

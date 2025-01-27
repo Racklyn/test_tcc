@@ -1,72 +1,308 @@
 [
   {
-    "content": "Nublou bem na vez da sua viagem dos sonhos? \n Relaxa, a IA do Google Fotos do seu Motorola entra em ação e deixa a cor do céu muito mais viva e impactante.☁️",
-    "post_date": "2025-01-13 12:10:00",
+    "content": "Boa tarde! Você lembra qual foi o seu primeiro celular Motorola? 💭📱",
+    "post_date": "2025-01-27 15:13:00",
     "comments": [
       {
-        "text": "Pessoal, tô passando por aqui para alertar você consumidor que usa o aparelho de celular da Motorola é um lixo, pois mesmo tendo espaço de memória RAM vive travando. O fabricante da Motorola já fabricam esse lixo com problema para obrigar você. Trocar de aparelho de celular é uma modalidade para roubar você, fique atento.",
-        "date": "2025-01-13 16:13:00"
+        "text": "Motorola Defy, codename jordan",
+        "date": "2025-01-27 15:35:00"
       },
       {
-        "text": "Rosivaldo Travassos de Melo Qual marca tu recomenda?",
-        "date": "2025-01-13 16:36:00"
+        "text": "Moto g",
+        "date": "2025-01-27 15:36:00"
+      },
+      {
+        "text": "Moto G1",
+        "date": "2025-01-27 15:36:00"
+      },
+      {
+        "text": "Moto X1 bambu",
+        "date": "2025-01-27 15:33:00"
+      },
+      {
+        "text": "Moto g2",
+        "date": "2025-01-27 15:17:00"
+      },
+      {
+        "text": "Moto G 1",
+        "date": "2025-01-27 15:29:00"
+      },
+      {
+        "text": "Defy",
+        "date": "2025-01-27 15:59:00"
+      },
+      {
+        "text": "Moto g1",
+        "date": "2025-01-27 15:46:00"
+      },
+      {
+        "text": "Motorola EX112.",
+        "date": "2025-01-27 15:56:00"
+      },
+      {
+        "text": "Moto G 1",
+        "date": "2025-01-27 15:23:00"
+      },
+      {
+        "text": "Motorola Moto G1",
+        "date": "2025-01-27 15:15:00"
+      },
+      {
+        "text": "Moto G7 play",
+        "date": "2025-01-27 15:24:00"
+      },
+      {
+        "text": "Moto g1 top",
+        "date": "2025-01-27 15:39:00"
+      },
+      {
+        "text": "Moto G5.",
+        "date": "2025-01-27 15:33:00"
+      },
+      {
+        "text": "moto g6 play moto g30",
+        "date": "2025-01-27 15:57:00"
+      },
+      {
+        "text": "Moto G3",
+        "date": "2025-01-27 15:30:00"
+      },
+      {
+        "text": "Moto v3",
+        "date": "2025-01-27 15:25:00"
+      },
+      {
+        "text": "Moto G2",
+        "date": "2025-01-27 15:30:00"
+      },
+      {
+        "text": "V3",
+        "date": "2025-01-27 15:26:00"
+      },
+      {
+        "text": "Pt 550 de plif, tinha que ficar ligado direto na antena de celular para funcionar kkkk",
+        "date": "2025-01-27 15:46:00"
+      },
+      {
+        "text": "120t, de 22 anos atrás, depois o W 230 , ainda os tenho pra mostrar a sobrinhos, netos, como era o celular no passado.",
+        "date": "2025-01-27 15:22:00"
+      },
+      {
+        "text": "Moto g 1 vermelho",
+        "date": "2025-01-27 15:38:00"
+      },
+      {
+        "text": "Moto G2. Aquele alto falante estéreo a um preço acessível desbancava os concorrentes! Atualmente estou com um Edge 50 Ultra e não vejo nada que pudesse melhorar!",
+        "date": "2025-01-27 15:39:00"
+      },
+      {
+        "text": "Continuo usando o moto g 7 kkkkkkk tela trincada, velhinho mas pra mim é o melhor que outras marcas aí.",
+        "date": "2025-01-27 15:43:00"
+      },
+      {
+        "text": "Meu primeiro celular foi V3",
+        "date": "2025-01-27 16:08:00"
+      },
+      {
+        "text": "O meu foi aquele cinza onde as teclas eram de borracha quando acendia ficavam azuis.Tinha anteninha ... Bons tempos que passou e evolução!",
+        "date": "2025-01-27 15:33:00"
+      },
+      {
+        "text": "Primeiro moto g de tela, depois moto g6 agora moto 84 eu gosto muito dos aparelhos da Motorola.",
+        "date": "2025-01-27 15:35:00"
+      },
+      {
+        "text": "Motorola C650 e hj tenho ainda um one macro, logo terei que trocar, mas não sei se continuo na marca, pois são tantos modelos que fica confuso e não sei se estão tão bons como antes",
+        "date": "2025-01-27 15:42:00"
+      },
+      {
+        "text": "Era um pretinho bem basiquinho tinha uma anteninha pequena...",
+        "date": "2025-01-27 15:37:00"
+      },
+      {
+        "text": "O meu era o moto Key, depois o moto fire hahahaa depois já tive moto g primeira geração, moto g 2, moto g3, moto g4 plus, moto g5s, moto g8 Power light, moto Edge 20, e agora o moto edge 40 new🫠",
+        "date": "2025-01-27 15:19:00"
+      },
+      {
+        "text": "não lembro o primeiro, mas estou com um g7 power a 8 anos, em breve vou precisar trocar, já tá dando sinais de que vai morrer.",
+        "date": "2025-01-27 16:04:00"
+      },
+      {
+        "text": "Moto baby (sim, pré histórico)",
+        "date": "2025-01-27 15:18:00"
+      },
+      {
+        "text": "Foi o primeiro com câmera não lembro o modelo.Hoje tenho moto Edge 50 fusion.Já tive g6,g10,e g52",
+        "date": "2025-01-27 15:59:00"
+      },
+      {
+        "text": "O que eu uso\nMoto G8 Plus😆",
+        "date": "2025-01-27 15:16:00"
+      },
+      {
+        "text": "Foi o moto g7 Power.",
+        "date": "2025-01-27 15:14:00"
+      },
+      {
+        "text": "Motorola V3 Clássico.",
+        "date": "2025-01-27 15:18:00"
+      },
+      {
+        "text": "Inclusive estou com um agora motoE😆",
+        "date": "2025-01-27 15:19:00"
+      },
+      {
+        "text": "Comprei meu primeiro em 1996. O Famoso Tijolão.",
+        "date": "2025-01-27 15:34:00"
+      },
+      {
+        "text": "Foi o RAZR D3",
+        "date": "2025-01-27 15:34:00"
+      },
+      {
+        "text": "Moto E5 play se não me engano.",
+        "date": "2025-01-27 15:32:00"
+      },
+      {
+        "text": "Acho que foi o XT321",
+        "date": "2025-01-27 15:27:00"
+      },
+      {
+        "text": "Meu primo foi o C 115 kkkkk",
+        "date": "2025-01-27 15:17:00"
+      },
+      {
+        "text": "Moto v265 de 2006",
+        "date": "2025-01-27 15:21:00"
+      },
+      {
+        "text": "V10 tenho até hoje",
+        "date": "2025-01-27 15:32:00"
+      },
+      {
+        "text": "Tive vários",
+        "date": "2025-01-27 15:30:00"
+      },
+      {
+        "text": "Sim um G2 de bateria removível, verde😁",
+        "date": "2025-01-27 15:32:00"
+      },
+      {
+        "text": "O meu foi V3",
+        "date": "2025-01-27 15:51:00"
+      },
+      {
+        "text": "Moto e4",
+        "date": "2025-01-27 15:52:00"
+      },
+      {
+        "text": "Motorola microtac....",
+        "date": "2025-01-27 15:26:00"
+      },
+      {
+        "text": "Moto G-2",
+        "date": "2025-01-27 15:16:00"
+      },
+      {
+        "text": "Moto g 3",
+        "date": "2025-01-27 15:45:00"
+      },
+      {
+        "text": "O icônico Moto X4, comprei no lançamento e na loja só tinha preto, mas eu queria o prata, blz.Com uns 4 meses fui roubado, acionei o seguro da loja, recebi uma parte do dinheiro de volta, comprei o Moto X4 PRATA na cor que eu queria desde o início, paguei mais barato que no lançamento e ainda sobrou dinheiro kkkkkkkkk, foi o único roubo na vida que no fim foi \"bom\" pra mim\n.😂",
+        "date": "2025-01-27 15:30:00"
+      },
+      {
+        "text": "Motorola Moto C650 ( por volta de 2005)",
+        "date": "2025-01-27 15:40:00"
+      },
+      {
+        "text": "Um tijolão dos anos 90🤌🏾😂",
+        "date": "2025-01-27 15:37:00"
+      },
+      {
+        "text": "StarTac",
+        "date": "2025-01-27 16:07:00"
+      },
+      {
+        "text": "V3",
+        "date": "2025-01-27 15:57:00"
+      },
+      {
+        "text": "Motorola w5",
+        "date": "2025-01-27 15:36:00"
+      },
+      {
+        "text": "Motorola C115",
+        "date": "2025-01-27 16:06:00"
+      },
+      {
+        "text": "Motorola A1200",
+        "date": "2025-01-27 15:42:00"
+      },
+      {
+        "text": "G8 plus",
+        "date": "2025-01-27 15:36:00"
+      },
+      {
+        "text": "CONTEÚDO DE JOGO REAL!\nFICHAS GRÁTIS! https://1xbetsson.com/19f06mel... BAIXE AGORA E COMECE A JOGAR.💸🎉🔝",
+        "date": "2025-01-27 15:27:00"
+      },
+      {
+        "text": "V3 black",
+        "date": "2025-01-27 15:50:00"
+      },
+      {
+        "text": "V3",
+        "date": "2025-01-27 15:26:00"
+      },
+      {
+        "text": "V3",
+        "date": "2025-01-27 15:22:00"
+      },
+      {
+        "text": "StarTac",
+        "date": "2025-01-27 15:19:00"
+      },
+      {
+        "text": "V3",
+        "date": "2025-01-27 15:17:00"
       }
     ],
-    "page": 2
+    "page": 1
   },
   {
-    "content": "Que tal mais elegância e harmonia na rotina, com a cor que é tendência esse ano? Conheça os novos motorola razr 50 ultra e motorola edge 50 neo com a Pantone Color of the Year 2025, Mocha Mousse. 🤎#coloroftheyear #COY2025 #mochamousse #hellomoto #motorolabr",
-    "post_date": "2025-01-10 19:19:00",
+    "content": " O motorola edge 50 neo resiste à água e garante cliques impecáveis #hellomoto🧘‍♀️",
+    "post_date": "2025-01-24 18:39:00",
     "comments": [
       {
-        "text": "Estou com um MOTO G6 ATE HJ, NAO TROCO MOTOROLA POR NADA!",
-        "date": "2025-01-10 20:07:00"
+        "text": "Eu precisava de um aparelho novo e comprei junto com minha esposa dois aparelhos novos Moto G 82 cerca de dois anos atrás. Compramos porque achamos que seria uma boa compra.Começaram os problemas, maioria das ligações ficavam com voz robotizada e ao entrar em contato com a assistência pediram pra efetuar alguns procedimentos que nada resolveu e aí ir na assistência teria que deixar os aparelhos para análise. Aí olha a situação minha esposa e eu trabalhamos viajando como que faz?! Fomos pesquisar na internet e descobrimos que muitas outras pessoas tinham esse problema com o Motorola.Nunca tive retorno das reclamações. Um pós venda horrível!Está chegando a hora de comprarmos novos aparelhos e certamente não será essa marquinha!",
+        "date": "2025-01-25 23:30:00"
       },
       {
-        "text": "O Moto G55 terá quantas atualizações do Android?Por que não colocam a informação no site, é para a pessoa não se decepcionar e desistir da compra?",
-        "date": "2025-01-12 11:17:00"
+        "text": "Empresa é medíocre, colocam produtos a venda no Brasil, mas nao tem acessorios deles mesmos, preciso comprar carregador e cabo para um Edge 50 ultra, e simplesmente não existe a venda kkk, se não for uma porcaria de empresa eu não sei oq é,",
+        "date": "2025-01-24 21:47:00"
       },
       {
-        "text": "Tenho um moto G53, infelizmente, depois de um ano começou a dar problema , acho que não memória. Quando saio de um aplicativo e vou pra outro, seja jogo ou qualquer outro aplicativo, ele reinicia, como se estivesse entrando pela primeira vez nele . No jogo, em alguns jogos, eu acabo perdendo a continua ao dele e volta ao início.",
-        "date": "2025-01-13 07:59:00"
+        "text": "MOTO EDGE 40 NEO CHAMADAS WI-FI CAINDO CONSTANTEMENTE MENSAGEM NA TELA SERVIDOR NAO ACESSÍVEL .JA RECLAMEI NA VIVO , ESTÁ TUDO OK A LINHA O DEFEITO CONTINUAEnviei O TELEFONE PRA ASSISTÊNCIA ESTA TUDO OK O DEFEITO CONTINUAFIZ VARIOS TESTES NO APARELHO O DEFEITO CONTINUATESTEI NO MODO DE SEGURANÇA O DEFEITO CONTINUAULTIMO APARELHO QUE COMPRO DA MARCA",
+        "date": "2025-01-25 17:46:00"
       },
       {
-        "text": "Massa!",
-        "date": "2025-01-11 17:05:00"
+        "text": "Nunca pensei em comprar um celular que não conecta wi-fi! Só a Motorola pra fazer uma porcaria como essa!",
+        "date": "2025-01-26 18:27:00"
       },
       {
-        "text": "Moto g 62 5g pode explodir cuidado",
-        "date": "2025-01-10 19:41:00"
+        "text": "O que estraga é o processador MediaTek...",
+        "date": "2025-01-26 13:23:00"
       },
       {
-        "text": "Pessoal, tô passando por aqui para alertar você consumidor que usa o aparelho de celular da Motorola é um lixo, pois mesmo tendo espaço de memória RAM vive travando. O fabricante da Motorola já fabricam esse lixo com problema para obrigar você. Trocar de aparelho de celular é uma modalidade para roubar você, fique atento.",
-        "date": "2025-01-13 16:13:00"
+        "text": "... Say hello to my Motorola",
+        "date": "2025-01-25 14:14:00"
       },
       {
-        "text": "Tenho moto Edge 40 neo ta muito bem por enquanto...",
-        "date": "2025-01-11 16:48:00"
-      },
-      {
-        "text": "Tô com meu Edge 40 daqui uns dias pego o 50 pro",
-        "date": "2025-01-11 08:34:00"
-      },
-      {
-        "text": "Coloca essa cor no Edge pro e no edge ultra também.",
-        "date": "2025-01-11 10:40:00"
-      },
-      {
-        "text": "make a transparent cell phone",
-        "date": "2025-01-11 00:08:00"
-      },
-      {
-        "text": "Não gosto nem de marrom nem de vermelho",
-        "date": "2025-01-10 19:39:00"
-      },
-      {
-        "text": "🙀",
-        "date": "2025-01-11 10:58:00"
+        "text": "Acabei de ser mais um infeliz comprador de um Motorola edge pro a receber o presentinho oculto, a porcaria do celular de quase seis mil reais não conecta wi-fi e Bluetooth!",
+        "date": "2025-01-26 17:40:00"
       }
     ],
-    "page": 2
+    "page": 1
   }
 ]

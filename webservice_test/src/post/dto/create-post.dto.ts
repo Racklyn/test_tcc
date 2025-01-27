@@ -19,7 +19,8 @@ export class CreatePostDto {
     summary?: string;
 
     @ApiProperty({
-        example: new Date()
+        example: new Date(),
+        nullable: false,
     })
     post_date: Date;
 
@@ -32,7 +33,7 @@ export class CreatePostDto {
     @ApiProperty({
         nullable: true
     })
-    url?: string; //TODO: verificar se é necessário isso. Aparentemente, não é possível pegar sem estar logado
+    url?: string;   //TODO: verificar se é necessário isso. Aparentemente, não é possível pegar a url da publicação sem estar logado
 
     @ApiProperty({
         example: new Date,
@@ -40,15 +41,16 @@ export class CreatePostDto {
     })
     last_analysis?: Date;
 
-    @ApiProperty()
-    page: Page;
+    @ApiProperty({
+        nullable: false,
+    })
+    page_id: number; //TODO: verificar se é a melhor forma
 
     @ApiProperty()
     item: Item;
 
     @ApiProperty({
-        example: [],
-        nullable: true
+        example: []
     })
-    comments?: Comment[];
+    comments: Comment[];
 }

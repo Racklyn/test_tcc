@@ -26,9 +26,9 @@ export class CreateCommentDto {
     @ApiProperty()
     post: Post;
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    comment_analysis?: CommentAnalysis[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // comment_analysis?: CommentAnalysis[];
 }

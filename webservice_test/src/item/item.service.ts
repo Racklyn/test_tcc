@@ -21,7 +21,9 @@ export class ItemService {
             item.description = itemDto.description;
             item.last_analysis = itemDto.last_analysis;
             item.brand = itemDto.brand;
-            item.item_analysis_result = itemDto.item_analysis_result ?? [];
+
+            //TODO: verificar se faz sentido inserir essas listas:
+            //item.item_analysis_result = itemDto.item_analysis_result ?? [];
             item.posts = itemDto.posts ?? [];
             
             return await this.itemRepository.save(item);

@@ -5,5 +5,5 @@ export class DefaultQueryParams {
     @IsOptional()
     sort_by?: string;
     @IsString()
-    sort_order: 'ASC' | 'DESC' = 'ASC'; //TODO: verificar se a atribuição funciona
+    sort_order: 'ASC' | 'DESC' = 'ASC';
 }

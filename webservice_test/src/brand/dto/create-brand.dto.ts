@@ -20,15 +20,15 @@ export class CreateBrandDto {
     @ApiProperty()
     user: User;
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    items?: Item[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // items?: Item[];
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    pages?: Page[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // pages?: Page[];
 }

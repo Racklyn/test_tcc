@@ -20,9 +20,9 @@ export class CreatePageDto {
     @ApiProperty()
     brand: Brand;
 
-    @ApiProperty({
-        example: [],
-        nullable: true
-    })
-    posts?: Post[];
+    // @ApiProperty({
+    //     example: [],
+    //     nullable: true
+    // })
+    // posts?: Post[];
 }
