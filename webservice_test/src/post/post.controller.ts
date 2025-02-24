@@ -3,7 +3,7 @@ import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
-import { PostCommentsQuery } from './query/post-comments.query';
+//import { PostCommentsQuery } from './query/post-comments.query'; //TODO: remover se não for ser usada
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('post')
@@ -25,12 +25,12 @@ export class PostController {
     }
 
     @Get(':id/withComments')
-    @ApiQuery({ name: 'page_id', required: false  })
+    //@ApiQuery({ name: 'page_id', required: false  })
     async findOneWithComments(
         @Param('id') id: number,
-        @Query() query: PostCommentsQuery
+        //@Query() query: PostCommentsQuery  //TODO: verificar se é necessário
     ) {
-        return this.postService.findOneWithComments(id, query);
+        return this.postService.findOneWithComments(id);
     }
 
     @Get()

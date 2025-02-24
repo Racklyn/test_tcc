@@ -16,7 +16,8 @@ from utils.posts_data_to_string import posts_data_to_string
 from utils.get_text import get_text_with_emojis
 from service.database_conection import DatabaseConnection
 from service import endpoints
-from entities.post_comment import Comment, Post
+from entities.post_comment import Comment, Post, CreatePostDto
+from common import elements_path as elem_path
 
 
 db = DatabaseConnection()
@@ -24,12 +25,12 @@ db = DatabaseConnection()
 
 def get_post_card_date(driver: webdriver.Remote, post_card: WebElement) -> datetime:
     try:
-        post_date_elem = post_card.find_element(By.XPATH, './/div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1q0g3np"]//a[@role="link"]')
+        post_date_elem = post_card.find_element(By.XPATH, elem_path.POST_DATE_ELEMENT)
         post_date_elem.send_keys(Keys.SHIFT);
 
         sleep(0.5)
 
-        tooltip_date_txt = driver.find_element(By.XPATH, '//div[@class="xu96u03 xm80bdy x10l6tqk x13vifvy"]').text
+        tooltip_date_txt = driver.find_element(By.XPATH, elem_path.TOOLTIP_DATE_TEXT).text
         print(tooltip_date_txt)
 
         return datetime.strptime(tooltip_date_txt, '%A, %d de %B de %Y às %H:%M')
@@ -45,7 +46,7 @@ def get_comment_date(driver: webdriver.Remote, comment_elem: WebElement) -> date
 
         sleep(1)
 
-        tooltip_date_txt = driver.find_element(By.XPATH, '//div[@class="xu96u03 xm80bdy x10l6tqk x13vifvy"]').text
+        tooltip_date_txt = driver.find_element(By.XPATH, elem_path.TOOLTIP_DATE_TEXT).text
         print(tooltip_date_txt)
 
         return datetime.strptime(tooltip_date_txt, '%A, %d de %B de %Y às %H:%M')
@@ -57,9 +58,9 @@ def get_comment_date(driver: webdriver.Remote, comment_elem: WebElement) -> date
 def login(driver: webdriver.Remote, credencials: str = None):
     try:
         # Por enquanto, estou acessando sem estar logado
-        driver.find_element(By.XPATH, '//div[@aria-label="Fechar"][@role="button"]').click()
+        driver.find_element(By.XPATH, elem_path.CLOSE_DIALOG_BTN).click()
         sleep(1)
-        not_logged_in_footer = driver.find_element(By.XPATH, '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x1ey2m1c xayqjjm x9f619 xds687c x17qophe x1xy6bms xn6708d x1s14bel x1ye3gou xixxii4 x8hos8a x1u8a7rm"]')
+        not_logged_in_footer = driver.find_element(By.XPATH, elem_path.NOT_LOGGED_IN_FOTTER)
         driver.execute_script('arguments[0].setAttribute("style", "visibility: hidden")', not_logged_in_footer)
         sleep(0.5)
     except Exception as e:
@@ -76,7 +77,7 @@ def get_posts_to_be_scrapped(driver: webdriver.Remote, posts_since_date: datetim
     last_height = driver.execute_script('return document.body.scrollHeight')
 
     while True: # TODO: verificar isso
-        curr_post_cards = driver.find_elements(By.XPATH, '//div[@class="x1yztbdb x1n2onr6 xh8yej3 x1ja2u2z"]//div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x78zum5 x1n2onr6 xh8yej3"]')
+        curr_post_cards = driver.find_elements(By.XPATH, elem_path.CURRENT_POST_CARD)
         print(f'{len(curr_post_cards)} publicações encontradas')
         last_post_card = curr_post_cards[-1]
 
@@ -106,7 +107,7 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
     max_reps = n_posts # para prevenir loop infinito
 
     while c < max_reps:
-        curr_post_cards = driver.find_elements(By.XPATH, '//div[@class="x1yztbdb x1n2onr6 xh8yej3 x1ja2u2z"]//div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x78zum5 x1n2onr6 xh8yej3"]')
+        curr_post_cards = driver.find_elements(By.XPATH, elem_path.CURRENT_POST_CARD)
 
         if len(curr_post_cards) >= n_posts:
             posts = curr_post_cards[:n_posts]
@@ -128,6 +129,7 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
 
     # filtrando por data
     for post_card in posts:
+        print('#'*15)
         post_date = get_post_card_date(driver, post_card)
 
         # Verificar se data está fora do intervalo desejado
@@ -141,8 +143,8 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
     return posts_to_be_scrapped
 
 
-def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts_since_date: datetime) -> list[Post]:
-    posts: list[Post] = []
+def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts_since_date: datetime) -> list[CreatePostDto]:
+    posts: list[CreatePostDto] = []
     for i, post_card in enumerate(post_cards):
         try:
             post_date = get_post_card_date(driver, post_card)
@@ -153,15 +155,16 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                 break
             
             # Verificar se publicação é uma live ainda em andamento
-            post_title = post_card.find_element(By.XPATH, './/div[@data-ad-rendering-role="profile_name"]').text
+            post_title = post_card.find_element(By.XPATH, elem_path.POST_CARD_TITLE).text
             if post_title.endswith('está ao vivo agora.'):
                 continue
             
             # Expandir e pegar texto da publicação, se ele existir:
             post_text = ''
             try:
-                post_text_elem = post_card.find_element(By.XPATH, './/div[@class="x1l90r2v x1pi30zi x1swvt13 x1iorvi4"]') #data-ad-preview="message" OU data-ad-comet-preview="message"
-            except:
+                post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
+            except Exception as e:
+                print(e) #TODO: remover
                 print('* Publicação não possui texto *')
             else:
                 ### verificar se possui "Ver mais" no final do texto para expandi-lo
@@ -174,11 +177,12 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                         see_more_btn.click()
 
                         sleep(0.5)
-                        post_text_elem = post_card.find_element(By.XPATH, './/div[@class="x1l90r2v x1pi30zi x1swvt13 x1iorvi4"]') #data-ad-preview="message" OU data-ad-comet-preview="message"
+                        post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
                     except:
                         print("Falha ao expandir o texto da publicação. Pegando o texto que está visível.")
 
                 post_text = get_text_with_emojis(post_text_elem) # post_text_elem.text
+                print(post_text) # TODO: remover
 
 
             post_comments = get_post_comments(driver, post_card)
@@ -187,24 +191,24 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                 'content': post_text,
                 'post_date': str(post_date),
                 'comments': post_comments,
-                'page': 1 # TODO: mudar para pegar id dinamicamente
+                'page_id': 1 # TODO: mudar para pegar id dinamicamente
             })
 
         except Exception as e:
-            print(e)
+            #print(e) #TODO: descomentar linha
             print(f'Falha ao coletar informações da publicação: {i}')
 
-
+        print('-'*10) # TODO: remover essa linha
         sleep(2)
 
     return posts
 
 
 def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[Comment]:
-    post_details_elem = post_card.find_element(By.XPATH, './/div[@class="x6s0dn4 xi81zsa x78zum5 x6prxxf x13a6bvl xvq8zen xdj266r xat24cr x1d52u69 xktsk01 x889kno x1a8lsjc xkhd6sd x4uap5 x80vd3b x1q0q8m5 xso031l"]')
+    post_right_details_elem = post_card.find_element(By.XPATH, elem_path.POST_CARD_RIGHT_DETAILS_ELEMENT)
 
     try:
-        comm_btn_elem = post_details_elem.find_element(By.XPATH, './/div[2]').find_element(By.XPATH, './/div[@role="button"]')
+        comm_btn_elem = post_right_details_elem.find_element(By.XPATH, './/div[@role="button"]')
     except:
         print('Publicação não possui comentários')
         return []
@@ -228,29 +232,29 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
 
     # Verificando se dialog é de comentários ou de compartilhamentos
     sleep(3)
-    dialog_elem = driver.find_element(By.XPATH, '//div[@role="dialog"]')
+    dialog_elem = driver.find_element(By.XPATH, elem_path.MAIN_DIALOG)
     dialog_title = dialog_elem.find_element(By.TAG_NAME, 'h2').text
 
     if dialog_title == 'Pessoas que compartilharam isso':
-        driver.find_element(By.XPATH, '//div[@aria-label="Fechar"][@role="button"]').click()
+        driver.find_element(By.XPATH, elem_path.CLOSE_DIALOG_BTN).click()
         return []
 
 
     # Alterando para opção "Todos os comentários"
-    comments_order_elem = dialog_elem.find_element(By.XPATH, './/div[@class="x6s0dn4 x78zum5 xdj266r x11i5rnm xat24cr x1mh8g0r xe0p6wg"]')
+    comments_order_elem = dialog_elem.find_element(By.XPATH, elem_path.COMMENTS_ORDER_ELEMENT)
     driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comments_order_elem)
     sleep(1)
     comments_order_elem.click()
     sleep(1)
-    driver.find_element(By.XPATH, '//div[@aria-label="Ordem dos comentários"]').find_element(By.XPATH, './/div[@role="menuitem"][3]').click()
+    driver.find_element(By.XPATH, elem_path.COMMENTS_ORDER_MENU).find_element(By.XPATH, './/div[@role="menuitem"][3]').click()
 
     sleep(3)
 
     # pegando dialog atualizado após recarregar
-    dialog_elem = driver.find_element(By.XPATH, '//div[@role="dialog"]')
+    dialog_elem = driver.find_element(By.XPATH, elem_path.MAIN_DIALOG)
 
     # scroll pela lista de comentários
-    dialog_scroll_elem = dialog_elem.find_element(By.XPATH, './/div[@class="xb57i2i x1q594ok x5lxg6s x78zum5 xdt5ytf x6ikm8r x1ja2u2z x1pq812k x1rohswg xfk6m8 x1yqm8si xjx87ck xx8ngbg xwo3gff x1n2onr6 x1oyok0e x1odjw0f x1iyjqo2 xy5w88m"]')
+    dialog_scroll_elem = dialog_elem.find_element(By.XPATH, elem_path.DIALOG_SCROLL_ELEMENT)
     last_scroll_height = dialog_scroll_elem.get_attribute('scrollHeight')
 
     while max_scroll_reps > 0:
@@ -264,7 +268,7 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
         last_scroll_height = new_height
         max_scroll_reps -= 1
 
-    comment_elems = dialog_elem.find_elements(By.XPATH, './/div[@class="x1r8uery x1iyjqo2 x6ikm8r x10wlt62 x1pi30zi"]')
+    comment_elems = dialog_elem.find_elements(By.XPATH, elem_path.COMMENT_ELEMENTS)
     print(f'Elementos de comentário: {len(comment_elems)}')
     comments: list[Comment] = []
 
@@ -273,7 +277,7 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
 
         driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comment_elem)
         try:
-            comm_text = get_text_with_emojis(comment_elem.find_element(By.XPATH, './/div[@class="x1lliihq xjkvuk6 x1iorvi4"]')) #comment_elem.find_element(By.XPATH, './/div[@class="x1lliihq xjkvuk6 x1iorvi4"]').text 
+            comm_text = get_text_with_emojis(comment_elem.find_element(By.XPATH, elem_path.COMMENT_TEXT_ELEMENT))
             comm_date = get_comment_date(driver, comment_elem)
         except NoSuchElementException as e:
             #print('Conteúdo textual não encontrado. Ignorando...')
@@ -288,7 +292,7 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
         })
 
     # fechando dialog
-    driver.find_element(By.XPATH, '//div[@aria-label="Fechar"][@role="button"]').click()
+    driver.find_element(By.XPATH, elem_path.CLOSE_DIALOG_BTN).click()
 
     return comments
 
@@ -314,7 +318,7 @@ def run(page: str):
     options = Options()
     #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
     options.add_argument('--disable-dev-tools')
-    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser # TODO: descomentar
+    #options.add_argument('--headless=new') # para não abrir a interface gráfica do browser # TODO: descomentar
     options.add_argument('window-size=1600,1000')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
@@ -340,6 +344,7 @@ def run(page: str):
     )
 
     print(len(post_cards))
+    print('-'*10)
 
     try:
         posts = get_posts_data(driver, post_cards, posts_since_date)
@@ -351,7 +356,8 @@ def run(page: str):
         posts_data_to_string(posts, 'posts.txt')
         print(f'\nExtração de {len(posts)} publicações concluída com sucesso!')
 
-        save_posts(posts)
+        #save_posts(posts) #TODO: descomentar isso
+        print("\nNesse ponto os dados seriam SALVOS...\n(chamada da função está como comentário)") #TODO: apagar isso
 
     driver.close()
 
@@ -364,7 +370,7 @@ if __name__ == '__main__':
     PAGE = ['fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA'][5]
     run(PAGE)
 
-    brand_id = 1 # Motorola id = 1
+    brand_id = 3 # Motorola id = 1
 
     # db_connection = DatabaseConnection()
     # db_connection.generic_getter(endpoints.PAGE, )

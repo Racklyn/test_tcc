@@ -1,308 +1,276 @@
 [
   {
-    "content": "Boa tarde! Você lembra qual foi o seu primeiro celular Motorola? 💭📱",
-    "post_date": "2025-01-27 15:13:00",
+    "content": "#Motolover de verdade a gente reconhece de longe. Claro, é só agitar o smartphone que a lanterna acende. E isso, só Motorola tem, tá?! \n#hellomoto #motorolabrasil✨",
+    "post_date": "2025-02-18 17:37:00",
     "comments": [
       {
-        "text": "Motorola Defy, codename jordan",
-        "date": "2025-01-27 15:35:00"
+        "text": "Meu e moto G 73 não tenho oque reclama",
+        "date": "2025-02-19 12:20:00"
       },
       {
-        "text": "Moto g",
-        "date": "2025-01-27 15:36:00"
+        "text": "Como achar um motolover é fácil é só entrar no reclame aqui tá cheio lá vcs nem imagina🤬",
+        "date": "2025-02-18 17:41:00"
       },
       {
-        "text": "Moto G1",
-        "date": "2025-01-27 15:36:00"
+        "text": "Verdade suporte horrível, moto g34 horrível",
+        "date": "2025-02-18 18:11:00"
       },
       {
-        "text": "Moto X1 bambu",
-        "date": "2025-01-27 15:33:00"
+        "text": "É muito bom e muito prático",
+        "date": "2025-02-18 18:04:00"
       },
       {
-        "text": "Moto g2",
-        "date": "2025-01-27 15:17:00"
+        "text": "Meu Edge 30 é top, já vamos comprar um Edge 50 pra minha esposa👈🏻",
+        "date": "2025-02-19 17:45:00"
       },
       {
-        "text": "Moto G 1",
-        "date": "2025-01-27 15:29:00"
+        "text": "Vdd mesmo só Motorola tem show de Bola Eu gosto muito🙌🏻🙏🏻🕊️👏🏻👏🏻👏🏻",
+        "date": "2025-02-19 19:07:00"
       },
       {
-        "text": "Defy",
-        "date": "2025-01-27 15:59:00"
+        "text": "Não pode comentar com foto, senão eu mostraria como é chato fazer um print com Motorola G84, fica escuro e seleciona as coisas, o sistema não interpreta que se usa os três dedos, não está solucionando algo.",
+        "date": "2025-02-20 07:49:00"
       },
       {
-        "text": "Moto g1",
-        "date": "2025-01-27 15:46:00"
+        "text": "Comprei um celular da Motorola e o site da Motorola diz que entregou mas na recebi . Gostaria que me entregassem o aparelho que comprei . Peço urgência pra receber logo",
+        "date": "2025-02-20 11:50:00"
       },
       {
-        "text": "Motorola EX112.",
-        "date": "2025-01-27 15:56:00"
+        "text": "Cuidado. Sao golpistas dando golpe com essas páginas falsas . Depois que a pessoa paga. Nao recebe nada e nem respondem",
+        "date": "2025-02-20 14:11:00"
       },
       {
-        "text": "Moto G 1",
-        "date": "2025-01-27 15:23:00"
+        "text": "MOTOROLA SÓ PIORA COM ESSES MODELOS",
+        "date": "2025-02-18 17:45:00"
       },
       {
-        "text": "Motorola Moto G1",
-        "date": "2025-01-27 15:15:00"
-      },
-      {
-        "text": "Moto G7 play",
-        "date": "2025-01-27 15:24:00"
-      },
-      {
-        "text": "Moto g1 top",
-        "date": "2025-01-27 15:39:00"
-      },
-      {
-        "text": "Moto G5.",
-        "date": "2025-01-27 15:33:00"
-      },
-      {
-        "text": "moto g6 play moto g30",
-        "date": "2025-01-27 15:57:00"
-      },
-      {
-        "text": "Moto G3",
-        "date": "2025-01-27 15:30:00"
-      },
-      {
-        "text": "Moto v3",
-        "date": "2025-01-27 15:25:00"
-      },
-      {
-        "text": "Moto G2",
-        "date": "2025-01-27 15:30:00"
-      },
-      {
-        "text": "V3",
-        "date": "2025-01-27 15:26:00"
-      },
-      {
-        "text": "Pt 550 de plif, tinha que ficar ligado direto na antena de celular para funcionar kkkk",
-        "date": "2025-01-27 15:46:00"
-      },
-      {
-        "text": "120t, de 22 anos atrás, depois o W 230 , ainda os tenho pra mostrar a sobrinhos, netos, como era o celular no passado.",
-        "date": "2025-01-27 15:22:00"
-      },
-      {
-        "text": "Moto g 1 vermelho",
-        "date": "2025-01-27 15:38:00"
-      },
-      {
-        "text": "Moto G2. Aquele alto falante estéreo a um preço acessível desbancava os concorrentes! Atualmente estou com um Edge 50 Ultra e não vejo nada que pudesse melhorar!",
-        "date": "2025-01-27 15:39:00"
-      },
-      {
-        "text": "Continuo usando o moto g 7 kkkkkkk tela trincada, velhinho mas pra mim é o melhor que outras marcas aí.",
-        "date": "2025-01-27 15:43:00"
-      },
-      {
-        "text": "Meu primeiro celular foi V3",
-        "date": "2025-01-27 16:08:00"
-      },
-      {
-        "text": "O meu foi aquele cinza onde as teclas eram de borracha quando acendia ficavam azuis.Tinha anteninha ... Bons tempos que passou e evolução!",
-        "date": "2025-01-27 15:33:00"
-      },
-      {
-        "text": "Primeiro moto g de tela, depois moto g6 agora moto 84 eu gosto muito dos aparelhos da Motorola.",
-        "date": "2025-01-27 15:35:00"
-      },
-      {
-        "text": "Motorola C650 e hj tenho ainda um one macro, logo terei que trocar, mas não sei se continuo na marca, pois são tantos modelos que fica confuso e não sei se estão tão bons como antes",
-        "date": "2025-01-27 15:42:00"
-      },
-      {
-        "text": "Era um pretinho bem basiquinho tinha uma anteninha pequena...",
-        "date": "2025-01-27 15:37:00"
-      },
-      {
-        "text": "O meu era o moto Key, depois o moto fire hahahaa depois já tive moto g primeira geração, moto g 2, moto g3, moto g4 plus, moto g5s, moto g8 Power light, moto Edge 20, e agora o moto edge 40 new🫠",
-        "date": "2025-01-27 15:19:00"
-      },
-      {
-        "text": "não lembro o primeiro, mas estou com um g7 power a 8 anos, em breve vou precisar trocar, já tá dando sinais de que vai morrer.",
-        "date": "2025-01-27 16:04:00"
-      },
-      {
-        "text": "Moto baby (sim, pré histórico)",
-        "date": "2025-01-27 15:18:00"
-      },
-      {
-        "text": "Foi o primeiro com câmera não lembro o modelo.Hoje tenho moto Edge 50 fusion.Já tive g6,g10,e g52",
-        "date": "2025-01-27 15:59:00"
-      },
-      {
-        "text": "O que eu uso\nMoto G8 Plus😆",
-        "date": "2025-01-27 15:16:00"
-      },
-      {
-        "text": "Foi o moto g7 Power.",
-        "date": "2025-01-27 15:14:00"
-      },
-      {
-        "text": "Motorola V3 Clássico.",
-        "date": "2025-01-27 15:18:00"
-      },
-      {
-        "text": "Inclusive estou com um agora motoE😆",
-        "date": "2025-01-27 15:19:00"
-      },
-      {
-        "text": "Comprei meu primeiro em 1996. O Famoso Tijolão.",
-        "date": "2025-01-27 15:34:00"
-      },
-      {
-        "text": "Foi o RAZR D3",
-        "date": "2025-01-27 15:34:00"
-      },
-      {
-        "text": "Moto E5 play se não me engano.",
-        "date": "2025-01-27 15:32:00"
-      },
-      {
-        "text": "Acho que foi o XT321",
-        "date": "2025-01-27 15:27:00"
-      },
-      {
-        "text": "Meu primo foi o C 115 kkkkk",
-        "date": "2025-01-27 15:17:00"
-      },
-      {
-        "text": "Moto v265 de 2006",
-        "date": "2025-01-27 15:21:00"
-      },
-      {
-        "text": "V10 tenho até hoje",
-        "date": "2025-01-27 15:32:00"
-      },
-      {
-        "text": "Tive vários",
-        "date": "2025-01-27 15:30:00"
-      },
-      {
-        "text": "Sim um G2 de bateria removível, verde😁",
-        "date": "2025-01-27 15:32:00"
-      },
-      {
-        "text": "O meu foi V3",
-        "date": "2025-01-27 15:51:00"
-      },
-      {
-        "text": "Moto e4",
-        "date": "2025-01-27 15:52:00"
-      },
-      {
-        "text": "Motorola microtac....",
-        "date": "2025-01-27 15:26:00"
-      },
-      {
-        "text": "Moto G-2",
-        "date": "2025-01-27 15:16:00"
-      },
-      {
-        "text": "Moto g 3",
-        "date": "2025-01-27 15:45:00"
-      },
-      {
-        "text": "O icônico Moto X4, comprei no lançamento e na loja só tinha preto, mas eu queria o prata, blz.Com uns 4 meses fui roubado, acionei o seguro da loja, recebi uma parte do dinheiro de volta, comprei o Moto X4 PRATA na cor que eu queria desde o início, paguei mais barato que no lançamento e ainda sobrou dinheiro kkkkkkkkk, foi o único roubo na vida que no fim foi \"bom\" pra mim\n.😂",
-        "date": "2025-01-27 15:30:00"
-      },
-      {
-        "text": "Motorola Moto C650 ( por volta de 2005)",
-        "date": "2025-01-27 15:40:00"
-      },
-      {
-        "text": "Um tijolão dos anos 90🤌🏾😂",
-        "date": "2025-01-27 15:37:00"
-      },
-      {
-        "text": "StarTac",
-        "date": "2025-01-27 16:07:00"
-      },
-      {
-        "text": "V3",
-        "date": "2025-01-27 15:57:00"
-      },
-      {
-        "text": "Motorola w5",
-        "date": "2025-01-27 15:36:00"
-      },
-      {
-        "text": "Motorola C115",
-        "date": "2025-01-27 16:06:00"
-      },
-      {
-        "text": "Motorola A1200",
-        "date": "2025-01-27 15:42:00"
-      },
-      {
-        "text": "G8 plus",
-        "date": "2025-01-27 15:36:00"
-      },
-      {
-        "text": "CONTEÚDO DE JOGO REAL!\nFICHAS GRÁTIS! https://1xbetsson.com/19f06mel... BAIXE AGORA E COMECE A JOGAR.💸🎉🔝",
-        "date": "2025-01-27 15:27:00"
-      },
-      {
-        "text": "V3 black",
-        "date": "2025-01-27 15:50:00"
-      },
-      {
-        "text": "V3",
-        "date": "2025-01-27 15:26:00"
-      },
-      {
-        "text": "V3",
-        "date": "2025-01-27 15:22:00"
-      },
-      {
-        "text": "StarTac",
-        "date": "2025-01-27 15:19:00"
-      },
-      {
-        "text": "V3",
-        "date": "2025-01-27 15:17:00"
+        "text": "Top",
+        "date": "2025-02-18 18:14:00"
       }
     ],
-    "page": 1
+    "page_id": 1
   },
   {
-    "content": " O motorola edge 50 neo resiste à água e garante cliques impecáveis #hellomoto🧘‍♀️",
-    "post_date": "2025-01-24 18:39:00",
+    "content": "Bom dia, motolover! Qual aplicativo você mais usa no seu telefone? Me conta! 👇😊📱",
+    "post_date": "2025-02-08 11:53:00",
     "comments": [
       {
-        "text": "Eu precisava de um aparelho novo e comprei junto com minha esposa dois aparelhos novos Moto G 82 cerca de dois anos atrás. Compramos porque achamos que seria uma boa compra.Começaram os problemas, maioria das ligações ficavam com voz robotizada e ao entrar em contato com a assistência pediram pra efetuar alguns procedimentos que nada resolveu e aí ir na assistência teria que deixar os aparelhos para análise. Aí olha a situação minha esposa e eu trabalhamos viajando como que faz?! Fomos pesquisar na internet e descobrimos que muitas outras pessoas tinham esse problema com o Motorola.Nunca tive retorno das reclamações. Um pós venda horrível!Está chegando a hora de comprarmos novos aparelhos e certamente não será essa marquinha!",
-        "date": "2025-01-25 23:30:00"
+        "text": "Motorola amei meu Motorola G84 câmeras boas tela boa preço bom e desempenho bom só achei que vocês poderiam fazer celular com tela mais melhores com super amoled mais resolução e tals mais eu amo a marca\nEstilo Lindo e o app Moto Ajuda em segurança e a personalização do celular e também aqueles atalhos com agitar para ligar laterna e mais...😍",
+        "date": "2025-02-15 16:46:00"
       },
       {
-        "text": "Empresa é medíocre, colocam produtos a venda no Brasil, mas nao tem acessorios deles mesmos, preciso comprar carregador e cabo para um Edge 50 ultra, e simplesmente não existe a venda kkk, se não for uma porcaria de empresa eu não sei oq é,",
-        "date": "2025-01-24 21:47:00"
+        "text": "Comprei um Motorola EDG 30 foi a melhor coisa que fiz , câmera de muita qualidade, bateria dura muito, super rápido pra responder,a qualidade da nitidez das fotos, estão parabéns uhuuuuuu🤩🤩🤩🤩🤩🤩🤩💯💯💯💯💯💯💯🥰🥰🥰🥰🥰🥰🥰✨✨✨✨🌟🌟🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻🙏🏻",
+        "date": "2025-02-18 00:50:00"
       },
       {
-        "text": "MOTO EDGE 40 NEO CHAMADAS WI-FI CAINDO CONSTANTEMENTE MENSAGEM NA TELA SERVIDOR NAO ACESSÍVEL .JA RECLAMEI NA VIVO , ESTÁ TUDO OK A LINHA O DEFEITO CONTINUAEnviei O TELEFONE PRA ASSISTÊNCIA ESTA TUDO OK O DEFEITO CONTINUAFIZ VARIOS TESTES NO APARELHO O DEFEITO CONTINUATESTEI NO MODO DE SEGURANÇA O DEFEITO CONTINUAULTIMO APARELHO QUE COMPRO DA MARCA",
-        "date": "2025-01-25 17:46:00"
+        "text": "Kwai, explorando essa tela maravilhosa do Edge 50 pro.😍",
+        "date": "2025-02-08 12:35:00"
       },
       {
-        "text": "Nunca pensei em comprar um celular que não conecta wi-fi! Só a Motorola pra fazer uma porcaria como essa!",
-        "date": "2025-01-26 18:27:00"
+        "text": "MOTO EDGE FUISION NÃO TEM COMO REGULAR O SOM DA MÍDIA DOS JOGOS, PARA FICAREM MAIS BAIXOS QUE O VOLUME DE MÚSICA AO MSM TEMPO,ISSO É MUITO FORA DOME CONTEXTO,AS BORDAS INFINITAS AO MENOS AINDA EU NÃO ACHEI LOCAL PARA DESATIVALAS, POIS EM ALGUMS JOGOS POR EXEMPLO SINUCA É PRATICAMENTE IMPOSSÍVEL JOGAR, POIS AS MÃOS FICAM NAS BORDAS É CLARO PARA SEGURAR O CELULAR... AI IMPOSSIBILITA DW JOGAR, POIS A TELA FICA LOGICAMENTE SENDO TOCADA AS BORDAS. ÁUDIOS MUITO MAL ALINHADOS EM RELAÇÃO A ALTURA DE VOLUME QUE CHEGA NOS CELULARES DE TERCEIROS!CÂMERA PRINCIPAL DEIXA A DESEJAR SE USAR DIRETAMENTE PELO WHATSAPP,SERIA NOTA 5 POR EXEMPLO, POIS SAEM COM BAIXA NITIDEZ.ESTOU COM 10 DIAS DE USO O MEU, COMPREI NOVO. USO SÓ MOTOROLA A QUASE 12 ANOS..DE RESTANTE UM ÓTIMO CELULAR, AUTÔNOMIA DE 9:30h de uso constante jogando trabalhando e tela boa claridade.CORES NO GERAL REFERENTE A TELA SÃO PERFEITAS, VOLUME PARA MÚSICAS PERFEITO,QUALIDADE DE MÍDIA EM RELAÇÃO A JOGOS E MÚSICAS SE FOSSE PADA DAR NOTA ÉNOTA 8.REFERENTE A SENSIBILIDADE DE TELA NOTA 10REFERENTE A DESIGNER DOS APLICATIVOS ORIGINAIS E CONFIGURAÇÕES MODO DOS APLICATIVOS NOTA: 9ESTÉTICA DO CELULAR VISUAL PEGADA COM DUAS MÃOS OU SOMENTE COM UMA NOTA9,#POIS UMA IDEIA O PESO MAIOR DELE PODERIA SER DA PARTE DO MEIO DELE VOLTADO A PARTE INFERIOR DELE E NÃO A PARTE SUPERIOR.NOTA EM RELAÇÃO O MATERIA DA CARCAÇA EXTERNA TRASEIRA;NOTA 8,#SE FOSSE ATÉ MSM UM POUCO MAIS ÁSPERA E \"CAVAS DE ESPAÇO UM POUCO MAIOR A PEGADA SERIA AINDA MAIS PERFEITA QUE JÁ É.EM RELAÇÃO AS BORDAS DE TELA FUNCIONALIDADE E ESTÉTICANOTA: 10BOTÕES GERAIS MANUALNOTA 5#POIS PODERIAM POR ELES EM LOCAL BEM MAIS BAIXO, PADA TERMOS ACESSO A ELES COM APENAS UMA MÃO DEVIDO O CELULAR SER LONGO... E TMBM PODERIAM TER UM MELHOR ACABAMENTO; SEREM MENOS RESSALTADOS, E MAIS \"SUAVES.EM RELAÇÃO A CÂMERA DE SELFIE AINDA NÃO USEI SE QUER UMA VEZ, POR ISSO NÃO DAREI MINHA OPINIÃO,TECLADO POSIÇÃO DELE ETC...ELE É BEM COMPLETO TEM OS NÚMEROS ACIMA DAS LETRAS \"ETC ETCNOTA 10PRECISÃO E RESPOSTA A TUDO QUE SE FAZ NELEPROCESSADORNOTA 10FUNCIONALIDADES VIA GESTOSNOTA 9.RECOMENDARIA A marca Motorola sim com TD prazer basta com o tempo eles irem sempre ouvindo os usuários que tem prazer em usar a marca.Por mim nunca trocarei de marca.Ao EDGE 50 FUSION Nota: 7.5 no geral.Recomendo ele muito muito, ainda mais o Pro que acredito logicamente ser melhor que este.",
+        "date": "None"
       },
       {
-        "text": "O que estraga é o processador MediaTek...",
-        "date": "2025-01-26 13:23:00"
+        "text": "Decepção depois de comprar celular da Motorola, é só problema com um ano 1 o meu pifou a placa , ou seja celular super descartável",
+        "date": "2025-02-15 17:26:00"
       },
       {
-        "text": "... Say hello to my Motorola",
-        "date": "2025-01-25 14:14:00"
+        "text": "Um dos piores celulares que eu comprei foi o moto g 35 trava absolutamente em tudo a bateria dele não dura nem 5 horas. Extremamente decepcionada eu uso Motorola a anos.",
+        "date": "2025-02-16 10:36:00"
       },
       {
-        "text": "Acabei de ser mais um infeliz comprador de um Motorola edge pro a receber o presentinho oculto, a porcaria do celular de quase seis mil reais não conecta wi-fi e Bluetooth!",
-        "date": "2025-01-26 17:40:00"
+        "text": "Prq o Moto Secure não é compatível com o G24?Era pra ser o mínimo de segurança q a marca poderia dar pra quem não pode dar 2000 reais em um celular.Já q da pra acessar a aba de opções puxando pra baixo mesmo com o celular bloqueado.Se alguém pegar o celular da pra desativar o wi-fi de boas.",
+        "date": "2025-02-17 13:10:00"
+      },
+      {
+        "text": "O meu Edge 20 pro não entra no wi-fi, bluetooth e nem roteia dados móveis mais. Não recomendo. Motorola nunca mais.",
+        "date": "2025-02-10 01:25:00"
+      },
+      {
+        "text": "Não comprem na Motorola do shopping Tietê plaza....Comprei um celular ontem (09/02/2025)O mesmo apresentou problema no mesmo dia, voltei no mesmo dia na loja e o tal do gerente se negou a fazer a troca, me mandou procurar os meus direitos.",
+        "date": "2025-02-10 19:17:00"
+      },
+      {
+        "text": "No momento estou sem celular😞Estragou meu motog20.Kwai, whatsapp, Facebook, Instagram",
+        "date": "2025-02-10 06:35:00"
+      },
+      {
+        "text": "Daqui a pouco esse mais novo vai acabar apresentando o mesmo problema da linha Edge.",
+        "date": "2025-02-10 01:27:00"
+      },
+      {
+        "text": "Aparelhos lixos , aparelho explodindo , comprei Motorola Edge 30 há 1 ano 4 meses nunca caiu , nunca molhou , já apareceu um risco verde na tela , agora só esperar queimar para comprar de outra marca nunca mais eu compro nada da Motorola , NUNCA",
+        "date": "2025-02-11 11:33:00"
+      },
+      {
+        "text": "Facebook, Instagram e YouTube. No meu Moto Edge 50 Pro. Excelente aparelho.",
+        "date": "2025-02-15 11:20:00"
+      },
+      {
+        "text": "Comprei para o meu pai em julho do ano passado,o celular parou de funcionar após a última atualização. Nunca mais compro Motorola.",
+        "date": "2025-02-14 20:41:00"
+      },
+      {
+        "text": "O SE CONTO , VAMOS LÁ, APPS BRADESCO, BANCO DO BRASIL, ITAÚ, SANTANDER, TÓKIO MARINE SEGURADORA, CAIXA ECONÔMICA,🆗",
+        "date": "2025-02-10 10:15:00"
+      },
+      {
+        "text": "Nenhum pois meu moto g9 play não tem mais espaço...😫😫😫",
+        "date": "2025-02-11 09:30:00"
+      },
+      {
+        "text": "WhatsApp e Instagram",
+        "date": "2025-02-08 12:30:00"
+      },
+      {
+        "text": "Moto g54 não presta não",
+        "date": "2025-02-16 07:38:00"
+      },
+      {
+        "text": "Uso a câmera e está uma porcaria, pois fecha de repente. Moto G54.",
+        "date": "2025-02-08 11:59:00"
+      },
+      {
+        "text": "O Moto G 15 Power só faltou ser 5 G pra ficar Completo. Que pena bom de Bateria bom de Memória mais não é 5 G aí é foda",
+        "date": "2025-02-10 17:45:00"
+      },
+      {
+        "text": "moto g54 e otima tem boas cameras",
+        "date": "2025-02-08 19:04:00"
+      },
+      {
+        "text": "Acho que é tiktok",
+        "date": "2025-02-08 11:56:00"
+      },
+      {
+        "text": "Queria saber como aumentar a sensibilidade da tela do 50 Edge Ultra.Coloquei uma proteção simples, mas a resposta ficou terrível.",
+        "date": "2025-02-11 10:52:00"
+      },
+      {
+        "text": "O meu Motorola g42 apareceu um risco verde .. e depois apareceu metade da tela toda branca .. achei que era bom .. mais é sacanagem né",
+        "date": "2025-02-11 12:00:00"
+      },
+      {
+        "text": "infelizmente o twitter",
+        "date": "2025-02-08 12:06:00"
+      },
+      {
+        "text": "Instagran e facebook",
+        "date": "2025-02-08 19:42:00"
+      },
+      {
+        "text": "App para tirar virus, meu filho encheu de virus , jaera era esse Motorola🤦🏾‍♂️",
+        "date": "2025-02-08 11:55:00"
+      },
+      {
+        "text": "Salve Motorola . Beleza?Então, comprei um Edge Fisio 50. Nem tinha pago a 1a parcela, e deixei o aparelho cair no chão. Quebrou vidro....onde posso trocar? Sou do RJ. Grato.",
+        "date": "2025-02-12 10:16:00"
+      },
+      {
+        "text": "Sem reclamações do meu MotoG 5GDesde 2020 funciona perfeito👏👏",
+        "date": "2025-02-11 11:41:00"
+      },
+      {
+        "text": "Google",
+        "date": "2025-02-08 12:10:00"
+      },
+      {
+        "text": "Tiktok e Netflix sem duvidas acabei de compra o motog34 tô curtindo",
+        "date": "2025-02-08 11:55:00"
+      },
+      {
+        "text": "Não entregaram meu celular",
+        "date": "2025-02-20 11:51:00"
+      },
+      {
+        "text": "Eu Uso Mais é o KWAI!",
+        "date": "2025-02-15 11:57:00"
+      },
+      {
+        "text": "Microsoft Edge",
+        "date": "2025-02-18 11:42:00"
+      },
+      {
+        "text": "52",
+        "date": "2025-02-11 11:45:00"
+      },
+      {
+        "text": "Whatsapp",
+        "date": "2025-02-08 12:43:00"
+      },
+      {
+        "text": "tiktok",
+        "date": "2025-02-08 12:24:00"
+      },
+      {
+        "text": "Facebook",
+        "date": "2025-02-15 22:20:00"
+      },
+      {
+        "text": "Samsung Pasa",
+        "date": "2025-02-10 13:39:00"
+      },
+      {
+        "text": "Vários",
+        "date": "2025-02-10 13:38:00"
+      },
+      {
+        "text": "Motorola o cupom de desconto na primeira compra que vocês prometem no site nunca chega no e-mail. Pra que prometer se não cumpre?",
+        "date": "2025-02-09 12:12:00"
+      },
+      {
+        "text": "https://www.facebook.com/100064730404603/posts/1051577320343272/?mibextid=rS40aB7S9Ucbxw6v eu quero esse da matéria como fazemos?",
+        "date": "2025-02-11 10:46:00"
+      },
+      {
+        "text": "Se abaixa preço do edge50 pro vou comprar",
+        "date": "2025-02-08 12:49:00"
+      },
+      {
+        "text": "Whatsapp, Instagram, Facebook, Spotify, Max e Netflix!Uso muito todos eles.",
+        "date": "2025-02-08 18:39:00"
+      },
+      {
+        "text": "Whatsapp, Facebook & Instagram, Navegador Chrome",
+        "date": "2025-02-16 08:09:00"
+      },
+      {
+        "text": "Motorola vocês não vão colocar em carta o episódio que resultou o celular pegar fogo no calça\nda moça? É um compromisso com os consumidores da marca.👖",
+        "date": "2025-02-12 12:22:00"
+      },
+      {
+        "text": "Tem um aplicativo de comunicação muito mais eficiente que qualquer outro, uso diariamente com total eficiência, praticidade e segurança, além de rapidez. Chama-se TELEFONE.",
+        "date": "2025-02-08 12:45:00"
+      },
+      {
+        "text": "icloud",
+        "date": "2025-02-10 13:44:00"
+      },
+      {
+        "text": "Motorola uma loja de temas nos seus smartphones ficaria bacana",
+        "date": "2025-02-08 12:04:00"
+      },
+      {
+        "text": "Whatsapp",
+        "date": "2025-02-15 09:23:00"
+      },
+      {
+        "text": "Discord",
+        "date": "2025-02-09 14:27:00"
+      },
+      {
+        "text": "Whatsapp Facebook Instagram",
+        "date": "2025-02-08 16:46:00"
+      },
+      {
+        "text": "Facebook",
+        "date": "2025-02-08 15:16:00"
+      },
+      {
+        "text": "IA",
+        "date": "2025-02-08 12:00:00"
       }
     ],
-    "page": 1
+    "page_id": 1
   }
 ]

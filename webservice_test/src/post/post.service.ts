@@ -100,15 +100,12 @@ export class PostService {
 
     async findOneWithComments(
         id: number,
-        query?: PostCommentsQuery
+        //query?: PostCommentsQuery
     ): Promise<Post> {
         try {
             return await this.postRepository.findOne({
                 where: {
                     id: id,
-                    page: {
-                        id: query.page_id,
-                    }
                 },
                 relations: {
                     comments: true,
