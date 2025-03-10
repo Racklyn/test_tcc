@@ -17,6 +17,7 @@ from utils.get_text import get_text_with_emojis
 from service.database_conection import DatabaseConnection
 from service import endpoints
 from entities.post_comment import Comment, Post, CreatePostDto
+from entities.page import Page
 from common import elements_path as elem_path
 
 
@@ -156,7 +157,13 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
     return posts_to_be_scrapped
 
 
-def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts_since_date: datetime) -> list[CreatePostDto]:
+def get_posts_data(
+        driver: webdriver.Remote,
+        post_cards: list[WebElement],
+        page_id: int,
+        posts_since_date: datetime
+    ) -> list[CreatePostDto]:
+
     posts: list[CreatePostDto] = []
     for i, post_card in enumerate(post_cards):
         try:
@@ -177,7 +184,6 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
             try:
                 post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
             except Exception as e:
-                print(e) #TODO: remover
                 print('* Publicação não possui texto *')
             else:
                 ### verificar se possui "Ver mais" no final do texto para expandi-lo
@@ -194,8 +200,8 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                     except:
                         print("Falha ao expandir o texto da publicação. Pegando o texto que está visível.")
 
-                post_text = get_text_with_emojis(post_text_elem) # post_text_elem.text
-                print(post_text) # TODO: remover
+                post_text = get_text_with_emojis(post_text_elem)
+                print(post_text)
 
 
             post_comments = get_post_comments(driver, post_card)
@@ -204,7 +210,7 @@ def get_posts_data(driver: webdriver.Remote, post_cards: list[WebElement], posts
                 'content': post_text,
                 'post_date': str(post_date),
                 'comments': post_comments,
-                'page_id': 1 # TODO: mudar para pegar id dinamicamente
+                'page_id': page_id
             })
 
         except Exception as e:
@@ -291,14 +297,15 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
 
         last_scroll_height = new_height
 
+    print('Finalizando etapa do scroll.')
     sleep(5) #TODO: verificar se esse tempo é necessário aqui
 
     comment_elems = dialog_elem.find_elements(By.XPATH, elem_path.COMMENT_ELEMENTS)
-    print(f'Elementos de comentário: {len(comment_elems)}')
+    print(f'Elementos de comentário encontrados: {len(comment_elems)}')
     comments: list[Comment] = []
 
     for i, comment_elem in enumerate(comment_elems):
-        print(f'Extraindo comentário {i}')
+        print(f'Extraindo comentário {i+1}/{len(comment_elems)}')
 
         driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comment_elem)
         try:
@@ -334,27 +341,8 @@ def save_posts(posts: list[Post]):
 
 
 
-def run(page: str):
-    # Variáveis de configuração:
-    posts_since_date = datetime(day=1, month=11, year=2010)
-    n_posts = 2
-
-    # TODO: verificar. Se a conta de acesso estiver em inglês, não precisará do seguinte
-    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
-
-
-    service = Service(ChromeDriverManager().install())
-    options = Options()
-    #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
-    options.add_argument('--disable-dev-tools')
-    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser
-    options.add_argument('window-size=1600,1000')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-gpu')
-    options.add_argument("--disable-dev-shm-usage")
-
-    driver = webdriver.Chrome(service=service, options=options)
-    driver.get(f'https://www.facebook.com/{page}/?locale=pt_BR')
+def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: datetime):
+    driver.get(f'https://www.facebook.com/{page["title"]}/?locale=pt_BR')
     driver.implicitly_wait(3) #por padrão, aguardará até 3s buscando por elementos
 
     sleep(0.5)
@@ -376,31 +364,59 @@ def run(page: str):
     print('-'*10)
 
     try:
-        posts = get_posts_data(driver, post_cards, posts_since_date)
+        posts = get_posts_data(driver, post_cards, page['id'], posts_since_date)
         #print(posts)
     except Exception as e:
         print(e)
         print('Falha ao coletar informações das publicações nesta página.')
     else:
         posts_data_to_string(posts, 'posts.txt')
-        print(f'\nExtração de {len(posts)} publicações concluída com sucesso!')
+        print(f'\nExtração de {len(posts)} publicações concluída com sucesso na página {page["title"]}!')
 
         save_posts(posts)
+        #print('\nAQUI OS ITENS SERIAM SALVOS NO BANCO') #TODO: remover
+
+
+def run_all_pages(pages: list[Page]):
+# Variáveis de configuração:
+    posts_since_date = datetime(day=1, month=11, year=2010)
+    n_posts = 2
+
+    # TODO: verificar. Se a conta de acesso estiver em inglês, não precisará do seguinte
+    locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
+
+
+    service = Service(ChromeDriverManager().install())
+    options = Options()
+    #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
+    options.add_argument('--disable-dev-tools')
+    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser
+    options.add_argument('window-size=1600,1000')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = webdriver.Chrome(service=service, options=options)
+
+    for page in pages:
+        try:
+            print(f'\n\nINICIANDO EXECUÇÃO DA PÁGINA {page["title"]}:\n')
+            run(driver, page, n_posts, posts_since_date)
+        except Exception as e:
+            print(f'Erro ao executar extrair dados da página {page["title"]}: {e}')
 
     driver.close()
 
 
-def run_all_pages(pages):
-    pass
+def get_all_pages_and_run(brand_id: int):
+    pages = db.generic_getter('page', {"brand_id": brand_id})
+    print(f'{len(pages)} página(s) para extração.')
+    run_all_pages(pages)
+
+
+
 
 
 if __name__ == '__main__':
-    PAGE = ['fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza'][6]
-    run(PAGE)
-
-    brand_id = 2 # Motorola id = 1
-
-    # db_connection = DatabaseConnection()
-    # db_connection.generic_getter(endpoints.PAGE, )
-
-    # run_all_pages()
+    #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
+    get_all_pages_and_run(1)

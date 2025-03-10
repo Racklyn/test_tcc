@@ -31,8 +31,8 @@ class DatabaseConnection():
             #     f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
         return response.json()
 
-    def generic_getter(self, route: str) -> json:
-        response = self.requests.get(f'{self.base_url}/{route}')
+    def generic_getter(self, route: str, params: dict) -> json:
+        response = self.requests.get(f'{self.base_url}/{route}', params=params)
         if response.status_code == 404:
             response = dict()
         else:
