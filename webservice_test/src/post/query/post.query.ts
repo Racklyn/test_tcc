@@ -1,8 +1,8 @@
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsNumber, IsNumberString, IsOptional } from 'class-validator';
 import { DefaultQueryParams } from 'src/common/query/default.query';
 
 export class PostQuery extends DefaultQueryParams {
     @IsOptional()
-    @IsNumber()
+    @IsNumberString() //@IsNumber() //TODO: verificar isso. Era para funcionar com number
     brand_id?: number;
 }

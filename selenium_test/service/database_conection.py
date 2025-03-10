@@ -26,7 +26,7 @@ class DatabaseConnection():
     def generic_insertion(self, route: str, data: dict) -> json:
         response = self.requests.post(f'{self.base_url}/{route}', json=data)
         if response.status_code != 201:
-            print(f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
+            print(f'Inserção falhou!')
             # self.log.database_error(
             #     f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
         return response.json()

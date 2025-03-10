@@ -119,12 +119,15 @@ export class PostService {
     }
 
     async findAll(query?: PostQuery): Promise<Post[]> {
+        //TODO: verificar. Não era pra ser necessário isso. brand_id deveria vir como number
+        let brand_id = query.brand_id ? +query.brand_id : undefined
+
         try {
             const post = await this.postRepository.find({
                 where: {
                     page: {
                         brand: {
-                            id: query.brand_id
+                            id: brand_id
                         }
                     }
                 },
@@ -132,7 +135,7 @@ export class PostService {
                     [query.sort_by ?? 'updated_date'] : query.sort_order,
                 },
                 relations: {
-                    item: true, //TODO: verificar se é necessário
+                    item: true,
                 }
             });
             return post;

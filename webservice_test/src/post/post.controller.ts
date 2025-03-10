@@ -34,7 +34,7 @@ export class PostController {
     }
 
     @Get()
-    @ApiQuery({ name: 'brand_id', required: false })
+    @ApiQuery({ name: 'brand_id', required: false }) //, type: Number //TODO: verificar 'type' aqui
     @ApiQuery({ name: 'sort_by', required: false })
     @ApiQuery({ name: 'sort_order', required: false })
     async findAll(@Query() query: PostQuery){
