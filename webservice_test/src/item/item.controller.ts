@@ -18,6 +18,17 @@ export class ItemController {
         return created_item;
     }
 
+    @Get('statistics')
+    @ApiQuery({ name: 'brand_id' })
+    @ApiQuery({ name: 'type' })
+    @ApiQuery({ name: 'sort_by' })
+    @ApiQuery({ name: 'sort_order' })
+    async findAllWithStatistics(@Query() query: ItemQuery){
+        const items = await this.itemService.findAllWithStatistics(query);
+        return items;
+    }
+
+
     @Get(':id')
     async findOne(@Param('id') id: number) {
         return await this.itemService.findOne(id);
@@ -30,16 +41,6 @@ export class ItemController {
     @ApiQuery({ name: 'sort_order', required: false  })
     async findAll(@Query() query: ItemQuery){
         const items = await this.itemService.findAll(query);
-        return items;
-    }
-
-    @Get('statistics')
-    @ApiQuery({ name: 'brand_id' })
-    @ApiQuery({ name: 'type' })
-    @ApiQuery({ name: 'sort_by' })
-    @ApiQuery({ name: 'sort_order' })
-    async findAllWithStatistics(@Query() query: ItemQuery){
-        const items = await this.itemService.findAllWithStatistics(query);
         return items;
     }
 

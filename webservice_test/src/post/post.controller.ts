@@ -13,24 +13,32 @@ export class PostController {
         private readonly postService: PostService
     ) { }
 
-    @Post('createOrUpdate')
+    @Post('create')
     async create(@Body() post: CreatePostDto) {
-        const created_post = await this.postService.createOrUpdate(post);
+        const created_post = await this.postService.create(post);
         return created_post;
+    }
+
+    @Get('findByDateAndPage')
+    @ApiQuery({ name: 'post_date', example: '2025-03-08T09:30Z' })
+    @ApiQuery({ name: 'page_id' })
+    async findOneByDateAndPage(
+        @Query('post_date') post_date: string,
+        @Query('page_id') page_id: number,
+    ) {
+        return this.postService.findOneByDateAndPage(post_date, page_id);
+    }
+
+    @Get(':id/withComments')
+    async findOneWithComments(
+        @Param('id') id: number,
+    ) {
+        return this.postService.findOneWithComments(id);
     }
 
     @Get(':id')
     async findOne(@Param('id') id: number) {
         return await this.postService.findOne(id);
-    }
-
-    @Get(':id/withComments')
-    //@ApiQuery({ name: 'page_id', required: false  })
-    async findOneWithComments(
-        @Param('id') id: number,
-        //@Query() query: PostCommentsQuery  //TODO: verificar se é necessário
-    ) {
-        return this.postService.findOneWithComments(id);
     }
 
     @Get()

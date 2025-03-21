@@ -1,11 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CommentAnalysis } from 'src/comment-analysis/comment-analysis.entity';
 import { Post } from 'src/post/post.entity';
 
 export class CreateCommentDto {
-    @ApiProperty()
-    id: number;
-
     @ApiProperty({
         example: 'Gosto muito desse produto!'
     })
@@ -15,6 +11,11 @@ export class CreateCommentDto {
         example: new Date()
     })
     date: Date;
+
+    @ApiProperty({
+        example: 'Autor do comentário'
+    })
+    autor: string;
 
     @ApiProperty({
         example: 20,

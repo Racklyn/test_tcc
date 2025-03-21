@@ -5,75 +5,80 @@ import { Post } from './post.entity';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
-import { PostCommentsQuery } from './query/post-comments.query';
 import { PageService } from 'src/page/page.service';
+import { Comment } from 'src/comment/comment.entity';
+import { CommentService } from 'src/comment/comment.service';
+import { CreateCommentDto } from 'src/comment/dto/create-comment.dto';
 
 @Injectable()
 export class PostService {
     constructor(
         @InjectRepository(Post)
         private readonly postRepository: Repository<Post>,
-        private readonly pageService: PageService //TODO: verificar isso
+        private readonly pageService: PageService,
+        private readonly commentService: CommentService,
     ) {}
 
-    async createOrUpdate(postDto: CreatePostDto): Promise<Post> {
+    async create(postDto: CreatePostDto): Promise<Post> {
         try {
-            // Verificação se publicação já existe ou é uma nova com base na 'post_date' e 'page'
-            const existingPost = await this.findOneByDateAndPage(postDto.post_date, postDto.page_id);
-
-            console.log('POST ENCONTRADO >>>')
-            console.log(existingPost);
-
-            if (existingPost) {
-                console.log('Publicação já existe! Atualizando...');
-                
-                //TODO: criar outro método para cá. Deve atualizar apenas os campos que possuem atualização relevante e adicionar apenas os novos comentários
-                return await this.update(existingPost.id, postDto) as Post;
-            } else {
-                console.log('Publicação nova! Criando...');
-
-                //TODO: verificar se essa é a melhor maneira de associar a uma page:
-                const page = await this.pageService.findOne(postDto.page_id);
-                if (!page) {
-                    console.log(`Page with id ${postDto.page_id} not found!`);
-                    throw new HttpException('Page not found!', HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-
-                const post = new Post();
-                post.content = postDto.content;
-                post.summary = postDto.summary;
-                post.post_date = postDto.post_date;
-                post.reactions = postDto.reactions;
-                post.url = postDto.url;
-                post.last_analysis = postDto.last_analysis;
-                post.page = page; //postDto.page_id; //TODO: verificar
-                post.item = postDto.item;
-                post.comments = postDto.comments ?? [];
-                
-                return await this.postRepository.save(post);
+            //TODO: verificar se essa é a melhor maneira de associar a uma page:
+            const page = await this.pageService.findOne(postDto.page_id);
+            if (!page) {
+                console.log(`Page with id ${postDto.page_id} not found!`);
+                throw new HttpException('Page not found!', HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
+            const post = new Post();
+            post.content = postDto.content;
+            post.summary = postDto.summary;
+            post.post_date = postDto.post_date;
+            post.reactions = postDto.reactions;
+            post.url = postDto.url;
+            post.newest_comment_date = this.getNewestCommentDate(postDto.comments);
+            post.last_analysis = postDto.last_analysis;
+            post.page = page;
+            post.item = postDto.item;
+             
+            let savedPost = await this.postRepository.save(post);
+
+            let savedComments = []
+            for (const comm of postDto.comments) {
+                comm.post = savedPost;
+                const {post, ...c} = await this.commentService.create(comm);
+                savedComments.push(c);
+            }
+            savedPost.comments = savedComments;
+
+            return savedPost;
         } catch(error) {
             console.log(error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private async findOneByDateAndPage(
-        post_date: Date,
+    private getNewestCommentDate(comments: Comment[]): Date {
+        if (!comments.length) return null;
+    
+        return comments.reduce((latest, com) => {
+            if (typeof com.date === 'string') {
+                com.date = new Date(com.date);
+            }
+            return com.date > latest ? com.date : latest
+        }, new Date(0)); //TODO: verificar: começar com a data anterior (antigo "newest_comment_date")?
+    }
+
+    async findOneByDateAndPage(
+        post_date: string,
         page_id: number,
     ): Promise<Post | null> {
-        //TODO: remover as seguintes linhas
-        console.log('Post date: ' + post_date);
-        console.log(typeof post_date)
-        console.log('Page id:'+ page_id);
-
         if (!(post_date && page_id)) return null;
 
         try {
+            const date = new Date(post_date);
+
             return await this.postRepository.findOne({
                 where: {
-                    post_date: post_date,
+                    post_date: date,
                     page: {
                         id: page_id,
                     }
@@ -145,7 +150,7 @@ export class PostService {
         }
     }
 
-    async update(id:number, postDto: UpdatePostDto): Promise<UpdatePostDto> {
+    async update(id:number, postDto: UpdatePostDto): Promise<Post> {
         try {
             const post = await this.findOne(id);
     
@@ -153,10 +158,24 @@ export class PostService {
             throw new NotFoundException('Post not found.');
             }
     
-            const { id: dtoId, ...dtoWithoutId } = postDto;
-            Object.assign(post, dtoWithoutId);
-    
+            // Verificação se existem novos comentários
+            if (postDto.comments && postDto.comments.length > 0) {
+                post.newest_comment_date = this.getNewestCommentDate(postDto.comments);
+            }
+
+            const { id: dtoId, comments: dtoComments, ...dtoWithoutIdAndComments } = postDto;
+            Object.assign(post, dtoWithoutIdAndComments);
+            
             const updatedPost = await this.postRepository.save(post);
+
+            let savedComments = []
+            for (const comm of dtoComments) {
+                comm.post = updatedPost;
+                const {post: _, ...c} = await this.commentService.create(comm);
+                savedComments.push(c);
+            }
+            updatedPost.comments = savedComments;
+
             return updatedPost;
         } catch(error) {
             console.log(error);

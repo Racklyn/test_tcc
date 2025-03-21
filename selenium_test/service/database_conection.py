@@ -2,9 +2,9 @@ from io import BytesIO
 from zoneinfo import ZoneInfo
 import requests
 
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
-from service import endpoints # TODO: Verificar se a importação está correta
+from service import endpoints
 
 #from logger import log
 
@@ -12,7 +12,7 @@ class DatabaseConnection():
     def __init__(self):
         self.datatime = datetime
         self.default_tz = ZoneInfo('America/Sao_Paulo')
-        self.base_url = endpoints.BASE_URL #TODO: verificar isso!
+        self.base_url = endpoints.BASE_URL
         self.requests = requests
 
     def generic_update(self, route: str, data: dict) -> requests.Response:

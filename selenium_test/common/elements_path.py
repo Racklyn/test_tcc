@@ -5,7 +5,8 @@ NOT_LOGGED_IN_FOTTER = '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x
 CURRENT_POST_CARD = '//div[@class="x1yztbdb x1n2onr6 xh8yej3 x1ja2u2z"]//div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x78zum5 x1n2onr6 xh8yej3"]'
 POST_CARD_TITLE = './/div[@data-ad-rendering-role="profile_name"]'
 POST_TEXT_ELEMENT = './/div[@data-ad-rendering-role="story_message"]'  #'.//div[@data-ad-preview="message"]'  #x78zum5 xdt5ytf xz62fqu x16ldp7u  # './/div[@class="x1l90r2v x1pi30zi x1swvt13 x1iorvi4"]'    #data-ad-preview="message" OU data-ad-comet-preview="message"
-POST_CARD_RIGHT_DETAILS_ELEMENT = './/div[@class="x9f619 x1ja2u2z x78zum5 x2lah0s x1n2onr6 x1qughib x1qjc9v5 xozqiw3 x1q0g3np xykv574 xbmpl8g x4cne27 xifccgj"]' # OLD: './/div[@class="x6s0dn4 xi81zsa x78zum5 x6prxxf x13a6bvl xvq8zen xdj266r xat24cr x1d52u69 xktsk01 x889kno x1a8lsjc xkhd6sd x4uap5 x80vd3b x1q0q8m5 xso031l"]'
+POST_CARD_RIGHT_DETAILS_ELEMENT = './/div[@class="x9f619 x1ja2u2z x78zum5 x2lah0s x1n2onr6 x1qughib x1qjc9v5 xozqiw3 x1q0g3np xykv574 xbmpl8g x4cne27 xifccgj x123j3cw xs9asl8"]'
+# OLD: .//div[@class="x9f619 x1ja2u2z x78zum5 x2lah0s x1n2onr6 x1qughib x1qjc9v5 xozqiw3 x1q0g3np xykv574 xbmpl8g x4cne27 xifccgj"]
 
 # No dialog:
 MAIN_DIALOG = '//div[@role="dialog"]'

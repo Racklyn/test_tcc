@@ -23,6 +23,10 @@ export class Post extends AbstractEntity {
     @Column({ name: 'url', nullable: true })
     url?: string; //TODO: verificar se é necessário esse campo
 
+    @Column({ name: 'newest_comment_date', nullable: true })
+    @JoinColumn({ name: 'newest_comment_date' })
+    newest_comment_date?: Date;
+
     @Column({ name: 'last_analysis', nullable: true })
     @JoinColumn({ name: 'last_analysis' })
     last_analysis?: Date;

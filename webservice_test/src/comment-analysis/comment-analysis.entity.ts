@@ -23,6 +23,6 @@ export class CommentAnalysis extends AbstractEntity {
         (comment) => comment.comment_analysis,
         { nullable: false }
     )
-    @JoinColumn({ name: 'comment_id' })
+    @JoinColumn({ name: 'comment_key' })
     comment: Comment;
 }

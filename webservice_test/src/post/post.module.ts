@@ -4,11 +4,13 @@ import { PostController } from './post.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Post } from './post.entity';
 import { PageModule } from 'src/page/page.module';
+import { CommentModule } from 'src/comment/comment.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Post]),
-    PageModule
+    PageModule,
+    CommentModule,
   ],
   providers: [PostService],
   controllers: [PostController]

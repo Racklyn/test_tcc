@@ -1,7 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('comment')
@@ -17,9 +16,9 @@ export class CommentController {
         return created_comment;
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.commentService.findOne(id);
+    @Get(':key')
+    findOne(@Param('key') key: string) {
+        return this.commentService.findOne(key);
     }
 
     @Get()
@@ -28,16 +27,16 @@ export class CommentController {
         return comments;
     }
 
-    @Patch(':id')
-    async update(
-        @Param('id') id: string,
-        @Body() updateCommentDto: UpdateCommentDto,
-    ) {
-        return await this.commentService.update(+id, updateCommentDto);
-    }
+    // @Patch(':key')
+    // async update(
+    //     @Param('key') key: string,
+    //     @Body() updateCommentDto: UpdateCommentDto,
+    // ) {
+    //     return await this.commentService.update(key, updateCommentDto);
+    // }
 
-    @Delete(':id')
-    async remove(@Param('id') id: string) {
-        return this.commentService.remove(+id);
+    @Delete(':key')
+    async remove(@Param('key') key: string) {
+        return this.commentService.remove(key);
     }
 }

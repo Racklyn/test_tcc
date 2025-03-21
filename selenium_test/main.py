@@ -29,7 +29,7 @@ def get_post_card_date(driver: webdriver.Remote, post_card: WebElement) -> datet
         post_date_elem = post_card.find_element(By.XPATH, elem_path.POST_DATE_ELEMENT)
         post_date_elem.send_keys(Keys.SHIFT);
 
-        sleep(1) #sleep(0.5) #TODO: verificar esse tempo
+        sleep(1)
 
         tooltip_date_txt = driver.find_element(By.XPATH, elem_path.TOOLTIP_DATE_TEXT).text
         print(tooltip_date_txt)

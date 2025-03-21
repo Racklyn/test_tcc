@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Comment } from 'src/comment/comment.entity';
 import { Item } from 'src/item/item.entity';
-import { Page } from 'src/page/page.entity';
 
 export class CreatePostDto {
     @ApiProperty()
