@@ -15,7 +15,7 @@ export class CommentService {
     async create(commentDto: CreateCommentDto): Promise<Comment> {
         try {
             const comment = new Comment();
-            const hashKey = generateHash(commentDto.text + commentDto.date.toString() + commentDto.autor + commentDto.post.id);
+            const hashKey = generateHash(commentDto.text + commentDto.date.toString() + commentDto.author + commentDto.post.id);
             
             comment.key = hashKey;
             comment.text = commentDto.text;

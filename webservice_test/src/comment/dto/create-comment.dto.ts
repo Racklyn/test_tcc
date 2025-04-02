@@ -15,7 +15,7 @@ export class CreateCommentDto {
     @ApiProperty({
         example: 'Autor do comentário'
     })
-    autor: string;
+    author: string;
 
     @ApiProperty({
         example: 20,

@@ -15,3 +15,8 @@ COMMENTS_ORDER_MENU = '//div[@aria-label="Ordem dos comentários"]'
 DIALOG_SCROLL_ELEMENT = './/div[@class="xb57i2i x1q594ok x5lxg6s x78zum5 xdt5ytf x6ikm8r x1ja2u2z x1pq812k x1rohswg xfk6m8 x1yqm8si xjx87ck xx8ngbg xwo3gff x1n2onr6 x1oyok0e x1odjw0f x1iyjqo2 xy5w88m"]'
 COMMENT_ELEMENTS = './/div[@class="x1r8uery x1iyjqo2 x6ikm8r x10wlt62 x1pi30zi"]'
 COMMENT_TEXT_ELEMENT = './/div[@class="x1lliihq xjkvuk6 x1iorvi4"]'
+COMMENT_AUTHOR_ELEMENT = './/span[@class="x3nfvp2"]' #TODO: verificar. Testar assim ver se pega corretamente o nome do autor
+# './/div[@class="x6s0dn4 xt0psk2 x1q0g3np"]//span[@class="xt0psk2"]'
+# OU
+#'.//div[@class="x6s0dn4 xt0psk2 x1q0g3np"]//span[@class="x3nfvp2"]'
+#x3nfvp2

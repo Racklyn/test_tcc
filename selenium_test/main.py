@@ -16,9 +16,11 @@ from utils.posts_data_to_string import posts_data_to_string
 from utils.get_text import get_text_with_emojis
 from service.database_conection import DatabaseConnection
 from service import endpoints
-from entities.post_comment import Comment, Post, CreatePostDto
+from entities.post_comment import Comment, Post, InsertPostDto
 from entities.page import Page
 from common import elements_path as elem_path
+import configs
+from typing import Literal
 
 
 db = DatabaseConnection()
@@ -162,9 +164,9 @@ def get_posts_data(
         post_cards: list[WebElement],
         page_id: int,
         posts_since_date: datetime
-    ) -> list[CreatePostDto]:
+    ) -> list[tuple[Literal['CREATE', 'UPDATE'], InsertPostDto]]:
 
-    posts: list[CreatePostDto] = []
+    postsDto: list[tuple[Literal['CREATE', 'UPDATE'], InsertPostDto]] = []
     for i, post_card in enumerate(post_cards):
         try:
             post_date = get_post_card_date(driver, post_card)
@@ -178,40 +180,62 @@ def get_posts_data(
             post_title = post_card.find_element(By.XPATH, elem_path.POST_CARD_TITLE).text
             if post_title.endswith('está ao vivo agora.'):
                 continue
+
+
+            # TODO: fazer requyisição para verificar se post já existe
+            #...
+            existing_post: Post | None = None #TODO: implementar
+
             
             # Expandir e pegar texto da publicação, se ele existir:
-            post_text = ''
-            try:
-                post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
-            except Exception as e:
-                print('* Publicação não possui texto *')
-            else:
-                ### verificar se possui "Ver mais" no final do texto para expandi-lo
-                if post_text_elem.text.endswith("Ver mais"):
-                    # clicando no botão "ver mais" para expandir o texto
-                    try:
-                        see_more_btn = post_text_elem.find_element(By.XPATH, './/div[@role="button"]')
-                        driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", see_more_btn)
-                        sleep(0.5)
-                        see_more_btn.click()
+            if existing_post == None: # se a publicação é nova
+                post_text = ''
+                try:
+                    post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
+                except Exception as e:
+                    print('* Publicação não possui texto *')
+                else:
+                    ### verificar se possui "Ver mais" no final do texto para expandi-lo
+                    if post_text_elem.text.endswith("Ver mais"):
+                        # clicando no botão "ver mais" para expandir o texto
+                        try:
+                            see_more_btn = post_text_elem.find_element(By.XPATH, './/div[@role="button"]')
+                            driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", see_more_btn)
+                            sleep(0.5)
+                            see_more_btn.click()
 
-                        sleep(0.5)
-                        post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
-                    except:
-                        print("Falha ao expandir o texto da publicação. Pegando o texto que está visível.")
+                            sleep(0.5)
+                            post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
+                        except:
+                            print("Falha ao expandir o texto da publicação. Pegando o texto que está visível.")
 
-                post_text = get_text_with_emojis(post_text_elem)
-                print(post_text)
+                    post_text = get_text_with_emojis(post_text_elem)
+                    print(post_text)
 
 
-            post_comments = get_post_comments(driver, post_card)
+                post_comments = get_post_comments(driver, post_card)
 
-            posts.append({
-                'content': post_text,
-                'post_date': str(post_date),
-                'comments': post_comments,
-                'page_id': page_id
-            })
+                postsDto.append(('CREATE', {
+                    'content': post_text,
+                    'post_date': str(post_date),
+                    'comments': post_comments,
+                    'page_id': page_id,
+                }))
+        
+
+            else: # se a publicação já existe
+                new_post_comments = get_post_comments(
+                    driver,
+                    post_card,
+                    existing_post=existing_post
+                )
+
+                postsDto.append(('UPDATE', {
+                    'id': existing_post.id,
+                    'comments': new_post_comments,
+                    'page_id': page_id,
+                }))
+
 
         except Exception as e:
             print(e)
@@ -220,10 +244,14 @@ def get_posts_data(
         print('-'*50)
         sleep(2)
 
-    return posts
+    return postsDto
 
 
-def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[Comment]:
+def get_post_comments(
+        driver: webdriver.Remote,
+        post_card: WebElement,
+        existing_post: Post | None = None,
+    ) -> list[Comment]:
     post_right_details_elem = post_card.find_element(By.XPATH, elem_path.POST_CARD_RIGHT_DETAILS_ELEMENT)
     MAX_SCROLL_RETRIES = 1
 
@@ -260,13 +288,13 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
         return []
 
 
-    # Alterando para opção "Todos os comentários"
+    # Alterando para opção "Mais recentes"
     comments_order_elem = dialog_elem.find_element(By.XPATH, elem_path.COMMENTS_ORDER_ELEMENT)
     driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comments_order_elem)
     sleep(0.5)
     comments_order_elem.click()
     sleep(0.5)
-    driver.find_element(By.XPATH, elem_path.COMMENTS_ORDER_MENU).find_element(By.XPATH, './/div[@role="menuitem"][3]').click()
+    driver.find_element(By.XPATH, elem_path.COMMENTS_ORDER_MENU).find_element(By.XPATH, f'.//div[@role="menuitem"][{configs.ORDER_COMMENTS_OPTION_ID}]').click()
 
     sleep(3)
 
@@ -304,15 +332,20 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
     print(f'Elementos de comentário encontrados: {len(comment_elems)}')
     comments: list[Comment] = []
 
+    # Iterando por todos os elementos de comentário e extraindo cada um
     for i, comment_elem in enumerate(comment_elems):
         print(f'Extraindo comentário {i+1}/{len(comment_elems)}')
 
         driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comment_elem)
         try:
-            comm_text = get_text_with_emojis(comment_elem.find_element(By.XPATH, elem_path.COMMENT_TEXT_ELEMENT))
             comm_date = get_comment_date(driver, comment_elem)
+            if existing_post and comm_date < existing_post['newest_comment_date']:
+                continue
+            comm_text = get_text_with_emojis(comment_elem.find_element(By.XPATH, elem_path.COMMENT_TEXT_ELEMENT))
+            comm_author = comment_elem.find_element(By.XPATH, elem_path.COMMENT_AUTHOR_ELEMENT).text
         except NoSuchElementException as e:
             print('Comentário não possui texto. Ignorando...')
+            #print(e)
             continue
         except Exception as e:
             print(e)
@@ -321,6 +354,7 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
         if comm_date:
             comments.append({
                 'text': comm_text,
+                'author': comm_author,
                 'date': str(comm_date)
             })
         else:
@@ -334,9 +368,16 @@ def get_post_comments(driver: webdriver.Remote, post_card: WebElement) -> list[C
 
 
 
-def save_posts(posts: list[Post]):
-    for p in posts:
-        res = db.generic_insertion('post/createOrUpdate', p)
+def save_or_update_posts(
+    postsDto: list[tuple[Literal['CREATE', 'UPDATE'], InsertPostDto]]
+):
+    for p in postsDto:
+        [action, dto] = p
+
+        if action == 'UPDATE':
+            res = db.generic_update('post', dto)
+        else:
+            res = db.generic_insertion('post/create', dto)
         print(res)
 
 
@@ -364,23 +405,23 @@ def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: da
     print('-'*10)
 
     try:
-        posts = get_posts_data(driver, post_cards, page['id'], posts_since_date)
+        postsDto = get_posts_data(driver, post_cards, page['id'], posts_since_date)
         #print(posts)
     except Exception as e:
         print(e)
         print('Falha ao coletar informações das publicações nesta página.')
     else:
-        posts_data_to_string(posts, 'posts.txt')
-        print(f'\nExtração de {len(posts)} publicações concluída com sucesso na página {page["title"]}!')
+        posts_data_to_string(postsDto, 'posts.txt')
+        print(f'\nExtração de {len(postsDto)} publicações concluída com sucesso na página {page["title"]}!')
 
-        save_posts(posts)
-        #print('\nAQUI OS ITENS SERIAM SALVOS NO BANCO') #TODO: remover
+        save_or_update_posts(postsDto) #TODO: Descomentar isso
+        print('\nAQUI OS ITENS SERIAM SALVOS NO BANCO') #TODO: remover
 
 
 def run_all_pages(pages: list[Page]):
 # Variáveis de configuração:
     posts_since_date = datetime(day=1, month=11, year=2010)
-    n_posts = 2
+    n_posts = configs.N_POSTS
 
     # TODO: verificar. Se a conta de acesso estiver em inglês, não precisará do seguinte
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
@@ -419,4 +460,4 @@ def get_all_pages_and_run(brand_id: int):
 
 if __name__ == '__main__':
     #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
-    get_all_pages_and_run(1)
+    get_all_pages_and_run(3)

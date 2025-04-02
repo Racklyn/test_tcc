@@ -35,16 +35,16 @@ export class Comment {
     @JoinColumn({ name: 'updated_date' })
     updated_date: Date;
 
-    public autor: string; //TODO: verificar se é necessário (propriedade temporária, não será persistida)
+    public author: string; //TODO: verificar se é necessário (propriedade temporária, não será persistida)
 
     // @BeforeInsert()
     // generateKey() {
-    //     if (!(this.text && this.date && this.autor && this.post)) {
-    //         throw new Error('Não é possível gerar a chave sem os dados necessários (text, date, autor e post.id).');
+    //     if (!(this.text && this.date && this.author && this.post)) {
+    //         throw new Error('Não é possível gerar a chave sem os dados necessários (text, date, author e post.id).');
     //     }
 
-    //     console.log(`Autor: ${this.autor}`)
-    //     this.key = generateHash(this.text + this.date.toString() + this.autor + this.post.id);
+    //     console.log(`Author: ${this.author}`)
+    //     this.key = generateHash(this.text + this.date.toString() + this.author + this.post.id);
     //     console.log(`KEY GERADA: ${this.key}`);
     // }
 }

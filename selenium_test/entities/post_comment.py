@@ -5,6 +5,7 @@ from datetime import datetime
 class Comment(TypedDict):
     id: int
     text: str
+    author: str
     date: datetime # TODO: verificar tipo (str ou datetime?)
 
     # TODO: verificar; talvez não precise do construtor
@@ -20,7 +21,9 @@ class Post(TypedDict):
     post_date: datetime # TODO: verificar tipo (str ou datetime?)
     updated_at: str| None
     comments: list[Comment]
-    #page: Page # TODO: verificar se é necessário
+    newest_comment_date: datetime | None
+    #page: Page # TODO: verific
+    # ar se é necessário
 
     # TODO: verificar; talvez não precise do construtor
     def __init__(self, id: int, content: str | None = None, comments: Comment=[]):
@@ -28,7 +31,7 @@ class Post(TypedDict):
         self.content = content
         self.comments = comments
 
-class CreatePostDto(TypedDict):
+class InsertPostDto(TypedDict):
     id: int
     content: str | None
     post_date: datetime # TODO: verificar tipo (str ou datetime?)
