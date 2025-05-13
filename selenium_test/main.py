@@ -181,14 +181,23 @@ def get_posts_data(
             if post_title.endswith('está ao vivo agora.'):
                 continue
 
+            print('Antes de fazer a requisição...')
+            breakpoint()
 
-            # TODO: fazer requyisição para verificar se post já existe
-            #...
-            existing_post: Post | None = None #TODO: implementar
+            # Verificar se publicação já existe no banco
+            # TODO: adicionar tipagem: : Post | None
+            existing_post = db.generic_getter('post/findByDateAndPage', {
+                'post_date': str(post_date),
+                'page_id': page_id
+            })
+
+            breakpoint() # TODO: REMOVEr
 
             
-            # Expandir e pegar texto da publicação, se ele existir:
-            if existing_post == None: # se a publicação é nova
+            if not existing_post: # se a publicação é nova
+                print('Nova publicação identificada (ainda não cadastrada no banco).')
+
+                # Expandir e pegar texto da publicação, se ele existir:
                 post_text = ''
                 try:
                     post_text_elem = post_card.find_element(By.XPATH, elem_path.POST_TEXT_ELEMENT)
@@ -224,6 +233,7 @@ def get_posts_data(
         
 
             else: # se a publicação já existe
+                print('Publicação já existe no banco! Extrairá os novos comentários.')
                 new_post_comments = get_post_comments(
                     driver,
                     post_card,
@@ -231,7 +241,7 @@ def get_posts_data(
                 )
 
                 postsDto.append(('UPDATE', {
-                    'id': existing_post.id,
+                    'id': existing_post['id'],
                     'comments': new_post_comments,
                     'page_id': page_id,
                 }))
@@ -243,6 +253,8 @@ def get_posts_data(
 
         print('-'*50)
         sleep(2)
+
+        break #TODO: REMOVER ISSO (pegando apenas o 1° post)
 
     return postsDto
 
@@ -414,8 +426,7 @@ def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: da
         posts_data_to_string(postsDto, 'posts.txt')
         print(f'\nExtração de {len(postsDto)} publicações concluída com sucesso na página {page["title"]}!')
 
-        save_or_update_posts(postsDto) #TODO: Descomentar isso
-        print('\nAQUI OS ITENS SERIAM SALVOS NO BANCO') #TODO: remover
+        save_or_update_posts(postsDto)
 
 
 def run_all_pages(pages: list[Page]):
@@ -450,7 +461,7 @@ def run_all_pages(pages: list[Page]):
 
 
 def get_all_pages_and_run(brand_id: int):
-    pages = db.generic_getter('page', {"brand_id": brand_id})
+    pages = db.generic_getter('page', {'brand_id': brand_id})
     print(f'{len(pages)} página(s) para extração.')
     run_all_pages(pages)
 
@@ -460,4 +471,4 @@ def get_all_pages_and_run(brand_id: int):
 
 if __name__ == '__main__':
     #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
-    get_all_pages_and_run(3)
+    get_all_pages_and_run(7)
