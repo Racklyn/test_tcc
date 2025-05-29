@@ -36,5 +36,10 @@ class DatabaseConnection():
         if response.status_code == 404:
             response = dict()
         else:
-            response = response.json()
+            # TODO: ajustar isso
+            try:
+                response = response.json()
+            except Exception as e:
+                print(f'Erro ao converter resposta para JSON: {e}')
+                response = dict()
         return response

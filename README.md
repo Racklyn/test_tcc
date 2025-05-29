@@ -17,9 +17,13 @@ cd webservice_test/
 ```
 Inicie uma instância do Postgres e crie o banco de dados do sistema executando o seguinte:
 ```shell
-docker-compose up -d
+docker compose up -d
 ```
-Inicie o backend com o comando abaixo:
+Instale as dependências do backend:
+```shell
+npm i
+```
+Por fim, inicie o backend com o comando abaixo:
 ```shell
 npm run start:dev
 ```

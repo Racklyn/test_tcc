@@ -182,7 +182,7 @@ def get_posts_data(
                 continue
 
             print('Antes de fazer a requisição...')
-            breakpoint()
+            #breakpoint()
 
             # Verificar se publicação já existe no banco
             # TODO: adicionar tipagem: : Post | None
@@ -471,4 +471,4 @@ def get_all_pages_and_run(brand_id: int):
 
 if __name__ == '__main__':
     #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
-    get_all_pages_and_run(7)
+    get_all_pages_and_run(2)

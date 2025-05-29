@@ -1,311 +1,62 @@
 [
-  {
-    "content": "Experience lossless audio, powered by Qualcomm®.First introduced with #Xiaomi15Ultra, now available with #XiaomiBuds5Pro (Wi-Fi).Learn more: http://s.mi.com/k_xpaSUF",
-    "post_date": "2025-03-23 09:00:00",
-    "comments": [
-      {
-        "text": "💕❤️💕💕💕",
-        "author": "Shibin Mathew",
-        "date": "2025-03-23 12:47:00"
-      },
-      {
-        "text": "Pero por qué con gomitaaaaas es lo peor que existe se caen se resbalan !",
-        "author": "Miguel Yabar",
-        "date": "2025-03-23 10:53:00"
-      },
-      {
-        "text": "Hugo Castillo",
-        "author": "Brandon Lara",
-        "date": "2025-03-23 12:33:00"
-      },
-      {
-        "text": "Marca nojenta",
-        "author": "Marcos Leonardo",
-        "date": "2025-03-23 09:44:00"
-      },
-      {
-        "text": "How much is this?",
-        "author": "Elemele Augustine",
-        "date": "2025-03-23 11:40:00"
-      },
-      {
-        "text": "still delay😂",
-        "author": "Dewwa",
-        "date": "2025-03-23 11:31:00"
-      },
-      {
-        "text": "Super tecnología❤️",
-        "author": "Gabriel Hoyos Duarte",
-        "date": "2025-03-23 11:30:00"
-      },
-      {
-        "text": "XIAOMI yu are great about the quality and feachers but no one understand",
-        "author": "Pradheesh Mk",
-        "date": "2025-03-23 11:26:00"
-      },
-      {
-        "text": "Crystal-clear, high-fidelity sound—now that’s a game-changer! Qualcomm®-powered lossless audio ensures every note and beat is heard just as it was meant to be. Music lovers will love this!",
-        "author": "Next Phone",
-        "date": "2025-03-23 11:20:00"
-      },
-      {
-        "text": "GadgetIn",
-        "author": "Wis Artamevia",
-        "date": "2025-03-23 11:19:00"
-      },
-      {
-        "text": "Para todos los gastos",
-        "author": "Gabriel Hoyos",
-        "date": "2025-03-23 11:17:00"
-      },
-      {
-        "text": "🤗🤗😻",
-        "author": "Gabriel Hoyos",
-        "date": "2025-03-23 11:17:00"
-      },
-      {
-        "text": "Bello, ma a che serve? Gli umani non sono in grado di percepire la differenza con l'audio a 24 bit —i decibel dovrebbero essere abbastanza alti da sfondarti i timpani permanentemente",
-        "author": "Matteo LS",
-        "date": "2025-03-23 11:15:00"
-      },
-      {
-        "text": "Wifi have delay?",
-        "author": "ᏨᎶ ᏔᏫᎡ",
-        "date": "2025-03-23 10:52:00"
-      },
-      {
-        "text": "Nay Htoo Aung Raj Verma",
-        "author": "David",
-        "date": "2025-03-23 10:44:00"
-      },
-      {
-        "text": "Not even my phone has a snapdragon chip😭🔥",
-        "author": "Clement Mashau",
-        "date": "2025-03-23 10:42:00"
-      },
-      {
-        "text": "Shana-chan",
-        "author": "Heryadi",
-        "date": "2025-03-23 10:41:00"
-      },
-      {
-        "text": "Precio",
-        "author": "Juan Ccori",
-        "date": "2025-03-23 10:37:00"
-      },
-      {
-        "text": "Yeah, lossless audio, but how good are the speakers?",
-        "author": "Geffá Oliveira",
-        "date": "2025-03-23 09:35:00"
-      },
-      {
-        "text": "Cooking👍🏿",
-        "author": "ဗီူ ဗီူ",
-        "date": "2025-03-23 10:27:00"
-      },
-      {
-        "text": "what the!!🤯😱💀",
-        "author": "Sajib Sarker",
-        "date": "2025-03-23 10:18:00"
-      },
-      {
-        "text": "Can it run Doom",
-        "author": "ខៀវ វិសាល",
-        "date": "2025-03-23 10:16:00"
-      },
-      {
-        "text": "Can I run PUBG on it?",
-        "author": "Mahmoud Mohamed",
-        "date": "2025-03-23 09:05:00"
-      },
-      {
-        "text": "Khelega free fire?",
-        "author": "Wang Wei",
-        "date": "2025-03-23 10:02:00"
-      },
-      {
-        "text": "https://s.lazada.com.my/s.pcHy8",
-        "author": "Thomas Pan",
-        "date": "2025-03-23 10:00:00"
-      },
-      {
-        "text": "What????????",
-        "author": "Jisan Tanvir",
-        "date": "2025-03-23 09:58:00"
-      },
-      {
-        "text": "Snapdragon Chipset🔥",
-        "author": "Shakib Al Hasan",
-        "date": "2025-03-23 09:56:00"
-      },
-      {
-        "text": "سعر",
-        "author": "Modar G ALabaas",
-        "date": "2025-03-23 09:54:00"
-      },
-      {
-        "text": "Tuning is terrible",
-        "author": "Peter Lin",
-        "date": "2025-03-23 09:50:00"
-      },
-      {
-        "text": "You need to have the latest flagship Xiaomi to use this tws in the full potential. And it works only with that no other Android phone can be used.",
-        "author": "Krisztián Papp",
-        "date": "2025-03-23 09:44:00"
-      },
-      {
-        "text": "How much is it please?",
-        "author": "عبدالله حمود",
-        "date": "2025-03-23 09:43:00"
-      },
-      {
-        "text": "Is this available in philippines?",
-        "author": "Melvin Derla",
-        "date": "2025-03-23 09:42:00"
-      },
-      {
-        "text": "So Earphones is advancing to Wi-Fi, hmmm\nwhich is safer ?🤔",
-        "author": "Ọlátunde Shakirudeen Bello",
-        "date": "2025-03-23 09:21:00"
-      },
-      {
-        "text": "Where is the battery?",
-        "author": "Soyed Fazlay Rabbe",
-        "date": "2025-03-23 09:38:00"
-      },
-      {
-        "text": "Still waiting for reviews, are they still in embargo or what? There are very few of them and neither from big reviewers.",
-        "author": "Mario Ray Mahardhika",
-        "date": "2025-03-23 09:38:00"
-      },
-      {
-        "text": "I discovered Xiaomi some 6-7 years ago and since then that's the brand I chose!",
-        "author": "Alexander Alipiev",
-        "date": "2025-03-23 09:29:00"
-      },
-      {
-        "text": "ভাইরে ভাই স্নেপড্রাগন😑",
-        "author": "MD Arafath Hossain",
-        "date": "2025-03-23 09:31:00"
-      },
-      {
-        "text": "in case burst it🥸",
-        "author": "Nahid Hasan Sabbir",
-        "date": "2025-03-23 09:20:00"
-      },
-      {
-        "text": "Nice",
-        "author": "Elizabeth Akanne",
-        "date": "2025-03-23 09:28:00"
-      },
-      {
-        "text": "Oyon Ahmed Siam",
-        "author": "Md Rabby",
-        "date": "2025-03-23 09:26:00"
-      },
-      {
-        "text": "Cool",
-        "author": "Farelin Fokoue",
-        "date": "2025-03-23 09:22:00"
-      },
-      {
-        "text": "السعر",
-        "author": "Ramzi Ali",
-        "date": "2025-03-23 09:21:00"
-      },
-      {
-        "text": "I may have left Xiaomi brand but deep down I know they are giants when it comes to tech",
-        "author": "Maseogane Tshegofatso",
-        "date": "2025-03-23 09:19:00"
-      },
-      {
-        "text": "🔥",
-        "author": "Kenneth James Arellano",
-        "date": "2025-03-23 09:15:00"
-      },
-      {
-        "text": "Xiaomi comment l'avoir au Canada ?",
-        "author": "Roméo L'amourologue",
-        "date": "2025-03-23 09:11:00"
-      },
-      {
-        "text": "I use Buds 5CSound quality Best🤌",
-        "author": "Ít's Mè Sákíl",
-        "date": "2025-03-23 09:11:00"
-      },
-      {
-        "text": "#Xiaomi Memang Tidak d Ragukan Lagi Produknya😍Info Harga Termurah✅Produk Original✅Banyak Promo & Diskonnya✅ini Toko Resmi Official Store-Nya di Shopee...!!✅👇Xiaomi.official.id: https://s.shopee.co.id/3q8vFR0j0y",
-        "author": "Ibrahim",
-        "date": "2025-03-23 09:08:00"
-      },
-      {
-        "text": "Very nice😊🥰",
-        "author": "Azgar Ali",
-        "date": "2025-03-23 09:06:00"
-      },
-      {
-        "text": "Checkout on this shop on Shopee! Xiaomi Store Philippines: https://s.shopee.ph/9zjqAVpeuu",
-        "author": "Ella Enostacion",
-        "date": "2025-03-23 09:03:00"
-      },
-      {
-        "text": "So lovely🌹",
-        "author": "Og Divine",
-        "date": "2025-03-23 09:01:00"
-      },
-      {
-        "text": "Checkout on this shop on Shopee! Xiaomi Store Philippines: https://s.shopee.ph/3fpmcgNDsj📣✅",
-        "author": "Shena Mae Layaan",
-        "date": "2025-03-23 09:01:00"
-      },
-      {
-        "text": "Checkout on this shop on Shopee! Xiaomi Store Philippines: https://s.shopee.ph/8KbcBFVZWS",
-        "author": "Kat Yha",
-        "date": "2025-03-23 09:00:00"
-      }
-    ],
-    "page_id": 3
-  },
-  {
-    "content": "Step behind the scenes. See how #Xiaomi15Ultra performs in a professional filmmaking setup, capturing every moment with cinematic precision. 🎬#TheSymphony #PinnaclePhotography #XiaomiStudios Learn more: http://s.mi.com/-BIIXXTE",
-    "post_date": "2025-03-23 07:00:00",
-    "comments": [
-      {
-        "text": "Nice work keep it up💯",
-        "author": "Abdul Hadi",
-        "date": "2025-03-23 11:39:00"
-      },
-      {
-        "text": "Good work keep it up💯",
-        "author": "Abdul Hadi",
-        "date": "2025-03-23 11:38:00"
-      },
-      {
-        "text": "https://www.facebook.com/groups/xiaomibalkan",
-        "author": "Ratko Drinić",
-        "date": "2025-03-23 08:08:00"
-      },
-      {
-        "text": "So why you not challenging the worldwide phones photography and video shooting?If you’re Xiaomi 15 Ultra has a decent camera centric phone So challenge other companies😂",
-        "author": "Raminder Singh Verka",
-        "date": "2025-03-23 07:19:00"
-      },
-      {
-        "text": "Checkout on this shop on Shopee! Xiaomi Store Philippines: https://s.shopee.ph/3fpmVhdT1z",
-        "author": "Joel C. Gemida",
-        "date": "2025-03-23 07:19:00"
-      },
-      {
-        "text": "Copied post from Reddit, updated 15 Ultra camera bugs and issues:# Bugs# Exposure Presets Do Not Work with RAW* **Issue:** The saved exposure presets **always switch** the image format **to JPG**, even if RAW was previously selected.* **Expected Behavior:** Presets should either store the selected image format or ignore it (keeping RAW if it was active before).# Switching Cameras in 50MP RAW Mode Forces JPG* **Issue:** If you switch to a camera that does not support 50MP RAW, the system automatically switches to JPG. Even when switching back to the main camera, the setting remains JPG.* **Suggestion:** Add an option to prioritize either 50MP or RAW when changing cameras.# ISO Inconsistencies in Pro Mode (JPG vs. DNG)* **Issue:** When shooting in ProMode, if I set the ISO to a specific value (e.g., ISO 12.500), the JPG file reflects that ISO correctly. However, the corresponding DNG file is recorded at a significantly different ISO (e.g., ISO 6410). The JPG appears soft and muddy, whereas the DNG looks clear and preserves details.* **Expected Behavior:** Both JPG and DNG files should maintain the same ISO value to ensure consistent exposure and image quality. Since the JPG is essentially an extracted copy of the DNG, both files should exhibit the same level of detail.# ISO Inconsistencies in URAW Mode (JPG vs. DNG)* **Issue:** In URAW mode, a similar inconsistency is observed. For instance, with a value of ISO 8000 in the JPG, the corresponding DNG (URAW) is recorded at ISO 8317.* **Impact:** This mismatch results in the JPG displaying more highlight details, while the DNG (URAW) file fails to capture those details accurately—leading to highlights that are preserved in the JPG but burned out in the DNG.* **Expected Behavior:** The ISO values should match between the JPG and URAW DNG files so that the image quality and dynamic range remain consistent. It should not happen that the JPG preserves highlights better while they are lost in the DNG.It seems it's just not storing the higher ISO values correctly in the DNG.# Missing GPS Coordinates in DNG Files* **Issue:** When shooting in Pro Mode, GPS coordinates are stored in the JPG file but missing in the corresponding DNG file.* **Expected Behavior:** GPS data should be included in both file formats, as it is essential for geotagging and later image management.# Portrait Mode does not apply artificial bokeh when using the main camera* **Issue:** When using Portrait Mode with the main camera, no artificial bokeh is applied. It's not adjustable.* **Expected Behavior:** Portrait Mode should apply artificial background blur regardless of which camera is being used, just like it does with other sensors.# Photo Mode does not retain the last used camera/zoom level* **Issue:** When selecting a specific camera in Photo Mode and switching to another mode (e.g., Pro Mode, where the selected camera is retained), the camera choice is lost when returning to Photo Mode. Instead of keeping the previously used camera or zoom level, it always defaults to the main camera.* **Expected Behavior:** Photo Mode should remember the last used camera and zoom level so that users don’t have to manually reselect them after switching modes.Inconsistent Focal Length descriptionIssue: In Photo Mode, the HP9 sensor is used at a 4.1x magnification, corresponding to a focal length of about 96mm. In Pro Mode, however, it is labeled as 4.3x, which corresponds to approximately 100mm. Both modes produce images with the same field of view, meaning one of the labels is incorrect.Expected Behavior: The labels should be consistent and accurately reflect the true focal length.# Feature Requests# Enable 50MP RAW for the 100mm Telephoto Camera (or all cameras)* **Issue:** The 100mm telephoto camera does not support 50MP RAW, even though the HP9 sensor is capable of it.* **Suggestion:** Unlock the 50MP RAW option for all sensors, which would also prevent RAW settings from being lost when switching cameras.# Store Exposure Settings Per Camera Module* **Issue:** Currently, exposure settings apply globally to all cameras, even though different lenses require different optimal settings.* **Suggestion:** Allow individual exposure settings for each camera module. For example, wide-angle lenses often require different shutter speeds and exposure compensation than telephoto lenses.# Shutter Speed Limit Like in Professional Cameras* **Issue:** Currently, only fixed shutter speeds can be set, which can lead to overexposure in changing lighting conditions if the set speed is too long.* **Suggestion:** Add an optional **maximum shutter speed limit**, similar to professional cameras:* The camera can use **shorter** shutter speeds but not longer than the defined limit.* This prevents motion blur while still allowing automatic exposure adjustments in good lighting conditions.* **Example:** If the limit is set to **1/500s**, the camera can choose **1/500s or faster** but will never use a longer shutter speed, ensuring sharp images in action, sports, or moving subjects (kids, pets, etc.).# DNG+JPG Toggle for Photography KitProblem: When switching between camera modes, the RAW setting is often lost.**Suggestion:** Many useful functions can already be assigned to the video button, but there is currently no option to toggle between JPG, RAW, and URAW formats. Adding this feature would improve workflow efficiency.# Implementing these adjustments would significantly enhance the professional photography experience and further position Xiaomi as a true pro tool.",
-        "author": "Krzysztof Kitowski",
-        "date": "2025-03-23 07:02:00"
-      },
-      {
-        "text": "Checkout on this shop on Shopee! Xiaomi Store Philippines: https://s.shopee.ph/7APeeq9zdc📣✅",
-        "author": "Shena Mae Layaan",
-        "date": "2025-03-23 07:00:00"
-      }
-    ],
-    "page_id": 3
-  }
+  [
+    "CREATE",
+    {
+      "content": "Day 1 - 🔋Day 2 - 🔋Day 3 - 🔋Day 4 - 🔋Day 5 - 🔋…Day 16 -🔋Yep, that’s how long the battery on #motowatchfit lasts on a single charge.",
+      "post_date": "2025-05-24 09:35:00",
+      "comments": [
+        {
+          "text": "Priz",
+          "author": "MD Nehal Ahmed",
+          "date": "2025-05-24 13:33:00"
+        },
+        {
+          "text": "Nice",
+          "author": "Elizabeth Akanne",
+          "date": "2025-05-24 12:47:00"
+        },
+        {
+          "text": "Very cool, I wish the product would be distributed and marketed in Thailand.",
+          "author": "Punchy Smitra Chuaichart",
+          "date": "2025-05-24 12:12:00"
+        },
+        {
+          "text": "Great\nHello Moto!👍",
+          "author": "Osei Dickson",
+          "date": "2025-05-24 11:43:00"
+        },
+        {
+          "text": "Motorola You better tell me where I can switch that battery from my Moto Watch 100 in Kiev, Ukraine?None of the official service centers gives me positive feedback about the procedure of battery replacement, nobody does it in Kiev!How can I switch dead battery to my watch? it barely passed one year of usage...",
+          "author": "Roman Polev",
+          "date": "2025-05-24 09:59:00"
+        },
+        {
+          "text": "Where the link for middle east purchase",
+          "author": "Nour Lang",
+          "date": "2025-05-24 11:02:00"
+        },
+        {
+          "text": "Excellent",
+          "author": "Rana Gee",
+          "date": "2025-05-24 10:59:00"
+        },
+        {
+          "text": "Funciona con iPhone ?",
+          "author": "Nikita Golevs",
+          "date": "2025-05-24 09:58:00"
+        },
+        {
+          "text": "Design and full spec with price?🥹",
+          "author": "Tasirul Islam",
+          "date": "2025-05-24 09:54:00"
+        },
+        {
+          "text": "Wow😮",
+          "author": "Altayeb Rex",
+          "date": "2025-05-24 09:39:00"
+        }
+      ],
+      "page_id": 3
+    }
+  ]
 ]
