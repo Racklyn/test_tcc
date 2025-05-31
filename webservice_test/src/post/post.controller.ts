@@ -26,6 +26,9 @@ export class PostController {
         @Query('post_date') post_date: string,
         @Query('page_id') page_id: number,
     ) {
+        console.log('post_date: '+post_date);
+        console.log('page_id: '+ page_id);
+
         return this.postService.findOneByDateAndPage(post_date, page_id);
     }
 
