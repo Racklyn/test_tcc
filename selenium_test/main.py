@@ -21,6 +21,7 @@ from entities.page import Page
 from common import elements_path as elem_path
 import configs
 from typing import Literal
+from utils.date_format import date_default_str
 
 
 db = DatabaseConnection()
@@ -155,6 +156,8 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
 
         posts_to_be_scrapped.append(post_card)
         sleep(1)
+
+        break # TODO: remover isso. Pegando apenas o primeiro
         
     return posts_to_be_scrapped
 
@@ -187,7 +190,7 @@ def get_posts_data(
             # Verificar se publicação já existe no banco
             # TODO: adicionar tipagem: : Post | None
             existing_post = db.generic_getter('post/findByDateAndPage', {
-                'post_date': str(post_date),
+                'post_date': date_default_str(post_date), #TODO: verificar
                 'page_id': page_id
             })
 
@@ -367,7 +370,7 @@ def get_post_comments(
             comments.append({
                 'text': comm_text,
                 'author': comm_author,
-                'date': str(comm_date)
+                'date': date_default_str(comm_date) #TODO: verificar : #str(comm_date) date_default_str
             })
         else:
             print('Não foi possível pegar a data do comentário. Pulando para o próximo...')

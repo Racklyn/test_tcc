@@ -1,62 +1,10 @@
 [
   [
-    "CREATE",
+    "UPDATE",
     {
-      "content": "Day 1 - 🔋Day 2 - 🔋Day 3 - 🔋Day 4 - 🔋Day 5 - 🔋…Day 16 -🔋Yep, that’s how long the battery on #motowatchfit lasts on a single charge.",
-      "post_date": "2025-05-24 09:35:00",
-      "comments": [
-        {
-          "text": "Priz",
-          "author": "MD Nehal Ahmed",
-          "date": "2025-05-24 13:33:00"
-        },
-        {
-          "text": "Nice",
-          "author": "Elizabeth Akanne",
-          "date": "2025-05-24 12:47:00"
-        },
-        {
-          "text": "Very cool, I wish the product would be distributed and marketed in Thailand.",
-          "author": "Punchy Smitra Chuaichart",
-          "date": "2025-05-24 12:12:00"
-        },
-        {
-          "text": "Great\nHello Moto!👍",
-          "author": "Osei Dickson",
-          "date": "2025-05-24 11:43:00"
-        },
-        {
-          "text": "Motorola You better tell me where I can switch that battery from my Moto Watch 100 in Kiev, Ukraine?None of the official service centers gives me positive feedback about the procedure of battery replacement, nobody does it in Kiev!How can I switch dead battery to my watch? it barely passed one year of usage...",
-          "author": "Roman Polev",
-          "date": "2025-05-24 09:59:00"
-        },
-        {
-          "text": "Where the link for middle east purchase",
-          "author": "Nour Lang",
-          "date": "2025-05-24 11:02:00"
-        },
-        {
-          "text": "Excellent",
-          "author": "Rana Gee",
-          "date": "2025-05-24 10:59:00"
-        },
-        {
-          "text": "Funciona con iPhone ?",
-          "author": "Nikita Golevs",
-          "date": "2025-05-24 09:58:00"
-        },
-        {
-          "text": "Design and full spec with price?🥹",
-          "author": "Tasirul Islam",
-          "date": "2025-05-24 09:54:00"
-        },
-        {
-          "text": "Wow😮",
-          "author": "Altayeb Rex",
-          "date": "2025-05-24 09:39:00"
-        }
-      ],
-      "page_id": 3
+      "id": 16,
+      "comments": [],
+      "page_id": 7
     }
   ]
 ]
