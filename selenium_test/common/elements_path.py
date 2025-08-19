@@ -1,7 +1,10 @@
 POST_DATE_ELEMENT = './/div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1q0g3np"]//a[@role="link"]'
 TOOLTIP_DATE_TEXT = '//div[@class="xu96u03 xm80bdy x10l6tqk x13vifvy"]'
 CLOSE_DIALOG_BTN = '//div[@aria-label="Fechar"][@role="button"]'
-NOT_LOGGED_IN_FOTTER = '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x1ey2m1c xayqjjm x9f619 xds687c x17qophe x1xy6bms xn6708d x1s14bel x1ye3gou xixxii4 x8hos8a x1u8a7rm"]'
+NOT_LOGGED_IN_FOTTER = '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x1ey2m1c xayqjjm x9f619 xtijo5x x1o0tod x1xy6bms xpdmqnj x1s14bel x1g0dm76 xixxii4 x8hos8a x1u8a7rm"]'
+#NOT_LOGGED_IN_FOTTER = '//div[@class="x78zum5 xdt5ytf x2lah0s x193iq5w x2bj2ny x1ey2m1c xayqjjm x9f619 xds687c x17qophe x1xy6bms xn6708d x1s14bel x1ye3gou xixxii4 x8hos8a x1u8a7rm"]' # OLD
+
+#TODO: update the following path
 CURRENT_POST_CARD = '//div[@class="x1yztbdb x1n2onr6 xh8yej3 x1ja2u2z"]//div[@class="html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x78zum5 x1n2onr6 xh8yej3"]'
 POST_CARD_TITLE = './/div[@data-ad-rendering-role="profile_name"]'
 POST_TEXT_ELEMENT = './/div[@data-ad-rendering-role="story_message"]'  #'.//div[@data-ad-preview="message"]'  #x78zum5 xdt5ytf xz62fqu x16ldp7u  # './/div[@class="x1l90r2v x1pi30zi x1swvt13 x1iorvi4"]'    #data-ad-preview="message" OU data-ad-comet-preview="message"

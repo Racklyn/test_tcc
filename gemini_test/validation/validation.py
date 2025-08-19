@@ -1,6 +1,5 @@
-from functions import getAnalysis
+from get_statistics import getAnalysis
 import pandas as pd
-import asyncio
 import math
 
 def run_analysis():

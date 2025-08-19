@@ -188,13 +188,10 @@ def get_posts_data(
             #breakpoint()
 
             # Verificar se publicação já existe no banco
-            # TODO: adicionar tipagem: : Post | None
             existing_post = db.generic_getter('post/findByDateAndPage', {
                 'post_date': date_default_str(post_date), #TODO: verificar
                 'page_id': page_id
             })
-
-            breakpoint() # TODO: REMOVEr
 
             
             if not existing_post: # se a publicação é nova
@@ -353,8 +350,8 @@ def get_post_comments(
 
         driver.execute_script("arguments[0].scrollIntoView({ block: 'center' });", comment_elem)
         try:
-            comm_date = get_comment_date(driver, comment_elem)
-            if existing_post and comm_date < existing_post['newest_comment_date']:
+            comm_date = date_default_str(get_comment_date(driver, comment_elem)) #TODO: verify this
+            if existing_post and existing_post['newest_comment_date'] and comm_date < existing_post['newest_comment_date']:
                 continue
             comm_text = get_text_with_emojis(comment_elem.find_element(By.XPATH, elem_path.COMMENT_TEXT_ELEMENT))
             comm_author = comment_elem.find_element(By.XPATH, elem_path.COMMENT_AUTHOR_ELEMENT).text
@@ -370,7 +367,7 @@ def get_post_comments(
             comments.append({
                 'text': comm_text,
                 'author': comm_author,
-                'date': date_default_str(comm_date) #TODO: verificar : #str(comm_date) date_default_str
+                'date': comm_date
             })
         else:
             print('Não foi possível pegar a data do comentário. Pulando para o próximo...')
@@ -390,7 +387,7 @@ def save_or_update_posts(
         [action, dto] = p
 
         if action == 'UPDATE':
-            res = db.generic_update('post', dto)
+            res = db.generic_update(f'post/{dto["id"]}', dto)
         else:
             res = db.generic_insertion('post/create', dto)
         print(res)
@@ -465,6 +462,9 @@ def run_all_pages(pages: list[Page]):
 
 def get_all_pages_and_run(brand_id: int):
     pages = db.generic_getter('page', {'brand_id': brand_id})
+
+    #pages = [p for p in pages if p['id'] == 4] # TODO: remover. Com isso, pega apenas "MotoBRA"
+
     print(f'{len(pages)} página(s) para extração.')
     run_all_pages(pages)
 

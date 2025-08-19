@@ -1,8 +1,12 @@
 from entities.brand import Brand
+from services.database_conection import DatabaseConnection
+from services.endpoints import BRAND
 
-def getBrandById(id: int) -> Brand:
-    b = Brand(1, 'Marca de teste', 'Marca vendedora de produtos')
+db = DatabaseConnection()
 
-    return b
+class BrandService:
 
-    # TODO: implementar comunicação com backend
+    def getBrandById(id: int) -> Brand:
+        brand = db.generic_getter(f'{BRAND}/{id}')
+
+        return brand

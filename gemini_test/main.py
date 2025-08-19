@@ -1,11 +1,19 @@
-from actions.comment_analysis import run_analysis_for_brand_posts_since
-from entities.brand import Brand
+from pipelines.analysis_pipeline.comment_analysis import run_analysis_for_brand_posts_since
+from services.brand_service import BrandService
 
 def run():
-    #b = Brand(1, 'Motorola', 'Marca de celulares/smartphones')
-    b = Brand(2, 'Samsung', 'Marca de celulares/smartphones, TV, computadores e outros eletrônicos')
+    id = 2 # TODO: passar esse valor dinamicamente
 
-    run_analysis_for_brand_posts_since(b)
+    brand = BrandService.getBrandById(id)
+
+    print(brand)
+
+    if not brand:
+        print("Brand not found")
+        return
+
+    run_analysis_for_brand_posts_since(brand)
 
 
-run()
+if __name__ == "__main__":
+    run()

@@ -1,20 +1,21 @@
 from datetime import datetime
 from entities.item import Item
-from mocks.samsung_mock import samsung_items
+from database_conection import DatabaseConnection
+from endpoints import ITEM
 
-def getAllItemsAndPostByBrand(brand_id: int, type: str) -> list[Item]:
-    return samsung_items # mock data
+db = DatabaseConnection()
 
-    # TODO: implementar comunicação com backend
+class ItemService:
 
-def getById(item_id: int, type: str) -> Item | None:
-    return list(filter(lambda item: item.id == item_id, samsung_items))[0]
+    def getAllItemsAndPostByBrand(brand_id: int, type: str) -> list[Item]:
+        items = db.generic_getter(ITEM, {'brand_id': brand_id, 'type': type})
+        return items
 
-    # TODO: implementar comunicação com backend
+    def getById(item_id: int) -> Item | None:
+        item =  db.generic_getter(f'{ITEM}/{item_id}')
+        return item
 
-def create(item: Item) -> Item:
-    # ...
-    return item
-
-    # TODO: implementar comunicação com backend
-    
+    def create(item: Item) -> Item:
+        item = db.generic_insertion(ITEM, item.to_dict()) #TODO: verificar
+        return item
+        
