@@ -3,7 +3,7 @@ import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
-//import { PostCommentsQuery } from './query/post-comments.query'; //TODO: remover se não for ser usada
+import { PostAnalysisQueryDto } from './dto/post-analysis-query.dto';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('post')
@@ -36,13 +36,22 @@ export class PostController {
         return this.postService.findOneWithComments(id);
     }
 
+    @Get(':id/withAnalysis')
+    async findOneWithAnalysis(
+        @Param('id') id: number,
+        @Query() query: PostAnalysisQueryDto,
+    ) {
+        return this.postService.findOneWithAnalysis(id, query.version, query.score, query.related_to);
+    }
+
     @Get(':id')
     async findOne(@Param('id') id: number) {
         return await this.postService.findOne(id);
     }
 
     @Get()
-    @ApiQuery({ name: 'brand_id', required: false }) //, type: Number //TODO: verificar 'type' aqui
+    @ApiQuery({ name: 'brand_id', required: false })
+    @ApiQuery({ name: 'since_date', required: false, example: '2025-03-08T00:00Z' })
     @ApiQuery({ name: 'sort_by', required: false })
     @ApiQuery({ name: 'sort_order', required: false })
     async findAll(@Query() query: PostQuery){

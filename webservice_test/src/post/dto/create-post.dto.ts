@@ -45,8 +45,10 @@ export class CreatePostDto {
     })
     page_id: number; //TODO: verificar se é a melhor forma
 
-    @ApiProperty()
-    item: Item;
+    @ApiProperty({
+        nullable: true,
+    })
+    item_id?: number;
 
     @ApiProperty({
         example: []

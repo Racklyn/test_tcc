@@ -7,3 +7,4 @@ pydantic
 langchain-google-vertexai
 requests
 retry
+chromadb

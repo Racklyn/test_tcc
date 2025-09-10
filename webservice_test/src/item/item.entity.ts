@@ -9,16 +9,23 @@ export class Item extends AbstractEntity {
     @Column({ name: 'name' })
     name: string;
 
+    @Column({
+        name: 'block_name_from_updates',
+        nullable: true,
+        default: false
+    })
+    block_name_from_updates?: boolean;
+
     @Column({ name: 'type' })
-    @JoinColumn({ name: 'type' }) //TODO: verificar se isso é necessário
-    type: 'PRODUCT' | 'SERVICE';
+    @JoinColumn({ name: 'type' })
+    type: 'product' | 'service';
 
     @Column({ name: 'description' })
     description: string;
 
-    @Column({ name: 'last_analysis', nullable: true })
-    @JoinColumn({ name: 'last_analysis' })
-    last_analysis?: Date;
+    @Column({ name: 'last_sync', nullable: true })
+    @JoinColumn({ name: 'last_sync' })
+    last_sync?: Date;
 
     @ManyToOne(
         () => Brand,

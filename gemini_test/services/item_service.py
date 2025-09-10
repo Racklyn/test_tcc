@@ -1,21 +1,45 @@
 from datetime import datetime
 from entities.item import Item
-from database_conection import DatabaseConnection
-from endpoints import ITEM
+from services.database_conection import DatabaseConnection
+from services.endpoints import ITEM
 
 db = DatabaseConnection()
 
 class ItemService:
 
-    def getAllItemsAndPostByBrand(brand_id: int, type: str) -> list[Item]:
-        items = db.generic_getter(ITEM, {'brand_id': brand_id, 'type': type})
+    def getAllItemsAndPostByBrand(brand_id: int, item_type: str) -> list[Item]:
+        try:
+            items = db.generic_getter(f'{ITEM}/withPosts', {'brand_id': brand_id, 'type': item_type})
+        except Exception as e:
+            print(f'Erro ao buscar itens: {e}')
+            return []
+        
         return items
 
     def getById(item_id: int) -> Item | None:
-        item =  db.generic_getter(f'{ITEM}/{item_id}')
+        try:
+            item =  db.generic_getter(f'{ITEM}/{item_id}')
+        except Exception as e:
+            print(f'Erro ao buscar item: {e}')
+            return None
+        
         return item
 
     def create(item: Item) -> Item:
-        item = db.generic_insertion(ITEM, item.to_dict()) #TODO: verificar
+        try:
+            item = db.generic_insertion(ITEM, item)
+        except Exception as e:
+            print(f'Erro ao criar item: {e}')
+            return None
+        
+        return item
+
+    def update(item: Item) -> Item:
+        try:
+            item = db.generic_update(f'{ITEM}/{item['id']}', item)
+        except Exception as e:
+            print(f'Erro ao atualizar item: {e}')
+            return None
+        
         return item
         

@@ -14,20 +14,30 @@ export class ItemController {
 
     @Post()
     async create(@Body() item: CreateItemDto) {
+        console.log(item);
         const created_item = await this.itemService.create(item);
         return created_item;
     }
-
+    
+    @Get('withPosts')
+    @ApiQuery({ name: 'brand_id', required: false  })
+    @ApiQuery({ name: 'type', required: false  })
+    @ApiQuery({ name: 'sort_by', required: false  })
+    @ApiQuery({ name: 'sort_order', required: false  })
+    async findAllWithPosts(@Query() query: ItemQuery){
+        const items = await this.itemService.findAllWithPosts(query);
+        return items;
+    }
+    
     @Get('statistics')
-    @ApiQuery({ name: 'brand_id' })
-    @ApiQuery({ name: 'type' })
-    @ApiQuery({ name: 'sort_by' })
-    @ApiQuery({ name: 'sort_order' })
+    @ApiQuery({ name: 'brand_id', required: false  })
+    @ApiQuery({ name: 'type', required: false  })
+    @ApiQuery({ name: 'sort_by', required: false  })
+    @ApiQuery({ name: 'sort_order', required: false  })
     async findAllWithStatistics(@Query() query: ItemQuery){
         const items = await this.itemService.findAllWithStatistics(query);
         return items;
     }
-
 
     @Get(':id')
     async findOne(@Param('id') id: number) {

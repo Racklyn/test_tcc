@@ -1,4 +1,5 @@
 from entities.post_comment import Post
+from entities.brand import Brand
 from typing import TypedDict
 
 class Item(TypedDict):
@@ -7,5 +8,7 @@ class Item(TypedDict):
     type: str
     description: str | None
     posts: list[Post]
-
-    # TODO: finalizar essa classe conforme for necessário
+    brand_id: int
+    outdated: bool | None
+    last_sync: str
+    block_name_from_updates: bool | None

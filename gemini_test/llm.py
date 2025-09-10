@@ -5,10 +5,10 @@ from pydantic import BaseModel
 from retry import retry
 import os
 
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", api_key=os.environ["GEMINI_API_KEY"])
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite", api_key=os.environ["GEMINI_API_KEY"])
 
 class Pipeline:
-    @retry(delay=10, tries=5, backoff=2)
+    @retry(delay=10, tries=10, backoff=2)
     def generic_pipeline(system_prompt: str, human_prompt: str, input_data: dict, structured_output: BaseModel = None) -> dict | str:
         """
         Generic pipeline to handle LLM tasks with system and human prompts.
@@ -25,11 +25,12 @@ class Pipeline:
             dict_schema = convert_to_openai_function(structured_output)
             structured_llm = llm.with_structured_output(dict_schema)
             chain = prompt | structured_llm
-            return chain.invoke(input_data)[0]['args']
+            resp = chain.invoke(input_data)[0]['args']
+            return resp
         
         else:
             chain = prompt | llm
-            return chain.invoke(input_data)
+            return chain.invoke(input_data).content
 
 
         

@@ -12,31 +12,22 @@ class DatabaseConnection():
         self.base_url = endpoints.BASE_URL
         self.requests = requests
 
-    def generic_update(self, route: str, data: dict) -> requests.Response:
+    def generic_update(self, route: str, data: dict) -> json:
         response = self.requests.patch(f'{self.base_url}/{route}', json=data)
-        if response.status_code != 200:
-            print(f'Atualização falhou.\nDados: {str(data)}\nResponse: {str(response.json())}')
-            # self.log.database_error(
-            #     f'Atualização falhou.\nDados: {str(data)}\nResponse: {str(response.json())}')
-        return response.status_code
+        response.raise_for_status()
+        return response.json()
 
     def generic_insertion(self, route: str, data: dict) -> json:
         response = self.requests.post(f'{self.base_url}/{route}', json=data)
-        if response.status_code != 201:
-            print(f'Inserção falhou!')
-            # self.log.database_error(
-            #     f'Inserção falhou.\Dados: {str(data)}\nResponse: {str(response.json())}')
+        response.raise_for_status()
         return response.json()
 
     def generic_getter(self, route: str, params: dict={}) -> json:
         response = self.requests.get(f'{self.base_url}/{route}', params=params)
-        if response.status_code == 404:
-            response = dict()
-        else:
-            # TODO: ajustar isso
-            try:
-                response = response.json()
-            except Exception as e:
-                print(f'Erro ao converter resposta para JSON: {e}')
-                response = dict()
-        return response
+        response.raise_for_status()
+        
+        try:
+            return response.json()
+        except Exception as e:
+            print(f'Erro ao converter resposta para JSON: {e}')
+            raise  # Re-levanta a exceção para ser tratada no service

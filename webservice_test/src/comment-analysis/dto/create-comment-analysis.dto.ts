@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Comment } from 'src/comment/comment.entity';
 
 export class CreateCommentAnalysisDto {
     @ApiProperty()
@@ -12,11 +11,6 @@ export class CreateCommentAnalysisDto {
     score: number;
 
     @ApiProperty({
-        example: 1
-    })
-    version: number;
-
-    @ApiProperty({
         example: 'POST_ITEM'
     })
     related_to: 'POST_ITEM' | 'POST_BRAND' | 'BEYOND_POST';
@@ -26,6 +20,12 @@ export class CreateCommentAnalysisDto {
     })
     analysis_date: Date;
 
+    @ApiProperty({
+        example: 'Analisador de sentimentos Gemini v1.0',
+        required: false,
+    })
+    analyzer_infos?: string;
+
     @ApiProperty()
-    comment: Comment;
+    comment_key: string;
 }

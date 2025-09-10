@@ -4,23 +4,48 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ItemAnalysisResult } from './item-analysis-result.entity';
 import { CreateItemAnalysisResultDto } from './dto/create-item-analysis-result.dto';
 import { UpdateItemAnalysisResultDto } from './dto/update-item-analysis-result.dto';
+import { Item } from 'src/item/item.entity';
 
 @Injectable()
 export class ItemAnalysisResultService {
     constructor(
         @InjectRepository(ItemAnalysisResult)
-        private readonly itemAnalysisResultRepository: Repository<ItemAnalysisResult>
+        private readonly itemAnalysisResultRepository: Repository<ItemAnalysisResult>,
+        @InjectRepository(Item)
+        private readonly itemRepository: Repository<Item>
     ) {}
 
     async create(itemAnalysisResultDto: CreateItemAnalysisResultDto): Promise<ItemAnalysisResult> {
         try {
+            const item = await this.itemRepository.findOne({
+                where: { id: itemAnalysisResultDto.item_id }
+            });
+
+            if (!item) {
+                throw new NotFoundException('Item not found.');
+            }
+
+
+            // Buscar a última versão de análise para este item
+            const lastAnalysis = await this.itemAnalysisResultRepository.findOne({
+                where: {
+                    item: { id: item.id }
+                },
+                order: {
+                    version: 'DESC'
+                }
+            });
+
+            // Calcular a próxima versão automaticamente
+            const nextVersion = lastAnalysis ? lastAnalysis.version + 1 : 1;
+
             const itemAnalysisResult = new ItemAnalysisResult();
             itemAnalysisResult.analysis_summary = itemAnalysisResultDto.analysis_summary;
             itemAnalysisResult.positive_points = itemAnalysisResultDto.positive_points;
             itemAnalysisResult.negative_points = itemAnalysisResultDto.negative_points;
-            itemAnalysisResult.analysis_date = itemAnalysisResultDto.analysis_date;
-            itemAnalysisResult.version = itemAnalysisResultDto.version;
-            itemAnalysisResult.item = itemAnalysisResultDto.item;
+            itemAnalysisResult.analysis_date = itemAnalysisResultDto.analysis_date || new Date();
+            itemAnalysisResult.version = nextVersion; // Usar a versão calculada automaticamente
+            itemAnalysisResult.item = item;
             
             return await this.itemAnalysisResultRepository.save(itemAnalysisResult);
         } catch(error) {

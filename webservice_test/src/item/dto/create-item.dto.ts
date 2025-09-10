@@ -13,9 +13,9 @@ export class CreateItemDto {
     name: string;
 
     @ApiProperty({
-        example: 'PRODUCT'
+        example: 'product'
     })
-    type: 'PRODUCT' | 'SERVICE';
+    type: 'product' | 'service';
 
     @ApiProperty({
         example: 'Smartphone'
@@ -26,18 +26,17 @@ export class CreateItemDto {
         example: new Date(),
         nullable: true
     })
-    last_analysis?: Date;
+    last_sync?: Date;
 
     @ApiProperty()
-    brand: Brand;
+    brand_id: number;
 
-    // @ApiProperty({
-    //     example: [],
-    //     nullable: true
-    // })
-    // item_analysis_result?: ItemAnalysisResult[];
+    @ApiProperty({
+        nullable: true,
+        default: false
+    })
+    block_name_from_updates?: boolean;
 
-    //TODO: verificar se é necessário essa lista no momento da inserção
     @ApiProperty({
         example: [],
         nullable: true

@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
 import { CommentAnalysisService } from './comment-analysis.service';
 import { CreateCommentAnalysisDto } from './dto/create-comment-analysis.dto';
 import { UpdateCommentAnalysisDto } from './dto/update-comment-analysis.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { FindByVersionQueryDto } from './dto/find-by-version-query.dto';
+import { ApiTags, ApiQuery } from '@nestjs/swagger';
 
 @ApiTags('commentAnalysis')
 @Controller('commentAnalysis')
@@ -17,15 +18,25 @@ export class CommentAnalysisController {
         return created_commentAnalysis;
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.commentAnalysisService.findOne(id);
-    }
-
     @Get()
     async findAll(){
         const commentAnalysis = await this.commentAnalysisService.findAll();
         return commentAnalysis;
+    }
+
+    @Get('byVersion')
+    async findAllByVersion(@Query() query: FindByVersionQueryDto){
+        const commentAnalysis = await this.commentAnalysisService.findAllByVersion(
+            query.version, 
+            query.post_id, 
+            query.score
+        );
+        return commentAnalysis;
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: number) {
+        return this.commentAnalysisService.findOne(id);
     }
 
     @Patch(':id')

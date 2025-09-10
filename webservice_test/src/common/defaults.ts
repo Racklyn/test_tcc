@@ -1,0 +1,1 @@
+export const DEFAULT_ANALYZER_INFOS = 'Analisador de sentimentos Gemini v1.0';

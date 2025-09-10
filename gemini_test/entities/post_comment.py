@@ -1,16 +1,16 @@
 from typing import TypedDict
+from entities.comment_analysis import CommentAnalysis
 
 class Comment(TypedDict):
-    id: int
+    key: str
     text: str
-    #date
+    comment_analysis: list[CommentAnalysis]
 
 class Post(TypedDict):
     id: int
     content: str | None
     summary: str | None
-    #date: date
     updated_at: str| None
     comments: list[Comment]
-
-
+    last_analysis: str | None
+    item_id: int | None

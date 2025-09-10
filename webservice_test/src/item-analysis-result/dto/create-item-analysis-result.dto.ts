@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Item } from 'src/item/item.entity';
 
 export class CreateItemAnalysisResultDto {
     @ApiProperty()
@@ -22,15 +21,11 @@ export class CreateItemAnalysisResultDto {
 
     @ApiProperty({
         example: new Date(),
-        nullable: true
+        nullable: true,
+        default: new Date(),
     })
     analysis_date?: Date;
 
-    @ApiProperty({
-        example: 1
-    })
-    version: number;
-
     @ApiProperty()
-    item: Item;
+    item_id: number;
 }

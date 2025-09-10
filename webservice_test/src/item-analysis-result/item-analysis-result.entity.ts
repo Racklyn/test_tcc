@@ -1,8 +1,10 @@
 import { AbstractEntity } from 'src/common/entities/abstract.entity';
+import { Column, Entity, ManyToOne, JoinColumn, Unique } from 'typeorm';
 import { Item } from 'src/item/item.entity';
-import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { DEFAULT_ANALYZER_INFOS } from 'src/common/defaults';
 
 @Entity({ name: 'item_analysis_result' })
+@Unique(['version', 'item'])
 export class ItemAnalysisResult extends AbstractEntity {
     @Column({ name: 'analysis_summary' })
     analysis_summary: string;
@@ -13,12 +15,15 @@ export class ItemAnalysisResult extends AbstractEntity {
     @Column({ name: 'negative_points' })
     negative_points: string;
 
-    @Column({ name: 'analysis_date', nullable: true })
+    @Column({ name: 'analysis_date' })
     @JoinColumn({ name: 'analysis_date' })
-    analysis_date?: Date;
+    analysis_date: Date;
 
-    @Column({ name: 'version' })
+    @Column({ name: 'version', type: 'int' })
     version: number;
+
+    @Column({ name: 'analyzer_infos', type: 'varchar', length: 500, nullable: true, default: DEFAULT_ANALYZER_INFOS })
+    analyzer_infos?: string;
 
     @ManyToOne(
         () => Item,
