@@ -1,5 +1,44 @@
+# Arquivos de ambiente
 .env
+.env.local
+.env.production
+
+# Docker
+.docker/
+
+# Logs
+*.log
+logs/
+
+# Cache Python
 __pycache__/
-env
-.venv
-venv
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Volumes Docker
+postgres_data/
+
+env/
+.venv/
+venv/

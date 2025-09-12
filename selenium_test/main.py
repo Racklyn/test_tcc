@@ -19,7 +19,7 @@ from service import endpoints
 from entities.post_comment import Comment, Post, InsertPostDto
 from entities.page import Page
 from common import elements_path as elem_path
-import configs
+from configs.scrapper_configs import ScrapperConfigs
 from typing import Literal
 from utils.date_format import date_default_str
 
@@ -156,8 +156,6 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
 
         posts_to_be_scrapped.append(post_card)
         sleep(1)
-
-        break # TODO: remover isso. Pegando apenas o primeiro
         
     return posts_to_be_scrapped
 
@@ -306,7 +304,7 @@ def get_post_comments(
     sleep(0.5)
     comments_order_elem.click()
     sleep(0.5)
-    driver.find_element(By.XPATH, elem_path.COMMENTS_ORDER_MENU).find_element(By.XPATH, f'.//div[@role="menuitem"][{configs.ORDER_COMMENTS_OPTION_ID}]').click()
+    driver.find_element(By.XPATH, elem_path.COMMENTS_ORDER_MENU).find_element(By.XPATH, f'.//div[@role="menuitem"][{ScrapperConfigs.ORDER_COMMENTS_OPTION_ID}]').click()
 
     sleep(3)
 
@@ -429,10 +427,10 @@ def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: da
         save_or_update_posts(postsDto)
 
 
-def run_all_pages(pages: list[Page]):
-# Variáveis de configuração:
-    posts_since_date = datetime(day=1, month=11, year=2010)
-    n_posts = configs.N_POSTS
+def run_all_pages(pages: list[Page], since_date_str: str = None) -> tuple[bool, str]:
+    # Variáveis de configuração:
+    posts_since_date = datetime.strptime(since_date_str, '%Y-%m-%d') if since_date_str else None
+    n_posts = ScrapperConfigs.N_POSTS
 
     # TODO: verificar. Se a conta de acesso estiver em inglês, não precisará do seguinte
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
@@ -450,23 +448,31 @@ def run_all_pages(pages: list[Page]):
 
     driver = webdriver.Chrome(service=service, options=options)
 
+    success_count = 0
+
     for page in pages:
         try:
-            print(f'\n\nINICIANDO EXECUÇÃO DA PÁGINA {page["title"]}:\n')
+            print(f'\n\nINICIANDO EXECUÇÃO DA PÁGINA "{page["title"]}":\n')
             run(driver, page, n_posts, posts_since_date)
         except Exception as e:
-            print(f'Erro ao executar extrair dados da página {page["title"]}: {e}')
-
+            print(f'Erro ao executar extração de dados da página "{page["title"]}": {e}')
+    
     driver.close()
 
+    if success_count > 0:
+        return True, f'Extração de {success_count}/{len(pages)} página(s) concluída com sucesso. {len(pages) - success_count} falha(s).'
+    else:
+        return False, 'Nenhuma página extraída com sucesso.'
 
-def get_all_pages_and_run(brand_id: int):
+
+def get_all_pages_and_run(brand_id: int, since_date_str: str = None) -> tuple[bool, str]:
     pages = db.generic_getter('page', {'brand_id': brand_id})
 
     #pages = [p for p in pages if p['id'] == 4] # TODO: remover. Com isso, pega apenas "MotoBRA"
 
     print(f'{len(pages)} página(s) para extração.')
-    run_all_pages(pages)
+    success, message = run_all_pages(pages, since_date_str)
+    return success, message
 
 
 
@@ -474,4 +480,4 @@ def get_all_pages_and_run(brand_id: int):
 
 if __name__ == '__main__':
     #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
-    get_all_pages_and_run(2)
+    get_all_pages_and_run(brand_id=2) #, since_date_str='2024-01-01'

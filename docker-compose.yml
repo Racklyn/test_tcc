@@ -1,0 +1,104 @@
+services:
+  # Banco de dados PostgreSQL
+  database:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-facebook_brand_analyzer}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./webservice_test/create-db.sql:/docker-entrypoint-initdb.d/create-database.sql
+    networks:
+      - brand-analyzer-network
+
+  # Serviço de IA (Gemini)
+  sentiment-analyzer:
+    build:
+      context: ./gemini_test
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-facebook_brand_analyzer}
+      - WEB_SERVICE_URL=http://webservice:3000
+      - HOST=0.0.0.0
+      - PORT=8000
+      - PYTHONPATH=/app
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    depends_on:
+      - database
+      - webservice
+    networks:
+      - brand-analyzer-network
+    volumes:
+      - ./gemini_test:/app
+      - /app/__pycache__
+    restart: unless-stopped
+    command: ["python", "-m", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  # Serviço de Scraping (Selenium)
+  scraper:
+    build:
+      context: ./selenium_test
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-facebook_brand_analyzer}
+      - WEB_SERVICE_URL=http://webservice:3000
+      - HOST=0.0.0.0
+      - PORT=5000
+      - PYTHONPATH=/app
+    depends_on:
+      - database
+      - webservice
+    networks:
+      - brand-analyzer-network
+    volumes:
+      - ./selenium_test:/app
+      - /app/__pycache__
+    restart: unless-stopped
+    command: ["python", "-m", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+
+  # Backend (NestJS)
+  webservice:
+    build:
+      context: ./webservice_test
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-facebook_brand_analyzer}
+      - NODE_ENV=development
+    depends_on:
+      - database
+    networks:
+      - brand-analyzer-network
+    volumes:
+      - ./webservice_test:/app
+      - /app/node_modules
+    restart: unless-stopped
+    command: ["npm", "run", "start:dev"]
+
+volumes:
+  postgres_data:
+
+networks:
+  brand-analyzer-network:
+    driver: bridge

@@ -1,4 +1,6 @@
-BASE_URL = 'http://localhost:3000'
+import os
+
+BASE_URL = os.getenv('WEB_SERVICE_URL', 'http://web-service:3000')
 
 PAGE = 'page'
 POST = 'post'

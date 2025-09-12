@@ -7,7 +7,7 @@ db = DatabaseConnection()
 
 class ItemService:
 
-    def getAllItemsAndPostByBrand(brand_id: int, item_type: str) -> list[Item]:
+    def getAllItemsAndPostsByBrand(brand_id: int, item_type: str = None) -> list[Item]:
         try:
             items = db.generic_getter(f'{ITEM}/withPosts', {'brand_id': brand_id, 'type': item_type})
         except Exception as e:

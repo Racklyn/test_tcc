@@ -1,4 +1,6 @@
-selenium
-webdriver-manager
-pandas
-logger
+selenium==4.32.0
+webdriver-manager==4.0.2
+pandas==2.2.3
+logger==1.4
+fastapi==0.116.1
+uvicorn==0.32.1

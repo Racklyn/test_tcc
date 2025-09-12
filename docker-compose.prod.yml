@@ -1,0 +1,30 @@
+# Docker Compose para Produção
+# Este arquivo contém configurações otimizadas para produção
+
+services:
+  # Serviço de IA (Gemini) - Produção
+  sentiment-analyzer:
+    environment:
+      - PYTHONPATH=/app
+    # Remove volumes para produção (código fica na imagem)
+    volumes: []
+    # Comando otimizado para produção
+    command: ["python", "api.py"]
+
+  # Serviço de Scraping (Selenium) - Produção
+  scraper:
+    environment:
+      - PYTHONPATH=/app
+    # Remove volumes para produção (código fica na imagem)
+    volumes: []
+    # Comando otimizado para produção
+    command: ["python", "api.py"]
+
+  # Serviço Web (NestJS) - Produção
+  webservice:
+    environment:
+      - NODE_ENV=production
+    # Remove volumes para produção (código fica na imagem)
+    volumes: []
+    # Comando otimizado para produção
+    command: ["npm", "run", "start:prod"]

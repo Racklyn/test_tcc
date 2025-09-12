@@ -54,7 +54,8 @@ export class ItemService {
                     id: id
                 },
                 relations: {
-                    posts: true
+                    posts: true,
+                    brand: true
                 }
             });
             

@@ -53,6 +53,7 @@ class UpdateItemsPipeline:
             print(f'[DEBUG] Item atualizado: {updatedItem}')
         else:
             print(f'[DEBUG] Erro ao atualizar item: {updatedItem}')
+            raise Exception(f'Erro ao atualizar item: {updatedItem}')
 
         return updatedItem
         
@@ -114,23 +115,36 @@ class UpdateItemsPipeline:
             print(f'[DEBUG] Resultado da análise de item salvo: {result}')
         else:
             print(f'[DEBUG] Erro ao salvar resultado da análise de item: {result}')
+            raise Exception(f'Erro ao salvar resultado da análise de item: {result}')
         
         return result
 
 
 
 
-    def update_item(item: Item, brand: Brand) -> Item | None: #TODO: verificar se é necessário informar brand (já deveria pegar por item.brand_id)
-        UpdateItemsPipeline.sync_item_infos(item, brand)
-        UpdateItemsPipeline.sync_analysis_results(item)
+    def update_item(item: Item, brand: Brand) -> tuple[bool, str]: #TODO: verificar se é necessário informar brand (já deveria pegar por item.brand_id)
+        try:
+            UpdateItemsPipeline.sync_item_infos(item, brand)
+            UpdateItemsPipeline.sync_analysis_results(item)
+            return (True, 'Item atualizado com sucesso')
+        except Exception as e:
+            print(f'[DEBUG] Erro ao atualizar item: {e}')
+            return (False, f'Erro ao atualizar item: {e}')
 
 
 
 
-    def update_all_items_from_brand(brand: Brand) -> list[Item | None]:
-        items: list[Item] = ItemService.getAllItemsByBrand(brand['id'])
+    def update_all_items_from_brand(brand: Brand) -> tuple[bool, str]:
+        items: list[Item] = ItemService.getAllItemsAndPostsByBrand(brand['id'])
         print(f'[DEBUG] Encontrados {len(items)} itens para brand ID: {brand['id']}')
 
+        success_count = 0
+
         for item in items:
-            UpdateItemsPipeline.update_item(item, brand)
+            success, _ = UpdateItemsPipeline.update_item(item, brand)
+            if success:
+                success_count += 1
+
+        print(f'[DEBUG] {success_count}/{len(items)} itens atualizados com sucesso')
+        return (success_count > 0, f'{success_count}/{len(items)} itens atualizados com sucesso')
 

@@ -8,7 +8,7 @@ class Item(TypedDict):
     type: str
     description: str | None
     posts: list[Post]
-    brand_id: int
+    brand: Brand | None
     outdated: bool | None
     last_sync: str
     block_name_from_updates: bool | None

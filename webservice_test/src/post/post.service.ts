@@ -191,7 +191,8 @@ export class PostService {
                     [query.sort_by ?? 'updated_date'] : query.sort_order,
                 },
                 relations: {
-                    item: true
+                    item: true,
+                    comments: true
                 }
             });
 

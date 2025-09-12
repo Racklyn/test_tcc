@@ -18,7 +18,7 @@ MOST_RELEVANT_ITEMS = 5 #TODO: verificar esse valor, era 3
 class CommentAnalysisPipeline:
 
     def get_info_about_post(post: Post, brand: Brand) -> InfoAboutPost:
-        print(f'[DEBUG] Analisando informações do post ID: {post['id']}')
+        print(f'[DEBUG] Analisando informações do post ID: {post["id"]}')
         
         if not post['content'] or len(post['content']) == 0:
             print(f'[DEBUG] Post ID {post["id"]} sem conteúdo, retornando tipo "other"')
@@ -44,7 +44,7 @@ class CommentAnalysisPipeline:
     def get_related_item_or_create(item_type: str, brand: Brand, post: Post) -> Item:
         print(f'[DEBUG] Buscando item relacionado para post ID: {post['id']}, tipo: {item_type}')
         
-        items = ItemService.getAllItemsAndPostByBrand(brand['id'], item_type)
+        items = ItemService.getAllItemsAndPostsByBrand(brand['id'], item_type)
         print(f'[DEBUG] Encontrados {len(items)} itens do tipo {item_type} para brand ID: {brand['id']}')
         
         item_id = None
