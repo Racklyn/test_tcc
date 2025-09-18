@@ -8,6 +8,7 @@ import { computed } from 'vue'
         confirmButtonText?: string
         confirmButtonColor?: string
         confirmButtonAction?: () => void
+        noCancelButton?: boolean
     }
 
     type Emits = {
@@ -19,6 +20,7 @@ import { computed } from 'vue'
     const props = withDefaults(defineProps<Props>(), {
         confirmButtonText: 'CONFIRMAR',
         confirmButtonColor: 'primary-light',
+        noCancelButton: false,
     })
 
     const emit = defineEmits<Emits>()
@@ -57,7 +59,7 @@ import { computed } from 'vue'
     >
       <!-- Título -->
       <v-card-title 
-        class="text-h5 font-weight-semibold text-font-primary pa-4"
+        class="text-h5 font-weight-bold text-font-primary pa-4"
       >
         {{ title }}
       </v-card-title>
@@ -75,6 +77,7 @@ import { computed } from 'vue'
       >
         <v-spacer></v-spacer>
         <v-btn
+          v-if="!noCancelButton"
           @click="handleCancel"
           variant="outlined"
           color="surface-variant"

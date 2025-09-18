@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { ref, computed, watch } from 'vue'
-    import type { Brand } from '@/models/brand'
-    import type { Page } from '@/models/page'
+    import type { Brand, CreateBrandDto } from '@/models/brand'
+    import type { Page, CreatePageDto } from '@/models/page'
     import ActionButton from './ActionButton.vue'
+    import { USER_ID } from '@/utils/commons'
 
     type Props = {
         modelValue: boolean,
@@ -11,7 +12,7 @@
 
     type Emits = {
         (e: 'update:modelValue', value: boolean): void
-        (e: 'save', brand: Omit<Brand, 'id' | 'createdAt' | 'updatedAt'>): void
+        (e: 'save', brand: CreateBrandDto): void
     }
 
     const props = defineProps<Props>()
@@ -32,7 +33,7 @@
         if (props.brand) {
             form.value = {
                 name: props.brand.name,
-                about: props.brand.about
+                about: props.brand.about,
             }
             pages.value = props.brand.pages.length > 0 
                 ? [...props.brand.pages] 
@@ -56,41 +57,64 @@
         set: (value) => emit('update:modelValue', value)
     })
 
-    // Adicionar nova página
-    const addPage = () => {
-    const newId = (pages.value.length + 1).toString()
-    pages.value.push({
-        id: newId,
-        title: '',
-        page_description: ''
-    })
-    }
+     const addPage = () => {
+         const newId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+         pages.value.push({
+             id: newId,
+             title: '',
+             page_description: ''
+         })
+     }
 
-    // Remover página
     const removePage = (index: number) => {
-    if (pages.value.length > 1) {
         pages.value.splice(index, 1)
     }
-    }
 
-    // Salvar marca
     const saveBrand = () => {
-        const brandData = {
+        const filteredPages = pages.value.filter(page => page.title.trim() !== '')
+        
+        const originalPagesMap = new Map()
+        if (props.brand?.pages) {
+            props.brand.pages.forEach(page => {
+                originalPagesMap.set(page.id, page)
+            })
+        }
+         
+        const pagesToSave = filteredPages.map(page => {
+            const pageIdStr = String(page.id || '')
+            const isExistingPage = page.id && 
+                                  !pageIdStr.startsWith('temp_') && 
+                                  originalPagesMap.has(page.id)
+            
+            if (isExistingPage) {
+                return {
+                    id: page.id,
+                    title: page.title,
+                    page_description: page.page_description
+                }
+            } else {
+                return {
+                    title: page.title,
+                    page_description: page.page_description
+                }
+            }
+        })
+         
+        const brandData: CreateBrandDto = {
             name: form.value.name,
             about: form.value.about,
-            pages: pages.value.filter(page => page.title.trim() !== '')
+            pages: pagesToSave,
+            user_id: USER_ID
         }
         
         emit('save', brandData)
         closeModal()
-    }
+     }
 
-    // Fechar modal e resetar formulário
     const closeModal = () => {
         isOpen.value = false
     }
 
-    // Resetar formulário
     const resetForm = () => {
         form.value = {
             name: '',
@@ -166,7 +190,6 @@
             <ActionButton
               icon="mdi-trash-can"
               @click="removePage(index)"
-              :disabled="pages.length === 1"
             />
           </div>
           
@@ -233,6 +256,7 @@
     .page-description-field :deep(input) {
         color: #343637 !important;
     }
+
     .v-btn:disabled {
         background-color: #878787 !important;
         color: #ffffff !important;

@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Item } from 'src/item/item.entity';
 import { Page } from 'src/page/page.entity';
-import { User } from 'src/user/user.entity';
 
 export class CreateBrandDto {
     @ApiProperty()
@@ -18,17 +16,11 @@ export class CreateBrandDto {
     about: string;
 
     @ApiProperty()
-    user: User;
+    user_id: number;
 
-    // @ApiProperty({
-    //     example: [],
-    //     nullable: true
-    // })
-    // items?: Item[];
-
-    // @ApiProperty({
-    //     example: [],
-    //     nullable: true
-    // })
-    // pages?: Page[];
+    @ApiProperty({
+        example: [{ id: 1, title: 'Nome da página', page_description: 'Descrição da página' }],
+        nullable: true
+    })
+    pages: Array<{ id?: number; title: string; page_description?: string }>;
 }

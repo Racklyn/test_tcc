@@ -3,3 +3,8 @@ export type Page = {
     title: string
     page_description: string
 }
+
+export type CreatePageDto = {
+    title: string
+    page_description: string
+}

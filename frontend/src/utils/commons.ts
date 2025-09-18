@@ -1,0 +1,1 @@
+export const USER_ID = 1 // ID do usuário padrão de teste (enquanto login não estiver implementado)

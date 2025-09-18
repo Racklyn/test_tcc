@@ -1,47 +1,44 @@
 <script setup lang="ts">
-    import { ref, computed } from 'vue'
+    import { ref, computed, onMounted } from 'vue'
     import BrandCard from '@/components/home/BrandCard.vue'
     import BrandModal from '@/components/home/BrandModal.vue'
     import DefaultDialog from '@/components/DefaultDialog.vue'
-    import type { Brand } from '@/models/brand'
+    import brandService from '@/services/brandService'
+    import type { Brand, CreateBrandDto, UpdateBrandDto } from '@/models/brand'
+    import { USER_ID } from '@/utils/commons'
 
-    const brands = ref<Brand[]>([
-        {
-            id: '1',
-            name: 'Motorola',
-            about: 'Empresa de telecomunicações e eletrônicos, conhecida por seus smartphones e soluções de comunicação.',
-            pages: [
-                { id: '1', title: 'Motorola Brasil', page_description: 'Página oficial da Motorola no Brasil' },
-                { id: '2', title: 'Motorola Mobility', page_description: 'Smartphones e dispositivos móveis' }
-            ]
-        },
-        {
-            id: '2',
-            name: 'Samsung',
-            about: 'Conglomerado sul-coreano líder em tecnologia, eletrônicos e semicondutores.',
-            pages: [
-                { id: '3', title: 'Samsung Brasil', page_description: 'Página oficial da Samsung no Brasil' },
-                { id: '4', title: 'Samsung Mobile', page_description: 'Smartphones Galaxy e dispositivos móveis' }
-            ]
-        },
-        {
-            id: '3',
-            name: 'Apple',
-            about: 'Empresa americana de tecnologia, criadora do iPhone, iPad, Mac e outros produtos inovadores.',
-            pages: [
-                { id: '5', title: 'Apple Brasil', page_description: 'Página oficial da Apple no Brasil' }
-            ]
-        },
-        {
-            id: '4',
-            name: 'Xiaomi',
-            about: 'Empresa chinesa de tecnologia focada em smartphones, eletrônicos e produtos para casa inteligente.',
-            pages: [
-                { id: '6', title: 'Xiaomi Brasil', page_description: 'Página oficial da Xiaomi no Brasil' },
-                { id: '7', title: 'Mi Brasil', page_description: 'Produtos Mi e Redmi no Brasil' }
-            ]
+    // Estado das marcas
+    const brands = ref<Brand[]>([])
+    const loading = ref(false)
+    const error = ref<string | null>(null)
+
+    // Função para carregar marcas da API
+    const loadBrands = async () => {
+        try {
+            loading.value = true
+            error.value = null
+            
+            const queryParams = {
+                user_id: USER_ID,
+            }
+            
+            const brandsData = await brandService.get(queryParams)
+            brands.value = brandsData
+            console.log('Marcas carregadas:', brandsData)
+        } catch (err) {
+            console.error('Erro ao carregar marcas:', err)
+            error.value = 'Erro ao carregar marcas. Tente novamente.'
+            errorType.value = 'load'
+            showErrorDialog.value = true
+        } finally {
+            loading.value = false
         }
-    ])
+    }
+
+    // Carregar marcas quando o componente for montado
+    onMounted(() => {
+        loadBrands()
+    })
 
     const handleBrandCardClick = (brand: Brand) => {
         console.log('Marca clicada: '+ brand.name)
@@ -54,9 +51,10 @@
     const editingBrand = ref<Brand | undefined>(undefined)
     
     // Estados dos diálogos de confirmação
-    const showUpdateDialog = ref(false)
     const showDeleteDialog = ref(false)
+    const showErrorDialog = ref(false)
     const brandToDelete = ref<Brand | undefined>(undefined)
+    const errorType = ref<'load' | 'delete' | null>(null)
 
     const handleAddBrand = () => {
         editingBrand.value = undefined
@@ -64,8 +62,6 @@
     }
 
     const handleEditBrand = (brand: Brand) => {
-        console.log('Editando marca:', brand.name)
-        console.log('Brands antes da edição:', brands.value.length)
         editingBrand.value = brand
         showModal.value = true
     }
@@ -75,24 +71,25 @@
         showDeleteDialog.value = true
     }
     
-    const confirmDeleteBrand = () => {
+    const confirmDeleteBrand = async () => {
         if (brandToDelete.value) {
-            const index = brands.value.findIndex(b => b.id === brandToDelete.value!.id)
-            if (index > -1) {
-                brands.value.splice(index, 1)
-                console.log('Marca deletada:', brandToDelete.value.name)
+            try {
+                await brandService.delete(brandToDelete.value.id)
+                await loadBrands()
+            } catch (err) {
+                console.error('Erro ao deletar marca:', err)
+                error.value = 'Erro ao deletar marca. Tente novamente.'
+                errorType.value = 'delete'
+                showErrorDialog.value = true
+            } finally {
+                brandToDelete.value = undefined
             }
-            brandToDelete.value = undefined
         }
     }
-    
-    const handleUpdateAll = () => {
-        showUpdateDialog.value = true
-    }
-    
-    const confirmUpdateAll = () => {
-        console.log('Atualizando todos os itens...')
-        // Aqui você implementaria a lógica de atualização
+
+    const closeErrorDialog = () => {
+        showErrorDialog.value = false
+        error.value = ''
     }
     
     // Computed properties para os diálogos
@@ -105,36 +102,35 @@
             ? `Você também estará apagando todas as publicações, produtos, serviços e análises referentes a marca "${brandToDelete.value.name}"`
             : 'Tem certeza que deseja excluir esta marca?'
     })
+    
+    const errorButtonText = computed(() => {
+        return errorType.value === 'delete' ? 'OK' : 'TENTAR NOVAMENTE'
+    })
 
-    const handleSaveBrand = (brandData: Omit<Brand, 'id' | 'createdAt' | 'updatedAt'>) => {
-        console.log('Salvando brand:', brandData.name)
-        console.log('Brands antes de salvar:', brands.value.length)
-        
-        if (editingBrand.value) {
-            // Editar marca existente
-            const index = brands.value.findIndex(b => b.id === editingBrand.value!.id)
-            if (index > -1) {
-                brands.value[index] = {
-                    ...brands.value[index],
-                    ...brandData,
-                    updatedAt: new Date()
+    const handleSaveBrand = async (brandData: CreateBrandDto) => {
+        try {
+            if (editingBrand.value) {
+                const updatedBrand: UpdateBrandDto = {
+                    id: editingBrand.value.id,
+                    name: brandData.name,
+                    about: brandData.about,
+                    pages: brandData.pages,
+                    user_id: USER_ID
                 }
-                console.log('Marca editada:', brands.value[index])
+                await brandService.update(updatedBrand)
+            } else {
+                await brandService.create(brandData)
             }
-        } else {
-            // Adicionar nova marca
-            const newBrand: Brand = {
-                ...brandData,
-                id: (brands.value.length + 1).toString(),
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }
-            brands.value.push(newBrand)
-            console.log('Nova marca cadastrada:', newBrand)
+            
+            await loadBrands()
+        } catch (err: any) {
+            console.error('Erro ao salvar marca:', err)
+            error.value = 'Erro ao salvar marca. Tente novamente.'
+            errorType.value = 'load'
+            showErrorDialog.value = true
+        } finally {
+            editingBrand.value = undefined
         }
-        
-        console.log('Brands depois de salvar:', brands.value.length)
-        editingBrand.value = undefined
     }
 </script>
 <template>
@@ -143,31 +139,22 @@
             <h1 class="text-h2 text-font-primary font-weight-bold">
                 Analisador de produtos e marcas
             </h1>
-            
-            <!-- Botões de exemplo para demonstrar os diálogos -->
-             <!-- TODO: remover o seguinte -->
-            <div class="mt-4 mb-6">
-                <v-btn
-                    @click="handleUpdateAll"
-                    color="primary"
-                    variant="outlined"
-                    class="mr-4"
-                >
-                    Exemplo: Atualizar Todos
-                </v-btn>
-                <v-btn
-                    @click="() => { brandToDelete = brands[0]; showDeleteDialog = true }"
-                    color="error"
-                    variant="outlined"
-                >
-                    Exemplo: Excluir Marca
-                </v-btn>
-            </div>
         </div>
         
-        <v-row class="justify-start" no-gutters>
+        <!-- Loading state -->
+        <div v-if="loading" class="text-center py-8">
+            <v-progress-circular
+                indeterminate
+                color="primary"
+                size="64"
+            ></v-progress-circular>
+            <p class="mt-4 text-body-1">Carregando marcas...</p>
+        </div>
+
+
+        <!-- Brands grid -->
+        <v-row v-else class="justify-start" no-gutters>
             <v-col v-for="(brand, index) in brands" :key="`brand-${brand.id}-${index}`" cols="6" lg="4">
-                {{ console.log('Renderizando brand:', brand.name, 'index:', index) }}
                 <div class="d-flex justify-start mb-8">
                     <BrandCard 
                         :brand="brand"
@@ -178,6 +165,13 @@
                 </div>
             </v-col>
         </v-row>
+
+        <!-- Empty state -->
+        <div v-if="!loading && !error && brands.length === 0" class="text-center py-8">
+            <v-icon size="64" color="grey-lighten-1">mdi-package-variant</v-icon>
+            <h3 class="text-h5 text-grey-lighten-1 mt-4">Nenhuma marca encontrada</h3>
+            <p class="text-body-1 text-grey-lighten-1">Clique no botão + para adicionar sua primeira marca</p>
+        </div>
     </v-container>
 
     <v-tooltip
@@ -207,26 +201,28 @@
         @save="handleSaveBrand"
     />
     
-    <!-- Diálogo de confirmação para atualizar todos os itens -->
-    <DefaultDialog
-        v-model="showUpdateDialog"
-        title="Atualizar todos os itens?"
-        content="Ao clicar em 'Atualizar', todos os itens desatualizados serão atualizados automaticamente."
-        confirm-button-text="ATUALIZAR"
-        confirm-button-color="#0cc0df"
-        :confirm-button-action="confirmUpdateAll"
-        @confirm="confirmUpdateAll"
-    />
-    
     <!-- Diálogo de confirmação para excluir marca -->
     <DefaultDialog
         v-model="showDeleteDialog"
         :title="deleteDialogTitle"
         :content="deleteDialogContent"
         confirm-button-text="EXCLUIR"
-        confirm-button-color="#A51C24"
+        confirm-button-color="error"
         :confirm-button-action="confirmDeleteBrand"
         @confirm="confirmDeleteBrand"
+    />
+    
+    <!-- Diálogo de erro -->
+    <DefaultDialog
+        v-model="showErrorDialog"
+        persistent
+        no-cancel-button
+        title="Erro!"
+        :content="error || ''"
+        :confirm-button-text="errorButtonText"
+        confirm-button-color="primary"
+        :confirm-button-action="loadBrands"
+        @confirm="closeErrorDialog"
     />
 </template>
 

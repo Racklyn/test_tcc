@@ -10,8 +10,9 @@ export class Page extends AbstractEntity {
 
     @Column({ name: 'page_description', nullable: true })
     page_description?: string;
-
-    @ManyToOne(() => Brand, (brand) => brand.items, { nullable: false })
+    
+    //@ManyToOne(() => Brand, (brand) => brand.items, { nullable: false })
+    @ManyToOne(() => Brand, (brand) => brand.pages, { nullable: false })
     @JoinColumn({ name: 'brand_id' })
     brand: Brand;
 
