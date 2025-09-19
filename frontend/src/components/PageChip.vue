@@ -13,6 +13,7 @@
     variant="flat"
     density="comfortable"
     rounded="lg"
+    class="justify-center"
   />
 </template>
 

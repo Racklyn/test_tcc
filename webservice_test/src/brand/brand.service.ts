@@ -7,6 +7,9 @@ import { UpdateBrandDto } from './dto/update-brand.dto';
 import { BrandQuery } from './query/item.query';
 import { User } from 'src/user/user.entity';
 import { Page } from 'src/page/page.entity';
+import { ItemService } from 'src/item/item.service';
+import { BrandInfoDto } from './dto/brand-items-statistics-response.dto';
+import { ItemQuery } from 'src/item/query/item.query';
 
 @Injectable()
 export class BrandService {
@@ -16,7 +19,8 @@ export class BrandService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         @InjectRepository(Page)
-        private readonly pageRepository: Repository<Page>
+        private readonly pageRepository: Repository<Page>,
+        private readonly itemService: ItemService
     ) {}
 
     async create(brandDto: CreateBrandDto): Promise<Brand> {
@@ -69,6 +73,9 @@ export class BrandService {
                 where: {
                     id: id
                 },
+                relations: {
+                    pages: true,
+                }
             });
         } catch(error) {
             console.log(error);
@@ -172,6 +179,68 @@ export class BrandService {
           await this.brandRepository.delete(id);
         } catch (error) {
             console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async getItemsAndStatistics(brandId: number): Promise<BrandInfoDto> {
+        try {
+            // Buscar informações da marca e suas páginas
+            const brand = await this.brandRepository.findOne({
+                where: { id: brandId },
+                relations: { pages: true }
+            });
+
+            if (!brand) {
+                throw new NotFoundException('Brand not found.');
+            }
+
+            // Buscar itens com posts e average_scores usando o ItemService
+            const itemQuery: ItemQuery = {
+                brand_id: brandId.toString(),
+                type: undefined,
+                sort_by: 'updated_date',
+                sort_order: 'ASC'
+            };
+
+            const items = await this.itemService.findAllWithPosts(itemQuery);
+
+            // Calcular brand_average_score (média dos item_average_scores)
+            const itemAverageScores = items
+                .map(item => item.item_average_score)
+                .filter(score => score !== null && score !== undefined) as number[];
+
+            const brandAverageScore = itemAverageScores.length > 0
+                ? itemAverageScores.reduce((sum, score) => sum + score, 0) / itemAverageScores.length
+                : null;
+
+            // Converter pages para PageInfoDto[]
+            const pagesInfo = brand.pages?.map(page => ({
+                id: page.id,
+                title: page.title,
+                page_description: page.page_description,
+                created_date: page.created_date,
+                updated_date: page.updated_date
+            })) || [];
+
+            // Converter brand para BrandInfoDto com todas as propriedades
+            const brandInfo = {
+                id: brand.id,
+                name: brand.name,
+                about: brand.about,
+                created_date: brand.created_date,
+                updated_date: brand.updated_date,
+                pages: pagesInfo,
+                items: items,
+                brand_average_score: brandAverageScore
+            };
+
+            return brandInfo;
+        } catch (error) {
+            console.log(error);
+            if (error instanceof NotFoundException) {
+                throw error;
+            }
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

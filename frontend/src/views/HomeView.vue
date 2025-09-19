@@ -6,6 +6,7 @@
     import brandService from '@/services/brandService'
     import type { Brand, CreateBrandDto, UpdateBrandDto } from '@/models/brand'
     import { USER_ID } from '@/utils/commons'
+    import router from '@/router'
 
     // Estado das marcas
     const brands = ref<Brand[]>([])
@@ -41,12 +42,9 @@
     })
 
     const handleBrandCardClick = (brand: Brand) => {
-        console.log('Marca clicada: '+ brand.name)
-        // Aqui você pode adicionar navegação ou outras ações
-        // Por exemplo: router.push(`/brand/${brand.id}`)
+        router.push(`/results/${brand.id}`)
     }
 
-    // Estado do modal
     const showModal = ref(false)
     const editingBrand = ref<Brand | undefined>(undefined)
     
@@ -134,8 +132,8 @@
     }
 </script>
 <template>
-    <v-container class="pt-16 px-16 container" fluid>
-        <div class="text-center mb-8">
+    <v-container class="pt-8 px-16 container" fluid>
+        <div class="text-center mb-16">
             <h1 class="text-h2 text-font-primary font-weight-bold">
                 Analisador de produtos e marcas
             </h1>

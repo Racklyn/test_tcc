@@ -17,19 +17,20 @@ const router = createRouter({
             path: '/results/:brandId',
             name: 'results',
             component: ResultsView,
+            redirect: { name: 'brand' },
             children: [
                 {
-                    path: 'brand', // :id is the path parameter
+                    path: 'brand',
                     name: 'brand',
                     component: BrandView,
                 },
                 {
-                    path: 'posts', // :id is the path parameter
+                    path: 'posts',
                     name: 'posts',
                     component: PostsView,
                 },
                 {
-                    path: 'items', // :id is the path parameter
+                    path: 'items',
                     name: 'items',
                     component: ItemsView,
                 },

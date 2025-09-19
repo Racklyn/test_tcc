@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Brand } from './brand.entity';
 import { User } from 'src/user/user.entity';
 import { Page } from 'src/page/page.entity';
+import { ItemModule } from 'src/item/item.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Brand, User, Page])
+    TypeOrmModule.forFeature([Brand, User, Page]),
+    ItemModule
   ],
   controllers: [BrandController],
   providers: [BrandService]

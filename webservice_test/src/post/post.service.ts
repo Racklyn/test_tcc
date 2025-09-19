@@ -6,19 +6,13 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
 import { PostResponseDto } from './dto/post-response.dto';
+import { PostWithAnalysisResponseDto, CommentWithAnalysis, CommentAnalysisWithoutComment } from './dto/post-with-analysis-response.dto';
 import { PageService } from 'src/page/page.service';
 import { Comment } from 'src/comment/comment.entity';
 import { CommentService } from 'src/comment/comment.service';
 import { ItemService } from 'src/item/item.service';
 import { CommentAnalysis } from 'src/comment-analysis/comment-analysis.entity';
 
-// Tipo para CommentAnalysis sem a propriedade comment (para evitar referência circular)
-type CommentAnalysisWithoutComment = Omit<CommentAnalysis, 'comment'>;
-
-// Tipo para Comment com comment_analysis sem referência circular
-type CommentWithAnalysis = Omit<Comment, 'comment_analysis'> & {
-    comment_analysis: CommentAnalysisWithoutComment[];
-};
 
 
 @Injectable()
@@ -52,7 +46,7 @@ export class PostService {
             post.page = page;
 
             if (postDto.item_id) {
-                const item = await this.itemService.findOne(postDto.item_id);
+                const item = await this.itemService.findOneEntity(postDto.item_id);
                 if (!item) {
                     console.log(`Item with id ${postDto.item_id} not found!`);
                     throw new HttpException('Item not found!', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -225,7 +219,7 @@ export class PostService {
 
             // Verificação e atualização do item_id
             if (postDto.item_id) {
-                const item = await this.itemService.findOne(postDto.item_id);
+                const item = await this.itemService.findOneEntity(postDto.item_id);
                 if (!item) {
                     console.log(`Item with id ${postDto.item_id} not found!`);
                     throw new HttpException('Item not found!', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -269,7 +263,7 @@ export class PostService {
         version?: number,
         score?: number,
         related_to?: string
-    ): Promise<PostResponseDto & { comments: CommentWithAnalysis[] }> {
+    ): Promise<PostWithAnalysisResponseDto> {
         try {
             // Buscar o post com seus comentários
             const post = await this.postRepository.findOne({
@@ -331,20 +325,39 @@ export class PostService {
                         });
                     
                     return {
-                        ...comment,
+                        key: comment.key,
+                        text: comment.text,
+                        date: comment.date,
+                        reactions: comment.reactions,
+                        created_date: comment.created_date,
+                        updated_date: comment.updated_date,
+                        author: comment.author,
                         comment_analysis: commentAnalyses
                     } as CommentWithAnalysis;
                 })
                 .filter(comment => comment.comment_analysis.length > 0);
 
+            // Calcular a média dos scores de todas as análises
+            const allScores = commentsWithAnalysis
+                .flatMap(comment => comment.comment_analysis)
+                .map(analysis => analysis.score)
+                .filter(score => score !== null && score !== undefined);
+
+            const averageScore = allScores.length > 0 
+                ? allScores.reduce((sum, score) => sum + score, 0) / allScores.length 
+                : null;
+
             // Atribuir os comentários com análises ao post
             (post as any).comments = commentsWithAnalysis;
 
-            // Converter para PostResponseDto
+            // Converter para PostWithAnalysisResponseDto
             const responseDto = this.convertToResponseDto(post);
-            (responseDto as any).comments = commentsWithAnalysis;
+            const analysisResponseDto = new PostWithAnalysisResponseDto();
+            Object.assign(analysisResponseDto, responseDto);
+            analysisResponseDto.comments = commentsWithAnalysis;
+            analysisResponseDto.average_score = averageScore;
 
-            return responseDto;
+            return analysisResponseDto;
         } catch(error) {
             console.log(error);
             if (error instanceof NotFoundException) {

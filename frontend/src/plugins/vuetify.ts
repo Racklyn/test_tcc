@@ -11,6 +11,7 @@ const defaultTheme: ThemeDefinition = {
         background: '#FFFFFF',
         surface: '#FFFFFF',
         'surface-card': '#F6F9FA',
+        'surface-card-2': '#F6F6F6',
         'surface-light': '#EEEEEE',
         'surface-variant': '#A6A6A6',
         'on-surface-variant': '#EEEEEE',
@@ -21,10 +22,11 @@ const defaultTheme: ThemeDefinition = {
         'secondary-darken-1': '#004aad',
         error: '#9f1414',
         info: '#2196F3',
-        success: '#4CAF50',
+        success: '#00bf63',
         warning: '#FB8C00',
         'font-primary': '#343637',
         'font-secondary': '#545454',
+        'font-light': '#D9D9D9',
 
     },
     variables: {

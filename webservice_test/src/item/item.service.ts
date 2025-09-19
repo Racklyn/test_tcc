@@ -5,8 +5,10 @@ import { Item } from './item.entity';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemResponseDto } from './dto/item-response.dto';
+import { PostWithAverageScoreDto } from './dto/post-with-average-score.dto';
 import { ItemQuery } from './query/item.query';
 import { Brand } from 'src/brand/brand.entity';
+import { CommentAnalysis } from 'src/comment-analysis/comment-analysis.entity';
 
 @Injectable()
 export class ItemService {
@@ -16,7 +18,10 @@ export class ItemService {
         private readonly itemRepository: Repository<Item>,
 
         @InjectRepository(Brand)
-        private readonly brandRepository: Repository<Brand>
+        private readonly brandRepository: Repository<Brand>,
+
+        @InjectRepository(CommentAnalysis)
+        private readonly commentAnalysisRepository: Repository<CommentAnalysis>
     ) {}
 
     async create(itemDto: CreateItemDto): Promise<Item> {
@@ -70,6 +75,25 @@ export class ItemService {
         }
     }
 
+    async findOneEntity(id: number): Promise<Item> {
+        try {
+            const item = await this.itemRepository.findOne({
+                where: {
+                    id: id
+                }
+            });
+            
+            if (!item) {
+                return null;
+            }
+            
+            return item;
+        } catch(error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     async findAll(
         query?: ItemQuery
     ): Promise<ItemResponseDto[]> {
@@ -110,10 +134,14 @@ export class ItemService {
                     [query.sort_by ?? 'updated_date'] : query.sort_order ?? 'ASC', //TODO: verificar
                 },
                 relations: {
-                    posts: true,
+                    posts: {
+                        comments: {
+                            comment_analysis: true
+                        }
+                    },
                 }
             });
-            return items.map(item => this.toItemResponseDto(item));
+            return items.map(item => this.toItemResponseDtoWithPosts(item));
         } catch(error) {
             console.log(error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -226,11 +254,95 @@ export class ItemService {
     }
 
     /**
+     * Calcula o average_score de um post baseado nas análises dos comentários
+     */
+    private calculatePostAverageScore(post: any): number | null {
+        if (!post.comments || post.comments.length === 0) {
+            return null;
+        }
+
+        const allScores: number[] = [];
+        
+        for (const comment of post.comments) {
+            if (comment.comment_analysis && comment.comment_analysis.length > 0) {
+                for (const analysis of comment.comment_analysis) {
+                    if (analysis.score !== null && analysis.score !== undefined) {
+                        allScores.push(analysis.score);
+                    }
+                }
+            }
+        }
+
+        if (allScores.length === 0) {
+            return null;
+        }
+
+        return allScores.reduce((sum, score) => sum + score, 0) / allScores.length;
+    }
+
+    /**
+     * Converte um Post para PostWithAverageScoreDto
+     */
+    private toPostWithAverageScoreDto(post: any): PostWithAverageScoreDto {
+        const averageScore = this.calculatePostAverageScore(post);
+        const commentsCount = post.comments ? post.comments.length : 0;
+        
+        return {
+            id: post.id,
+            content: post.content,
+            summary: post.summary,
+            post_date: post.post_date,
+            reactions: post.reactions,
+            url: post.url,
+            newest_comment_date: post.newest_comment_date,
+            last_analysis: post.last_analysis,
+            created_date: post.created_date,
+            updated_date: post.updated_date,
+            page: post.page,
+            item: post.item,
+            average_score: averageScore,
+            comments_count: commentsCount
+        };
+    }
+
+    /**
+     * Converte um Item para ItemResponseDto com posts incluindo average_score
+     */
+    private toItemResponseDtoWithPosts(item: Item): ItemResponseDto {
+        const postsWithAverageScore = item.posts?.map(post => this.toPostWithAverageScoreDto(post)) || [];
+        
+        // Calcular item_average_score (média dos average_scores dos posts)
+        const postAverageScores = postsWithAverageScore
+            .map(post => post.average_score)
+            .filter(score => score !== null && score !== undefined) as number[];
+
+        const itemAverageScore = postAverageScores.length > 0
+            ? postAverageScores.reduce((sum, score) => sum + score, 0) / postAverageScores.length
+            : null;
+
+        return {
+            ...item,
+            outdated: this.calculateOutdated(item),
+            item_average_score: itemAverageScore,
+            posts: postsWithAverageScore
+        };
+    }
+
+    /**
      * Converte um Item para ItemResponseDto adicionando o campo outdated
      */
     private toItemResponseDto(item: Item): ItemResponseDto {
         return {
-            ...item,
+            id: item.id,
+            name: item.name,
+            block_name_from_updates: item.block_name_from_updates,
+            type: item.type,
+            description: item.description,
+            last_sync: item.last_sync,
+            created_date: item.created_date,
+            updated_date: item.updated_date,
+            brand: item.brand,
+            item_analysis_result: item.item_analysis_result,
             outdated: this.calculateOutdated(item)
         };
     }

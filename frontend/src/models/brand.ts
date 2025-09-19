@@ -1,4 +1,5 @@
 import type { Page, CreatePageDto } from "./page"
+import type { Item } from "./item"
 
 export type Brand = {
     id: string
@@ -9,11 +10,12 @@ export type Brand = {
     updated_at?: string
 }
 
-export type BrandQueryParams = {
-    sort_order?: string
-    sort_by?: string
-    user_id: number
+export type BrandWithItemsAndStatistics = Brand & {
+    items: Item[]
+    brand_average_score?: number
 }
+
+
 
 export type CreateBrandDto = {
     name: string
@@ -27,5 +29,11 @@ export type UpdateBrandDto = {
     name: string
     about: string
     pages: CreatePageDto[]
+    user_id: number
+}
+
+export type BrandQueryParams = {
+    sort_order?: string
+    sort_by?: string
     user_id: number
 }
