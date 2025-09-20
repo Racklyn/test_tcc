@@ -2,7 +2,7 @@
     import { computed, inject, type Ref } from 'vue'
     import type { BrandWithItemsAndStatistics } from '@/models/brand'
     import PageChip from '@/components/PageChip.vue';
-    import PercentChip from '@/components/PercentChip.vue';
+    import PercentChip from '@/components/results/PercentChip.vue';
 
     // Injetar o brand fornecido pela ResultsView
     const selectedBrand = inject<Ref<BrandWithItemsAndStatistics | null>>('selectedBrand')

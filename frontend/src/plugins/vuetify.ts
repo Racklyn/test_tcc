@@ -18,6 +18,8 @@ const defaultTheme: ThemeDefinition = {
         'primary-light': '#00ccff',
         primary: '#0cc0df',
         'primary-darken-1': '#0097b2',
+        'scraper-color': '#34636b',
+        'analysis-color': '#269ea2',
         secondary: '#5271ff',
         'secondary-darken-1': '#004aad',
         error: '#9f1414',
@@ -26,7 +28,9 @@ const defaultTheme: ThemeDefinition = {
         warning: '#FB8C00',
         'font-primary': '#343637',
         'font-secondary': '#545454',
-        'font-light': '#D9D9D9',
+        'font-secondary-2': '#999999',
+        'font-light-1': '#b3b3b3',
+        'font-light-2': '#D9D9D9',
 
     },
     variables: {

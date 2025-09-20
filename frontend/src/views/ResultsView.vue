@@ -95,7 +95,7 @@
                     :color="activeTab === index ? 'primary' : 'surface-variant'"
                     class="font-weight-bold text-body-2 btn-tab"
                 >
-                    <p :class="activeTab === index ? 'text-white' : 'text-font-light'">
+                    <p :class="activeTab === index ? 'text-white' : 'text-font-light-2'">
                         {{ tab.label }}
                     </p>
                 </v-btn>

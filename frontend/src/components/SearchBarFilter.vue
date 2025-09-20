@@ -32,7 +32,7 @@
             <v-tooltip
                 text="Função disponível em breve"
                 activator="parent"
-                position="bottom"
+                location="bottom"
             />
         </v-btn>
     </div>

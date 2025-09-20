@@ -77,7 +77,7 @@
             {{ isValidValue ? `${props.value}%` : '?' }}
         </v-chip>
 
-        <p class="text-body-1 text-font-secondary text-center mt-3">
+        <p v-if="props.text" class="text-body-1 text-font-secondary text-center mt-3">
            {{ props.text }}
        </p>
     </div>
