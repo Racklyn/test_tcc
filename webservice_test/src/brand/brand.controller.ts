@@ -27,7 +27,7 @@ export class BrandController {
     @Get(':id/itemsAndStatistics')
     @ApiOperation({ 
         summary: 'Buscar itens e estatísticas da marca',
-        description: 'Retorna todos os itens da marca com seus posts, average_scores e o brand_average_score'
+        description: 'Retorna uma marca com todos os seus itens, average_scores e o brand_average_score'
     })
     @ApiResponse({ 
         status: 200, 

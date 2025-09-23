@@ -5,6 +5,7 @@ import { Item } from './item.entity';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemResponseDto } from './dto/item-response.dto';
+import { ItemWithPostsCountDto } from './dto/item-with-posts-count.dto';
 import { PostWithAverageScoreDto } from './dto/post-with-average-score.dto';
 import { ItemQuery } from './query/item.query';
 import { Brand } from 'src/brand/brand.entity';
@@ -142,6 +143,35 @@ export class ItemService {
                 }
             });
             return items.map(item => this.toItemResponseDtoWithPosts(item));
+        } catch(error) {
+            console.log(error);
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async findAllWithPostsCount(
+        query?: ItemQuery
+    ): Promise<ItemWithPostsCountDto[]> {
+        try {
+            const items = await this.itemRepository.find({
+                where: {
+                    brand: {
+                        id: +query.brand_id,
+                    },
+                    type: query.type,
+                },
+                order: {
+                    [query.sort_by ?? 'updated_date'] : query.sort_order ?? 'ASC',
+                },
+                relations: {
+                    posts: {
+                        comments: {
+                            comment_analysis: true
+                        }
+                    },
+                }
+            });
+            return items.map(item => this.toItemWithPostsCountDto(item));
         } catch(error) {
             console.log(error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -344,6 +374,38 @@ export class ItemService {
             brand: item.brand,
             item_analysis_result: item.item_analysis_result,
             outdated: this.calculateOutdated(item)
+        };
+    }
+
+    /**
+     * Converte um Item para ItemWithPostsCountDto com contagem de posts e average_score
+     */
+    private toItemWithPostsCountDto(item: Item): ItemWithPostsCountDto {
+        const postsWithAverageScore = item.posts?.map(post => this.toPostWithAverageScoreDto(post)) || [];
+        
+        // Calcular item_average_score (média dos average_scores dos posts)
+        const postAverageScores = postsWithAverageScore
+            .map(post => post.average_score)
+            .filter(score => score !== null && score !== undefined) as number[];
+
+        const itemAverageScore = postAverageScores.length > 0
+            ? postAverageScores.reduce((sum, score) => sum + score, 0) / postAverageScores.length
+            : null;
+
+        return {
+            id: item.id,
+            name: item.name,
+            block_name_from_updates: item.block_name_from_updates,
+            type: item.type,
+            description: item.description,
+            last_sync: item.last_sync,
+            created_date: item.created_date,
+            updated_date: item.updated_date,
+            brand: item.brand,
+            item_analysis_result: item.item_analysis_result,
+            outdated: this.calculateOutdated(item),
+            item_average_score: itemAverageScore,
+            posts_count: item.posts?.length || 0
         };
     }
 }

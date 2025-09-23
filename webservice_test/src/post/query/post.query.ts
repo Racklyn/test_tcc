@@ -9,4 +9,4 @@ export class PostQuery extends DefaultQueryParams {
     @IsOptional()
     @IsString()
     since_date?: string;
-}
+}   

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Item } from '../item.entity';
+import { Item } from '../../item/item.entity';
 
-export class PostWithAverageScoreDto {
+export class PostWithItemDto {
     @ApiProperty({ description: 'ID único do post' })
     id: number;
 
@@ -35,8 +35,11 @@ export class PostWithAverageScoreDto {
     @ApiProperty({ description: 'Página associada ao post' })
     page: any;
 
-    @ApiProperty({ description: 'Item associado ao post', required: false })
-    item?: Item;
+    @ApiProperty({ 
+        description: 'Item associado ao post',
+        nullable: true
+    })
+    item?: Item | null;
 
     @ApiProperty({ 
         description: 'Média dos scores de todas as análises dos comentários deste post',

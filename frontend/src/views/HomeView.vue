@@ -206,7 +206,6 @@
         :content="deleteDialogContent"
         confirm-button-text="EXCLUIR"
         confirm-button-color="error"
-        :confirm-button-action="confirmDeleteBrand"
         @confirm="confirmDeleteBrand"
     />
     
@@ -219,7 +218,6 @@
         :content="error || ''"
         :confirm-button-text="errorButtonText"
         confirm-button-color="primary"
-        :confirm-button-action="loadBrands"
         @confirm="closeErrorDialog"
     />
 </template>

@@ -36,6 +36,15 @@ export class PostController {
         return this.postService.findOneWithComments(id);
     }
 
+    @Get('withItem')
+    @ApiQuery({ name: 'brand_id', required: true })
+    @ApiQuery({ name: 'since_date', required: false, example: '2025-03-08T00:00Z' })
+    @ApiQuery({ name: 'sort_by', required: false })
+    @ApiQuery({ name: 'sort_order', required: false })
+    async findAllWithItem(@Query() query: PostQuery) {
+        return this.postService.findAllWithItem(query);
+    }
+
     @Get(':id/withAnalysis')
     async findOneWithAnalysis(
         @Param('id') id: number,

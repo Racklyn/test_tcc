@@ -1,6 +1,6 @@
 import type { Post } from "./post"
 
-export type Item = {
+export type ItemNoPosts = {
     id: string
     name: string
     block_name_from_updates?: boolean
@@ -8,10 +8,14 @@ export type Item = {
     description: string
     last_sync?: string
     item_analysis_result?: ItemAnalysisResult[]
-    posts?: Post[]
+    posts_count?: number
     created_at: string
     updated_at: string
     item_average_score?: number
+}
+
+export type Item = ItemNoPosts & {
+    posts?: Post[]
 }
 
 

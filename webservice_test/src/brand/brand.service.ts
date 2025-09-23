@@ -195,7 +195,7 @@ export class BrandService {
                 throw new NotFoundException('Brand not found.');
             }
 
-            // Buscar itens com posts e average_scores usando o ItemService
+            // Buscar itens com contagem de posts e average_scores usando o ItemService
             const itemQuery: ItemQuery = {
                 brand_id: brandId.toString(),
                 type: undefined,
@@ -203,7 +203,7 @@ export class BrandService {
                 sort_order: 'ASC'
             };
 
-            const items = await this.itemService.findAllWithPosts(itemQuery);
+            const items = await this.itemService.findAllWithPostsCount(itemQuery);
 
             // Calcular brand_average_score (média dos item_average_scores)
             const itemAverageScores = items

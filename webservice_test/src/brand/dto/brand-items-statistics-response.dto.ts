@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ItemResponseDto } from '../../item/dto/item-response.dto';
+import { ItemWithPostsCountDto } from '../../item/dto/item-with-posts-count.dto';
 
 export class BrandInfoDto {
     @ApiProperty({ description: 'ID único da marca' })
@@ -34,11 +34,11 @@ export class BrandInfoDto {
     pages: PageInfoDto[];
 
     @ApiProperty({
-        description: 'Itens da marca com seus posts e average_scores',
+        description: 'Itens da marca com contagem de posts e average_scores',
         type: 'array',
-        items: { $ref: '#/components/schemas/ItemResponseDto' }
+        items: { $ref: '#/components/schemas/ItemWithPostsCountDto' }
     })
-    items: ItemResponseDto[];
+    items: ItemWithPostsCountDto[];
 
     @ApiProperty({
         description: 'Média dos item_average_scores de todos os itens da marca',
@@ -91,7 +91,7 @@ export class BrandItemsStatisticsResponseDto {
             },
             items: {
                 type: 'array',
-                items: { $ref: '#/components/schemas/ItemResponseDto' }
+                items: { $ref: '#/components/schemas/ItemWithPostsCountDto' }
             },
             brand_average_score: { type: 'number', nullable: true }
         }

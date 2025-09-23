@@ -7,7 +7,6 @@ import { computed } from 'vue'
         content: string
         confirmButtonText?: string
         confirmButtonColor?: string
-        confirmButtonAction?: () => void
         noCancelButton?: boolean
     }
 
@@ -33,10 +32,7 @@ import { computed } from 'vue'
 
     // Função para confirmar
     const handleConfirm = () => {
-    if (props.confirmButtonAction) {
-        props.confirmButtonAction()
-    }
-    emit('confirm')
+        emit('confirm')
         isOpen.value = false
     }
 

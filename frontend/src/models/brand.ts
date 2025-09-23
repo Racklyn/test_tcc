@@ -1,17 +1,17 @@
 import type { Page, CreatePageDto } from "./page"
-import type { Item } from "./item"
+import type { ItemNoPosts } from "./item"
 
 export type Brand = {
     id: string
     name: string
     about: string
     pages: Page[]
-    created_at?: string
-    updated_at?: string
+    created_date?: string
+    updated_date?: string
 }
 
 export type BrandWithItemsAndStatistics = Brand & {
-    items: Item[]
+    items: ItemNoPosts[]
     brand_average_score?: number
 }
 

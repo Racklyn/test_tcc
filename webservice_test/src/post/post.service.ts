@@ -7,6 +7,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
 import { PostResponseDto } from './dto/post-response.dto';
 import { PostWithAnalysisResponseDto, CommentWithAnalysis, CommentAnalysisWithoutComment } from './dto/post-with-analysis-response.dto';
+import { PostWithItemDto } from './dto/post-with-item.dto';
 import { PageService } from 'src/page/page.service';
 import { Comment } from 'src/comment/comment.entity';
 import { CommentService } from 'src/comment/comment.service';
@@ -155,6 +156,47 @@ export class PostService {
             if (error instanceof NotFoundException) {
                 throw error;
             }
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async findAllWithItem(query?: PostQuery): Promise<PostWithItemDto[]> {
+        try {
+            //TODO: verificar. Não era pra ser necessário isso. brand_id deveria vir como number
+            let brand_id = query.brand_id ? +query.brand_id : undefined
+            let since_date = query.since_date ? new Date(query.since_date) : undefined
+
+            // Construindo o where dinamicamente
+            const whereCondition: any = {
+                page: {
+                    brand: {
+                        id: brand_id
+                    }
+                }
+            };
+
+            // Adicionar a condição de data apenas se since_date existir
+            if (since_date) {
+                whereCondition.post_date = MoreThanOrEqual(since_date);
+            }
+
+            const posts = await this.postRepository.find({
+                where: whereCondition,
+                order: {
+                    [query.sort_by ?? 'updated_date'] : query.sort_order ?? 'ASC',
+                },
+                relations: {
+                    comments: {
+                        comment_analysis: true
+                    },
+                    page: true,
+                    item: true
+                }
+            });
+
+            return posts.map(post => this.convertToPostWithItemDto(post));
+        } catch(error) {
+            console.log(error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -388,5 +430,57 @@ export class PostService {
         Object.assign(responseDto, post);
         responseDto.analysis_outdated = this.isAnalysisOutdated(post);
         return responseDto;
+    }
+
+    /**
+     * Converte um Post para PostWithItemDto incluindo o item e average_score
+     */
+    private convertToPostWithItemDto(post: Post): PostWithItemDto {
+        const averageScore = this.calculatePostAverageScore(post);
+        const commentsCount = post.comments ? post.comments.length : 0;
+        
+        return {
+            id: post.id,
+            content: post.content,
+            summary: post.summary,
+            post_date: post.post_date,
+            reactions: post.reactions,
+            url: post.url,
+            newest_comment_date: post.newest_comment_date,
+            last_analysis: post.last_analysis,
+            created_date: post.created_date,
+            updated_date: post.updated_date,
+            page: post.page,
+            item: post.item || null,
+            average_score: averageScore,
+            comments_count: commentsCount
+        };
+    }
+
+    /**
+     * Calcula o average_score de um post baseado nas análises dos comentários
+     */
+    private calculatePostAverageScore(post: Post): number | null {
+        if (!post.comments || post.comments.length === 0) {
+            return null;
+        }
+
+        const allScores: number[] = [];
+        
+        for (const comment of post.comments) {
+            if (comment.comment_analysis && comment.comment_analysis.length > 0) {
+                for (const analysis of comment.comment_analysis) {
+                    if (analysis.score !== null && analysis.score !== undefined) {
+                        allScores.push(analysis.score);
+                    }
+                }
+            }
+        }
+
+        if (allScores.length === 0) {
+            return null;
+        }
+
+        return allScores.reduce((sum, score) => sum + score, 0) / allScores.length;
     }
 }

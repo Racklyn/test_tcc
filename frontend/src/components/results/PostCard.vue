@@ -1,11 +1,11 @@
 <script setup lang="ts">
     import { computed } from 'vue';
-    import type { Post } from '@/models/post';
+    import type { PostWithItem } from '@/models/post';
     import { formatDateTime } from '@/utils/dateFormat';
     import PercentChip from './PercentChip.vue';
 
     type Props = {
-        post: Post
+        post: PostWithItem
     }
 
     const props = defineProps<Props>()
@@ -21,6 +21,14 @@
     const lastAnalysis = computed(() => {
         if (!props.post.last_analysis) return null
         return formatDateTime(props.post.last_analysis)
+    })
+
+    const itemType = computed(() => {
+        return props.post.item.type === 'product' ? 'PRODUTO' : 'SERVIÇO'
+    })
+
+    const itemTypeColor = computed(() => {
+        return props.post.item.type === 'product' ? 'secondary-darken-1' : 'secondary'
     })
 
     const scoreToPercent = (score: number | undefined) => {
@@ -42,13 +50,23 @@
         </h4>
         <v-spacer />
 
-        <v-btn
-            icon="mdi-open-in-new"
-            color="primary-darken-1"
-            variant="tonal"
-            density="comfortable"
-            rounded="lg"
-        />
+        <v-tooltip
+            text="Ver publicação no Facebook (indisponível)"
+            location="top"
+            open-delay="350"
+            width="240"
+        >
+            <template #activator="{ props }">
+                <v-btn
+                    v-bind="props"
+                    icon="mdi-open-in-new"
+                    color="primary-darken-1"
+                    variant="tonal"
+                    density="comfortable"
+                    rounded="lg"
+                />
+            </template>
+        </v-tooltip>
     </v-card-title>
 
     <v-card-text class="text-font-secondary">
@@ -72,11 +90,11 @@
         <div class="mb-2 mb-lg-4" style="height: 40px;">
             <div
                 class="d-flex align-center"
-                v-if="true"
+                v-if="props.post.item"
             >
                 <v-chip
-                    text="???????"
-                    color="secondary-darken-1"
+                    :text="itemType"
+                    :color="itemTypeColor"
                     variant="flat"
                     density="compact"
                     rounded="lg"
@@ -84,7 +102,7 @@
                     style="width: 110px;"
                 />
     
-                <p class="text-subtitle-1 text-truncate">Nome do produto/serviço</p>
+                <p class="text-subtitle-1 text-truncate">{{ props.post.item.name }}</p>
             </div>
             <p
                 class="text-body-2 text-font-light-1"
