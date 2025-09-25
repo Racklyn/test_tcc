@@ -1,8 +1,9 @@
 <script setup lang="ts">
-    import { computed } from 'vue';
-    import type { PostWithItem } from '@/models/post';
-    import { formatDateTime } from '@/utils/dateFormat';
-    import PercentChip from './PercentChip.vue';
+    import { computed } from 'vue'
+    import type { PostWithItem } from '@/models/post'
+    import { formatDateTime } from '@/utils/dateFormat'
+    import ValueChip from './ValueChip.vue'
+    import { scoreToPercent } from '@/utils/commons'
 
     type Props = {
         post: PostWithItem
@@ -31,11 +32,6 @@
         return props.post.item.type === 'product' ? 'secondary-darken-1' : 'secondary'
     })
 
-    const scoreToPercent = (score: number | undefined) => {
-        if (!score) return -1
-        return Math.round((score)*100)
-    }
-
 </script>
 
 <template>
@@ -49,6 +45,10 @@
             {{ postDate }}
         </h4>
         <v-spacer />
+
+        <p class="text-body-1 text-font-primary mr-6">
+            @{{ post.page.title }}
+        </p>
 
         <v-tooltip
             text="Ver publicação no Facebook (indisponível)"
@@ -140,10 +140,11 @@
             </span>
 
             <span class="d-flex align-center">
-                <PercentChip
+                <ValueChip
                     :value="scoreToPercent(post.average_score)"
                     size="sm"
                     class="mr-4"
+                    isPercent
                 />
 
                 <span class="d-flex align-center">

@@ -5,6 +5,7 @@
         value: number
         text?: string
         size?: 'sm' | 'md' | 'lg'
+        isPercent?: boolean
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -17,22 +18,26 @@
         yellow: { bg: '#efebe1', textColor: '#ffb74a'},
         lime:   { bg: '#e9ebe2', textColor: '#80b917'},
         green:  { bg: '#e1efe3', textColor: '#00bf63'},
-        none:   { bg: '#eeebf1', textColor: '#A6A6A6'}
+        none:   { bg: '#eeebf1', textColor: '#A6A6A6'},
+        default:   { bg: '#ffffff', textColor: '#0097b2'}
     }
 
     const sizeConfigs = {
         sm: {
             textSize: 'text-caption',
+            descriptionSize: 'text-caption',
             width: '40px',
             height: '32px'
         },
         md: {
             textSize: 'text-body-1',
+            descriptionSize: 'text-caption',
             width: '50px',
             height: '36px'
         },
         lg: {
             textSize: 'text-h4',
+            descriptionSize: 'text-body-1',
             width: '100px',
             height: '80px'
         }
@@ -44,6 +49,8 @@
 
     const scale = computed(() => {
         const value = props.value
+
+        if (!props.isPercent) return 'default'
         
         if (!isValidValue.value) return 'none'
         if (value < 20) return 'red'
@@ -57,6 +64,13 @@
 
     const chipColor = computed(() => colorScale[scale.value].bg)
     const textColor = computed(() => colorScale[scale.value].textColor)
+
+    const formattedValue = computed(() => {
+        if (props.isPercent) {
+            return isValidValue.value ? `${props.value}%` : '?'
+        }
+        return props.value
+    })
 </script>
 
 <template>
@@ -74,10 +88,14 @@
             rounded="lg"
             variant="flat"
         >
-            {{ isValidValue ? `${props.value}%` : '?' }}
+            {{ formattedValue }}
         </v-chip>
 
-        <p v-if="props.text" class="text-body-1 text-font-secondary text-center mt-3">
+        <p
+            v-if="props.text"
+            class="text-body-1 text-font-secondary text-center"
+            :class="`${sizeConfigs[props.size].descriptionSize} ${props.size === 'lg' ? 'mt-3' : 'mt-0'}`"
+        >
            {{ props.text }}
        </p>
     </div>

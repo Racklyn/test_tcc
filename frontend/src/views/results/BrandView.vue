@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { computed, inject, type Ref } from 'vue'
     import type { BrandWithItemsAndStatistics } from '@/models/brand'
-    import PageChip from '@/components/PageChip.vue';
-    import PercentChip from '@/components/results/PercentChip.vue';
+    import PageChip from '@/components/PageChip.vue'
+    import ValueChip from '@/components/results/ValueChip.vue'
+    import { scoreToPercent } from '@/utils/commons'
 
     // Injetar o brand fornecido pela ResultsView
     const selectedBrand = inject<Ref<BrandWithItemsAndStatistics | null>>('selectedBrand')
@@ -18,11 +19,6 @@
         const orderedItems = items.sort((a, b) => a.item_average_score! - b.item_average_score!) ?? []
         return orderedItems[0]
     })
-
-    const scoreToPercent = (score: number | undefined) => {
-        if (!score) return -1
-        return Math.round((score)*100)
-    }
     
 
 </script>
@@ -86,13 +82,15 @@
 
             <div class="w-50 py-4 px-10">
                 <div class="d-flex justify-space-around ga-4 mb-8">
-                    <PercentChip
+                    <ValueChip
                         :value="scoreToPercent(selectedBrand?.brand_average_score)"
                         text="Avaliação média"
+                        isPercent
                     />
-                    <PercentChip
+                    <ValueChip
                         :value="scoreToPercent(selectedBrand?.brand_average_score)"
                         text="Outro valor qualquer"
+                        isPercent
                     />
                 </div>
 
@@ -102,9 +100,10 @@
                         <p class="text-h6 text-font-secondary">{{ bestItem?.name }}</p>
                     </span>
                     <v-spacer />
-                    <PercentChip
+                    <ValueChip
                         :value="scoreToPercent(bestItem?.item_average_score)"
                         size="sm"
+                        isPercent
                     />
                 </div>
 
@@ -114,9 +113,10 @@
                         <p class="text-h6 text-font-secondary">{{ worstItem?.name }}</p>
                     </span>
                     <v-spacer />
-                    <PercentChip
+                    <ValueChip
                         :value="scoreToPercent(worstItem?.item_average_score)"
                         size="sm"
+                        isPercent
                     />
                 </div>
 

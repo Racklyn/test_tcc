@@ -7,19 +7,25 @@
     const route = useRoute()
     const router = useRouter()
 
-    const activeTab = ref(0)
+    const tabs = [
+        { name: 'brand', label: 'MARCA', component: 'BrandView' },
+        { name: 'posts', label: 'PUBLICAÇÕES', component: 'PostsView' },
+        { name: 'items', label: 'PRODUTOS E SERVIÇOS', component: 'ItemsView' }
+    ]
+
+    // Função para obter o índice da aba baseado na rota atual
+    const getTabIndexFromRoute = (routeName: string): number => {
+        const tabIndex = tabs.findIndex(tab => tab.name === routeName)
+        return tabIndex !== -1 ? tabIndex : 0
+    }
+
+    const activeTab = ref(getTabIndexFromRoute(route.name as string))
     const brand = ref<BrandWithItemsAndStatistics | null>(null)
     const loading = ref(false)
     const error = ref<string | null>(null)
 
     // Fornecer o brand para os componentes filhos
     provide('selectedBrand', brand)
-
-    const tabs = [
-        { name: 'brand', label: 'MARCA', component: 'BrandView' },
-        { name: 'posts', label: 'PUBLICAÇÕES', component: 'PostsView' },
-        { name: 'items', label: 'PRODUTOS E SERVIÇOS', component: 'ItemsView' }
-    ]
 
     const brandName = computed(() => {
         return brand.value?.name || '...'

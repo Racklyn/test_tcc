@@ -1,4 +1,5 @@
 import type { Item } from "./item"
+import type { Page } from "./page"
 
 export type Post = {
     id: string
@@ -18,6 +19,7 @@ export type Post = {
 
 export type PostWithItem = Post & {
     item: Item
+    page: Page
 }
 
 export type PostQueryParams = {

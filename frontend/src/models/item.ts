@@ -9,9 +9,10 @@ export type ItemNoPosts = {
     last_sync?: string
     item_analysis_result?: ItemAnalysisResult[]
     posts_count?: number
-    created_at: string
-    updated_at: string
+    created_date: string
+    updated_date: string
     item_average_score?: number
+    outdated?: boolean
 }
 
 export type Item = ItemNoPosts & {
