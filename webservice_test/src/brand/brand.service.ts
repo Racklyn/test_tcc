@@ -183,7 +183,11 @@ export class BrandService {
         }
     }
 
-    async getItemsAndStatistics(brandId: number): Promise<BrandInfoDto> {
+    async getItemsAndStatistics(
+        brandId: number, 
+        itemSortBy?: string, 
+        itemSortOrder?: 'ASC' | 'DESC'
+    ): Promise<BrandInfoDto> {
         try {
             // Buscar informações da marca e suas páginas
             const brand = await this.brandRepository.findOne({
@@ -199,8 +203,8 @@ export class BrandService {
             const itemQuery: ItemQuery = {
                 brand_id: brandId.toString(),
                 type: undefined,
-                sort_by: 'updated_date',
-                sort_order: 'ASC'
+                sort_by: itemSortBy || 'updated_date',
+                sort_order: itemSortOrder || 'ASC'
             };
 
             const items = await this.itemService.findAllWithPostsCount(itemQuery);

@@ -37,3 +37,8 @@ export type BrandQueryParams = {
     sort_by?: string
     user_id: number
 }
+
+export type BrandItemsStatisticsQueryParams = {
+    item_sort_by?: string
+    item_sort_order?: string
+}

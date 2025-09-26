@@ -104,4 +104,38 @@ export class ItemAnalysisResultService {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    async findLatestByItemId(itemId: number): Promise<ItemAnalysisResult> {
+        try {
+            const item = await this.itemRepository.findOne({
+                where: { id: itemId }
+            });
+
+            if (!item) {
+                throw new NotFoundException('Item not found.');
+            }
+
+            const latestAnalysis = await this.itemAnalysisResultRepository.findOne({
+                where: {
+                    item: { id: itemId }
+                },
+                order: {
+                    version: 'DESC'
+                },
+                relations: ['item']
+            });
+
+            if (!latestAnalysis) {
+                throw new NotFoundException('No analysis found for this item.');
+            }
+
+            return latestAnalysis;
+        } catch(error) {
+            console.log(error);
+            if (error instanceof NotFoundException) {
+                throw error;
+            }
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

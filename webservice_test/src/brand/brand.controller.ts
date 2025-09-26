@@ -34,8 +34,14 @@ export class BrandController {
         description: 'Itens e estatísticas retornados com sucesso',
         type: BrandInfoDto
     })
-    async getItemsAndStatistics(@Param('id') id: string) {
-        return await this.brandService.getItemsAndStatistics(+id);
+    @ApiQuery({ name: 'item_sort_by', required: false, description: 'Campo para ordenação dos itens (ex: last_sync, name, created_date, updated_date, item_average_score, posts_count)' })
+    @ApiQuery({ name: 'item_sort_order', required: false, enum: ['ASC', 'DESC'], description: 'Ordem da ordenação dos itens' })
+    async getItemsAndStatistics(
+        @Param('id') id: string,
+        @Query('item_sort_by') itemSortBy?: string,
+        @Query('item_sort_order') itemSortOrder?: 'ASC' | 'DESC'
+    ) {
+        return await this.brandService.getItemsAndStatistics(+id, itemSortBy, itemSortOrder);
     }
 
     @Get()

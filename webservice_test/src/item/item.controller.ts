@@ -44,6 +44,11 @@ export class ItemController {
         return await this.itemService.findOne(id);
     }
 
+    @Get(':id/withPostsAndResult')
+    async findOneWithPostsAndResults(@Param('id') id: number) {
+        return await this.itemService.findOneWithPostsAndResult(id);
+    }
+
     @Get()
     @ApiQuery({ name: 'brand_id', required: false  })
     @ApiQuery({ name: 'type', required: false  })

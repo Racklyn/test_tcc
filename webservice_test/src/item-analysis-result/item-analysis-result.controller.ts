@@ -28,6 +28,11 @@ export class ItemAnalysisResultController {
         return itemAnalysisResults;
     }
 
+    @Get('latestByItemId/:itemId')
+    async findLatestByItemId(@Param('itemId') itemId: number) {
+        return this.itemAnalysisResultService.findLatestByItemId(itemId);
+    }
+
     @Patch(':id')
     async update(
         @Param('id') id: string,

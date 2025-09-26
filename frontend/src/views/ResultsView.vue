@@ -51,7 +51,10 @@
         error.value = null
 
         try {
-            brand.value = await brandService.getWithItemsAndStatistics(route.params.brandId as string)
+            brand.value = await brandService.getWithItemsAndStatistics(
+                route.params.brandId as string,
+                { item_sort_by: 'last_sync', item_sort_order: 'desc' }
+            )
         } catch (err) {
             console.error('Erro ao buscar marca:', err)
             error.value = 'Erro ao carregar informações da marca'

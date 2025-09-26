@@ -2,6 +2,7 @@ import api from './api'
 import type {
     Brand,
     BrandQueryParams,
+    BrandItemsStatisticsQueryParams,
     BrandWithItemsAndStatistics,
     CreateBrandDto,
     UpdateBrandDto
@@ -16,8 +17,11 @@ export default {
         return response.data
     },
 
-    getWithItemsAndStatistics: async (id: string) => {
-        const response = await api.get<BrandWithItemsAndStatistics>(`${resource}/${id}/itemsAndStatistics`)
+    getWithItemsAndStatistics: async (id: string, queryParams: BrandItemsStatisticsQueryParams = {}) => {
+        const response = await api.get<BrandWithItemsAndStatistics>(
+            `${resource}/${id}/itemsAndStatistics`,
+            { params: queryParams }
+        )
         return response.data
     },
 

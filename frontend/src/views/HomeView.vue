@@ -4,7 +4,7 @@
     import BrandModal from '@/components/home/BrandModal.vue'
     import DefaultDialog from '@/components/DefaultDialog.vue'
     import brandService from '@/services/brandService'
-    import type { Brand, CreateBrandDto, UpdateBrandDto } from '@/models/brand'
+    import type { Brand, BrandQueryParams, CreateBrandDto, UpdateBrandDto } from '@/models/brand'
     import { USER_ID } from '@/utils/commons'
     import router from '@/router'
 
@@ -19,7 +19,7 @@
             loading.value = true
             error.value = null
             
-            const queryParams = {
+            const queryParams: BrandQueryParams = {
                 user_id: USER_ID,
             }
             

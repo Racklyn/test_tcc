@@ -7,9 +7,11 @@ import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemResponseDto } from './dto/item-response.dto';
 import { ItemWithPostsCountDto } from './dto/item-with-posts-count.dto';
 import { PostWithAverageScoreDto } from './dto/post-with-average-score.dto';
+import { ItemWithPostsAndResultsDto, PostWithCommentsCountDto } from './dto/item-with-posts-and-results.dto';
 import { ItemQuery } from './query/item.query';
 import { Brand } from 'src/brand/brand.entity';
 import { CommentAnalysis } from 'src/comment-analysis/comment-analysis.entity';
+import { ItemAnalysisResultService } from 'src/item-analysis-result/item-analysis-result.service';
 
 @Injectable()
 export class ItemService {
@@ -22,7 +24,9 @@ export class ItemService {
         private readonly brandRepository: Repository<Brand>,
 
         @InjectRepository(CommentAnalysis)
-        private readonly commentAnalysisRepository: Repository<CommentAnalysis>
+        private readonly commentAnalysisRepository: Repository<CommentAnalysis>,
+
+        private readonly itemAnalysisResultService: ItemAnalysisResultService
     ) {}
 
     async create(itemDto: CreateItemDto): Promise<Item> {
@@ -256,6 +260,50 @@ export class ItemService {
         }
     }
 
+    async findOneWithPostsAndResult(id: number): Promise<ItemWithPostsAndResultsDto> {
+        try {
+            const item = await this.itemRepository.findOne({
+                where: {
+                    id: id
+                },
+                relations: {
+                    posts: {
+                        comments: {
+                            comment_analysis: true
+                        }
+                    },
+                    brand: true
+                }
+            });
+
+            if (!item) {
+                throw new NotFoundException('Item not found.');
+            }
+
+            // Buscar a análise mais recente do item
+            let latestAnalysisResult = null;
+            try {
+                const analysisResult = await this.itemAnalysisResultService.findLatestByItemId(id);
+                // Remover a referência circular do item
+                const { item, ...analysisWithoutItem } = analysisResult;
+                latestAnalysisResult = analysisWithoutItem;
+            } catch (error) {
+                // Se não encontrar análise, mantém como null
+                if (!(error instanceof NotFoundException)) {
+                    throw error;
+                }
+            }
+
+            return this.toItemWithPostsAndResultsDto(item, latestAnalysisResult);
+        } catch(error) {
+            console.log(error);
+            if (error instanceof NotFoundException) {
+                throw error;
+            }
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     /**
      * Calcula se um item está desatualizado (outdated)
@@ -406,6 +454,64 @@ export class ItemService {
             outdated: this.calculateOutdated(item),
             item_average_score: itemAverageScore,
             posts_count: item.posts?.length || 0
+        };
+    }
+
+    /**
+     * Converte um Post para PostWithCommentsCountDto
+     */
+    private toPostWithCommentsCountDto(post: any): PostWithCommentsCountDto {
+        const commentsCount = post.comments ? post.comments.length : 0;
+        const averageScore = this.calculatePostAverageScore(post);
+        
+        return {
+            id: post.id,
+            content: post.content,
+            summary: post.summary,
+            post_date: post.post_date,
+            reactions: post.reactions,
+            url: post.url,
+            newest_comment_date: post.newest_comment_date,
+            last_analysis: post.last_analysis,
+            created_date: post.created_date,
+            updated_date: post.updated_date,
+            item: post.item,
+            comments_count: commentsCount,
+            average_score: averageScore
+        };
+    }
+
+    /**
+     * Converte um Item para ItemWithPostsAndResultsDto
+     */
+    private toItemWithPostsAndResultsDto(item: Item, latestAnalysisResult: any): ItemWithPostsAndResultsDto {
+        const postsWithCommentsCount = item.posts?.map(post => this.toPostWithCommentsCountDto(post)) || [];
+        
+        // Calcular item_average_score (média dos average_scores dos posts)
+        // Usando a mesma lógica do método findAllWithPostsCount
+        const postAverageScores = postsWithCommentsCount
+            .map(post => post.average_score)
+            .filter(score => score !== null && score !== undefined) as number[];
+
+        const itemAverageScore = postAverageScores.length > 0
+            ? postAverageScores.reduce((sum, score) => sum + score, 0) / postAverageScores.length
+            : null;
+
+        return {
+            id: item.id,
+            name: item.name,
+            block_name_from_updates: item.block_name_from_updates,
+            type: item.type,
+            description: item.description,
+            last_sync: item.last_sync,
+            created_date: item.created_date,
+            updated_date: item.updated_date,
+            brand: item.brand,
+            outdated: this.calculateOutdated(item),
+            item_average_score: itemAverageScore,
+            posts_count: item.posts?.length || 0,
+            posts: postsWithCommentsCount,
+            latest_analysis_result: latestAnalysisResult
         };
     }
 }

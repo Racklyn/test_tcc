@@ -22,10 +22,9 @@
         return items.value.filter((item) => item.type === 'service').length
     })
 
-    const outdatedCount = ref(3) //TODO: remover esse ref e usar o computed
-    // const outdatedCount = computed(() => {
-    //     return items.value.filter((item) => item.outdated).length
-    // })
+    const outdatedCount = computed(() => {
+        return items.value.filter((item) => item.outdated).length
+    })
 
     const showDialog = ref(false)
 
@@ -35,6 +34,17 @@
     const openItemResultsModal = (item: Item) => {
         selectedItem.value = item
         showItemResultsModal.value = true
+    }
+
+    const handleItemUpdated = (itemId: number, updates: Partial<Item>) => {
+        // Atualizar o item na lista de itens do brand selecionado
+        if (selectedBrand?.value?.items) {
+            const itemIndex = selectedBrand.value.items.findIndex(item => item.id === itemId)
+            if (itemIndex !== -1) {
+                // Atualizar o item com as mudanças
+                Object.assign(selectedBrand.value.items[itemIndex], updates)
+            }
+        }
     }
 
     // Função para abrir o dialog
@@ -129,6 +139,15 @@
 
     <ItemResultsModal
         v-model="showItemResultsModal"
-        :item="selectedItem!"
+        :item_id="selectedItem?.id"
+        @item-updated="handleItemUpdated"
     />
 </template>
+
+<style scoped>
+    .v-btn:disabled {
+        background-color: #6b6b6b !important;
+        color: #ffffff !important;
+        opacity: 0.6 !important;
+    }
+</style>

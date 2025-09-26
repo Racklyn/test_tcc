@@ -1,13 +1,14 @@
+import type { Brand } from "./brand"
+import type { ItemAnalysisResult } from "./itemAnalysisResult"
 import type { Post } from "./post"
 
 export type ItemNoPosts = {
-    id: string
+    id: number
     name: string
     block_name_from_updates?: boolean
     type: 'product' | 'service'
     description: string
     last_sync?: string
-    item_analysis_result?: ItemAnalysisResult[]
     posts_count?: number
     created_date: string
     updated_date: string
@@ -19,9 +20,9 @@ export type Item = ItemNoPosts & {
     posts?: Post[]
 }
 
-
-//TODO: criar o modelo de ItemAnalysisResult separado
-export type ItemAnalysisResult = {
-    id: string
-    // Adicione outros campos conforme necessário
+export type ItemWithPostsAndResult = Item & {
+    latest_analysis_result?: ItemAnalysisResult,
+    brand: Brand
 }
+
+export type ItemUpdateDto = Partial<Item>

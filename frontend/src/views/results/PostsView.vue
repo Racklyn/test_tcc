@@ -48,10 +48,6 @@
         console.log('Analisando sentimentos...')
     }
 
-    const closeErrorDialog = () => {
-        showDialog.value = false
-    }
-
     const fetchPosts = async () => {
         if (!selectedBrand?.value?.id) return
         loading.value = true
@@ -123,7 +119,7 @@
                     class="font-weight-bold text-body-1"
                     @click="openDialog({
                         title: 'Extrair novas publicações',
-                        content: 'Ao confirmar, o script pegará novas publicações e comentários de todas as páginas cadastradas para essa marca.',
+                        content: 'Ao confirmar, o script pegará novas publicações e comentários de todas as páginas cadastradas para essa marca. Isso pode levar alguns minutos.',
                         confirmText: 'EXTRAIR',
                         confirmColor: 'scraper-color',
                         onConfirm: extractPosts
@@ -147,7 +143,7 @@
                     class="font-weight-bold text-body-1"
                     @click="openDialog({
                         title: 'Executar análise de sentimentos',
-                        content: 'Ao confirmar, a análise de sentimentos será executada para todas as publicações dessa marca',
+                        content: 'Ao confirmar, a análise de sentimentos será executada para todas as publicações dessa marca. Isso pode levar alguns minutos.',
                         confirmText: 'EXECUTAR',
                         confirmColor: 'analysis-color',
                         onConfirm: analyzePosts
