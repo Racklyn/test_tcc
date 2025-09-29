@@ -19,6 +19,14 @@
         const orderedItems = items.sort((a, b) => a.item_average_score! - b.item_average_score!) ?? []
         return orderedItems[0]
     })
+
+    const productsCount = computed(() => {
+        return selectedBrand?.value?.items.filter((item) => item.type === 'product').length ?? 0
+    })
+
+    const servicesCount = computed(() => {
+        return selectedBrand?.value?.items.filter((item) => item.type === 'service').length ?? 0
+    })
     
 
 </script>
@@ -88,9 +96,8 @@
                         isPercent
                     />
                     <ValueChip
-                        :value="scoreToPercent(selectedBrand?.brand_average_score)"
-                        text="Outro valor qualquer"
-                        isPercent
+                        :value="+(selectedBrand?.avg_comments_per_post?.toFixed(2) ?? -1)"
+                        text="Média de comentários por post"
                     />
                 </div>
 
@@ -120,11 +127,26 @@
                     />
                 </div>
 
-                <!-- TODO: verificar se adicionarei mais informações aqui... -->
-                <div class="d-flex align-center ga-4 mt-8 bg-surface-card-2 rounded-lg py-2 px-4">
-                    <span>
-                        <h3 class="text-h5 font-weight-bold text-font-primary">Outras informações...</h3>
-                    </span>
+                <div class="d-flex flex-column mt-8 bg-surface-card-2 rounded-lg py-2 px-4">
+                        <h3 class="text-h5 font-weight-bold text-font-primary mb-2">Outras informações</h3>
+
+                        <p class="text-h6 text-font-secondary">
+                            <strong>{{ selectedBrand?.items.reduce((acc, item) => acc + (item.posts_count ?? 0), 0) }}</strong>
+                            publicações extraídas
+                        </p>
+                        <p class="text-h6 text-font-secondary">
+                            <strong>{{ selectedBrand?.comments_count }}</strong>
+                            comentários extraídos
+                        </p>
+                        <v-divider class="my-4" />
+                        <p class="text-h6 text-font-secondary">
+                            <strong>{{ productsCount }}</strong>
+                            produtos identificados
+                        </p>
+                        <p class="text-h6 text-font-secondary">
+                            <strong>{{ servicesCount }}</strong>
+                            serviços identificados
+                        </p>
                 </div>
             </div>
 

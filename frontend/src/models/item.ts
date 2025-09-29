@@ -23,6 +23,10 @@ export type Item = ItemNoPosts & {
 export type ItemWithPostsAndResult = Item & {
     latest_analysis_result?: ItemAnalysisResult,
     brand: Brand
+    percentage_of_comments_related_to_item?: number
+    negatives_count?: number
+    neutral_count?: number
+    positives_count?: number
 }
 
 export type ItemUpdateDto = Partial<Item>

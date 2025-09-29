@@ -11,9 +11,9 @@ export class CreateCommentAnalysisDto {
     score: number;
 
     @ApiProperty({
-        example: 'POST_ITEM'
+        example: 'postItem'
     })
-    related_to: 'POST_ITEM' | 'POST_BRAND' | 'BEYOND_POST';
+    related_to: 'postItem' | 'postBrand' | 'beyondPost';
 
     @ApiProperty({
         example: new Date()

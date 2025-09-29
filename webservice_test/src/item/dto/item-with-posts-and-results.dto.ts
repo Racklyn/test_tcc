@@ -91,6 +91,34 @@ export class ItemWithPostsAndResultsDto {
     item_average_score?: number | null;
 
     @ApiProperty({
+        description: 'Percentual de comentários com análise de sentimentos (sempre 100% quando há comentários analisados)',
+        type: 'number',
+        example: 100
+    })
+    percentage_of_comments_related_to_item: number;
+
+    @ApiProperty({
+        description: 'Contagem de comentários negativos (score = 0)',
+        type: 'number',
+        example: 12
+    })
+    negatives_count: number;
+
+    @ApiProperty({
+        description: 'Contagem de comentários neutros (score = 0.5)',
+        type: 'number',
+        example: 8
+    })
+    neutral_count: number;
+
+    @ApiProperty({
+        description: 'Contagem de comentários positivos (score = 1)',
+        type: 'number',
+        example: 25
+    })
+    positives_count: number;
+
+    @ApiProperty({
         description: 'Número total de posts associados a este item',
         type: 'number',
         example: 15

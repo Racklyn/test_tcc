@@ -13,6 +13,9 @@ export type Brand = {
 export type BrandWithItemsAndStatistics = Brand & {
     items: ItemNoPosts[]
     brand_average_score?: number
+    avg_posts_per_item?: number
+    avg_comments_per_post?: number
+    comments_count?: number
 }
 
 
@@ -31,6 +34,9 @@ export type UpdateBrandDto = {
     pages: CreatePageDto[]
     user_id: number
 }
+
+
+//QUERY PARAMS
 
 export type BrandQueryParams = {
     sort_order?: string

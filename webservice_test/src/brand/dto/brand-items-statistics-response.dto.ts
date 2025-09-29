@@ -47,6 +47,27 @@ export class BrandInfoDto {
         example: 0.72
     })
     brand_average_score: number | null;
+
+    @ApiProperty({
+        description: 'Média de posts por item da marca',
+        type: 'number',
+        example: 3.2
+    })
+    avg_posts_per_item: number;
+
+    @ApiProperty({
+        description: 'Média de comentários por post da marca',
+        type: 'number',
+        example: 8.5
+    })
+    avg_comments_per_post: number;
+
+    @ApiProperty({
+        description: 'Contagem total de comentários da marca',
+        type: 'number',
+        example: 120
+    })
+    comments_count: number;
 }
 
 export class PageInfoDto {
@@ -93,7 +114,10 @@ export class BrandItemsStatisticsResponseDto {
                 type: 'array',
                 items: { $ref: '#/components/schemas/ItemWithPostsCountDto' }
             },
-            brand_average_score: { type: 'number', nullable: true }
+            brand_average_score: { type: 'number', nullable: true },
+            avg_posts_per_item: { type: 'number', example: 3.2 },
+            avg_comments_per_post: { type: 'number', example: 8.5 },
+            comments_count: { type: 'number', example: 120 }
         }
     })
     brand: BrandInfoDto;

@@ -276,6 +276,7 @@ export class ItemService {
                 }
             });
 
+
             if (!item) {
                 throw new NotFoundException('Item not found.');
             }
@@ -482,6 +483,64 @@ export class ItemService {
     }
 
     /**
+     * Calcula as métricas de análise de sentimentos para um item
+     */
+    private calculateItemSentimentMetrics(item: Item): {
+        percentage_of_comments_related_to_item: number;
+        negatives_count: number;
+        neutral_count: number;
+        positives_count: number;
+    } {
+        const { allScores, relatedToItemScores } = this.extractCommentScores(item);
+        
+        const counts = {
+            negatives: relatedToItemScores.filter(score => score === 0).length,
+            neutral: relatedToItemScores.filter(score => score === 0.5).length,
+            positives: relatedToItemScores.filter(score => score === 1).length
+        };
+
+        const percentage = allScores.length > 0 
+            ? Math.round((relatedToItemScores.length / allScores.length) * 10000) / 100 
+            : 0;
+
+        return {
+            percentage_of_comments_related_to_item: percentage,
+            negatives_count: counts.negatives,
+            neutral_count: counts.neutral,
+            positives_count: counts.positives
+        };
+    }
+
+    /**
+     * Extrai scores dos comentários, separando os relacionados ao item dos demais
+     */
+    private extractCommentScores(item: Item): {
+        allScores: (number | null)[];
+        relatedToItemScores: (number | null)[];
+    } {
+        const allScores: (number | null)[] = [];
+        const relatedToItemScores: (number | null)[] = [];
+        
+        item.posts?.forEach(post => {
+            post.comments?.forEach(comment => {
+                if (comment.comment_analysis?.length > 0) {
+                    const latestAnalysis = comment.comment_analysis[comment.comment_analysis.length - 1];
+                    allScores.push(latestAnalysis.score);
+                    
+                    // Incluir apenas comentários relacionados ao item
+                    if (latestAnalysis.related_to === 'postItem') {
+                        relatedToItemScores.push(latestAnalysis.score);
+                    }
+                } else {
+                    allScores.push(null);
+                }
+            });
+        });
+        
+        return { allScores, relatedToItemScores };
+    }
+
+    /**
      * Converte um Item para ItemWithPostsAndResultsDto
      */
     private toItemWithPostsAndResultsDto(item: Item, latestAnalysisResult: any): ItemWithPostsAndResultsDto {
@@ -497,6 +556,9 @@ export class ItemService {
             ? postAverageScores.reduce((sum, score) => sum + score, 0) / postAverageScores.length
             : null;
 
+        // Calcular as novas métricas de análise de sentimentos
+        const sentimentMetrics = this.calculateItemSentimentMetrics(item);
+
         return {
             id: item.id,
             name: item.name,
@@ -509,6 +571,10 @@ export class ItemService {
             brand: item.brand,
             outdated: this.calculateOutdated(item),
             item_average_score: itemAverageScore,
+            percentage_of_comments_related_to_item: sentimentMetrics.percentage_of_comments_related_to_item,
+            negatives_count: sentimentMetrics.negatives_count,
+            neutral_count: sentimentMetrics.neutral_count,
+            positives_count: sentimentMetrics.positives_count,
             posts_count: item.posts?.length || 0,
             posts: postsWithCommentsCount,
             latest_analysis_result: latestAnalysisResult

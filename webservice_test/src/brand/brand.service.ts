@@ -199,7 +199,7 @@ export class BrandService {
                 throw new NotFoundException('Brand not found.');
             }
 
-            // Buscar itens com contagem de posts e average_scores usando o ItemService
+            // Buscar itens com posts e comentários para calcular métricas de engajamento
             const itemQuery: ItemQuery = {
                 brand_id: brandId.toString(),
                 type: undefined,
@@ -208,6 +208,7 @@ export class BrandService {
             };
 
             const items = await this.itemService.findAllWithPostsCount(itemQuery);
+            const itemsWithPosts = await this.itemService.findAllWithPosts(itemQuery);
 
             // Calcular brand_average_score (média dos item_average_scores)
             const itemAverageScores = items
@@ -217,6 +218,28 @@ export class BrandService {
             const brandAverageScore = itemAverageScores.length > 0
                 ? itemAverageScores.reduce((sum, score) => sum + score, 0) / itemAverageScores.length
                 : null;
+
+            // Calcular avg_posts_per_item
+            const totalPosts = items.reduce((sum, item) => sum + (item.posts_count || 0), 0);
+            const totalItems = items.length;
+            const avgPostsPerItem = totalItems > 0 ? totalPosts / totalItems : 0;
+
+            // Calcular avg_comments_per_post
+            let totalComments = 0;
+            let totalPostsWithComments = 0;
+            
+            itemsWithPosts.forEach(item => {
+                if (item.posts && item.posts.length > 0) {
+                    item.posts.forEach(post => {
+                        if (post.comments_count && post.comments_count > 0) {
+                            totalComments += post.comments_count;
+                            totalPostsWithComments++;
+                        }
+                    });
+                }
+            });
+            
+            const avgCommentsPerPost = totalPostsWithComments > 0 ? totalComments / totalPostsWithComments : 0;
 
             // Converter pages para PageInfoDto[]
             const pagesInfo = brand.pages?.map(page => ({
@@ -236,7 +259,10 @@ export class BrandService {
                 updated_date: brand.updated_date,
                 pages: pagesInfo,
                 items: items,
-                brand_average_score: brandAverageScore
+                brand_average_score: brandAverageScore,
+                avg_posts_per_item: Math.round(avgPostsPerItem * 100) / 100, // Arredondar para 2 casas decimais
+                avg_comments_per_post: Math.round(avgCommentsPerPost * 100) / 100, // Arredondar para 2 casas decimais
+                comments_count: totalComments
             };
 
             return brandInfo;

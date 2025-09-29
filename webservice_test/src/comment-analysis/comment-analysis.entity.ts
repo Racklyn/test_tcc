@@ -25,7 +25,7 @@ export class CommentAnalysis extends AbstractEntity {
 
     @Column({ name: 'related_to' })
     @JoinColumn({ name: 'related_to' })
-    related_to: 'POST_ITEM' | 'POST_BRAND' | 'BEYOND_POST';
+    related_to: 'postItem' | 'postBrand' | 'beyondPost';
 
     @Column({ name: 'analysis_date' })
     @JoinColumn({ name: 'analysis_date' })

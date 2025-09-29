@@ -6,7 +6,7 @@ export type CommentAnalysisWithoutComment = {
     id: number;
     version: number;
     score: number;
-    related_to: 'POST_ITEM' | 'POST_BRAND' | 'BEYOND_POST';
+    related_to: 'postItem' | 'postBrand' | 'beyondPost';
     analysis_date: Date;
     analyzer_infos?: string;
     created_date: Date;

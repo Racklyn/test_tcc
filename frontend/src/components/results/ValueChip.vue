@@ -69,7 +69,7 @@
         if (props.isPercent) {
             return isValidValue.value ? `${props.value}%` : '?'
         }
-        return props.value
+        return props.value.toString().padStart(2, '0')
     })
 </script>
 
@@ -83,7 +83,7 @@
                 color: textColor,
                 borderColor: `${textColor} !important`,
                 width: sizeConfigs[props.size].width,
-                height: sizeConfigs[props.size].height
+                height: sizeConfigs[props.size].height,
             }"
             rounded="lg"
             variant="flat"
@@ -94,7 +94,8 @@
         <p
             v-if="props.text"
             class="text-body-1 text-font-secondary text-center"
-            :class="`${sizeConfigs[props.size].descriptionSize} ${props.size === 'lg' ? 'mt-3' : 'mt-0'}`"
+            :class="`${sizeConfigs[props.size].descriptionSize} ${props.size === 'lg' ? 'mt-3' : 'mt-2'}`"
+            style="line-height: 1.17;"
         >
            {{ props.text }}
        </p>

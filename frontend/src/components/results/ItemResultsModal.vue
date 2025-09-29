@@ -173,40 +173,59 @@
                 {{ itemResult.last_sync ? formatDateTime(itemResult.last_sync) : '-' }}
             </p>
 
-            <v-divider class="mb-6" />
+            <v-divider class="mb-1"/>
 
-            <div class="d-flex justify-space-around ga-2">
+            <div class="d-flex align-center mb-5">
+                <v-icon
+                    color="font-secondary"
+                    size="18"
+                    class="mr-1"
+                >
+                    mdi-information-outline
+                </v-icon>
+                <p class="text-caption text-font-secondary">
+                    Para as estatísticas, são considerados apenas os comentários que tratam especificamente desse {{itemType.toLowerCase()}}.
+                </p>
+            </div>
+
+            <div class="d-flex justify-space-around mb-5">
                 <ValueChip
                     :value="scoreToPercent(itemResult.item_average_score)"
                     text="Avaliação média"
                     size="md"
                     isPercent
+                    style="width: 130px;"
                 />
                 <ValueChip
-                    :value="-1"
+                    :value="itemResult.negatives_count ?? -1"
                     size="md"
-                    text="Outro valor qualquer"
+                    text="Com. negativos"
+                    style="width: 130px;"
+                />
+                <ValueChip
+                    :value="itemResult.neutral_count ?? -1"
+                    size="md"
+                    text="Com. neutros"
+                    style="width: 130px;"
+                />
+                <ValueChip
+                    :value="itemResult.positives_count ?? -1"
+                    size="md"
+                    text="Com. positivos"
+                    style="width: 130px;"
+                />
+                <ValueChip
+                    :value="Math.round(itemResult.percentage_of_comments_related_to_item ?? -1)"
+                    size="md"
+                    text="Comentários que tratam sobre o item"
                     isPercent
-                />
-                <ValueChip
-                    :value="200"
-                    size="md"
-                    text="Outro valor qualquer"
-                />
-                <ValueChip
-                    :value="10"
-                    size="md"
-                    text="Algum valor"
-                />
-                <ValueChip
-                    :value="50"
-                    size="md"
-                    text="Algum valor"
+                    style="width: 130px;"
                 />
             </div>
 
+            <v-divider />
 
-            <h3 class="text-body-1 font-weight-bold mt-4 mb-2">RESUMO DAS OPINIÕES</h3>
+            <h3 class="text-body-1 font-weight-bold mt-3 mb-2">RESUMO DAS OPINIÕES</h3>
 
             <p class="text-body-2 text-font-secondary bg-surface-card rounded-lg py-2 px-3">
                 {{ itemResult.latest_analysis_result?.analysis_summary }}
@@ -259,7 +278,12 @@
                         {{`${(itemResult.posts_count ?? 0) > 1 ? 'publicações' : 'publicação'}`}}
                     </strong>
                     {{`${(itemResult.posts_count ?? 0) > 1 ? 'tratam' : 'trata'}`}}
-                    sobre este {{ itemType.toLowerCase() }}:
+                    sobre este {{ itemType.toLowerCase() }} 
+                    (total de 
+                    <strong>
+                        {{ itemResult.posts?.reduce((acc, post) => acc + (post.comments_count ?? 0), 0)}}
+                    </strong>
+                    comentários):
                 </p>
             </div>
 

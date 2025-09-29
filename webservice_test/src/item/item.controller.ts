@@ -29,15 +29,16 @@ export class ItemController {
         return items;
     }
     
-    @Get('statistics')
-    @ApiQuery({ name: 'brand_id', required: false  })
-    @ApiQuery({ name: 'type', required: false  })
-    @ApiQuery({ name: 'sort_by', required: false  })
-    @ApiQuery({ name: 'sort_order', required: false  })
-    async findAllWithStatistics(@Query() query: ItemQuery){
-        const items = await this.itemService.findAllWithStatistics(query);
-        return items;
-    }
+    //TODO: remover esse método? Parece não ser necessário
+    // @Get('statistics')
+    // @ApiQuery({ name: 'brand_id', required: false  })
+    // @ApiQuery({ name: 'type', required: false  })
+    // @ApiQuery({ name: 'sort_by', required: false  })
+    // @ApiQuery({ name: 'sort_order', required: false  })
+    // async findAllWithStatistics(@Query() query: ItemQuery){
+    //     const items = await this.itemService.findAllWithStatistics(query);
+    //     return items;
+    // }
 
     @Get(':id')
     async findOne(@Param('id') id: number) {
