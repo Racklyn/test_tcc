@@ -1,5 +1,6 @@
 from typing import Literal, Optional
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from configs.api_configs import ApiConfigs
 from main import get_all_pages_and_run
@@ -10,6 +11,14 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",  # URL para acessar o Swagger UI
     redoc_url="/redoc"  # URL para acessar o ReDoc
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],  # Frontend URLs
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class DefaultResponse(BaseModel):

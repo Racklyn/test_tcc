@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { computed, inject, onMounted, ref, type Ref } from 'vue';
+    import { computed, inject, onMounted, ref, watch, type Ref } from 'vue';
     import SearchBarFilter from '@/components/SearchBarFilter.vue'
     import PostCard from '@/components/results/PostCard.vue'
     import type { BrandWithItemsAndStatistics } from '@/models/brand';
@@ -7,13 +7,20 @@
     import postService from '@/services/postService';
     import { formatDateTime } from '@/utils/dateFormat';
     import DefaultDialog from '@/components/DefaultDialog.vue';
+    import scraperService from '@/services/scraper/scraperService';
+    import sentimentAnalyzerService from '@/services/sentimentAnalyzer/sentimentAnalyserService';
 
-    // Injetar o brand fornecido pela ResultsView
+
+
+    // Injetar o brand e estados de loading fornecidos pela ResultsView
     const selectedBrand = inject<Ref<BrandWithItemsAndStatistics | null>>('selectedBrand')
+    const loadingAnalysis = inject<Ref<boolean>>('loadingAnalysis')
+    const loadingExtraction = inject<Ref<boolean>>('loadingExtraction')
 
     const posts = ref<PostWithItem[]>([])
     const loading = ref(false)
     const showDialog = ref(false)
+
     const dialogConfig = ref({
         title: '',
         content: '',
@@ -39,22 +46,54 @@
     }
 
     const extractPosts = async () => {
-        //TODO: implementar a extração de publicações (chamar API do scraper)
+        if (!selectedBrand?.value?.id){
+            console.error('Marca não encontrada')
+            return
+        }
+
         console.log('Extraindo publicações...')
+        loadingExtraction!.value = true
+        try {
+            const response = await scraperService.extractFromAllPagesOfBrand(
+                selectedBrand.value.id
+            )
+            console.log('Resultado da extração:', response)
+        } catch (error) {
+            console.error('Erro ao extrair publicações:', error)
+        } finally {
+            loadingExtraction!.value = false
+        }
     }
 
     const analyzePosts = async () => {
-        //TODO: implementar a análise de sentimentos (chamar API de IA)
+        if (!selectedBrand?.value?.id){
+            console.error('Marca não encontrada')
+            return
+        }
+
         console.log('Analisando sentimentos...')
+        loadingAnalysis!.value = true
+        try {
+            const response = await sentimentAnalyzerService.runAnalysis(
+                selectedBrand.value.id
+            )
+            console.log('Resultado da análise:', response)
+        } catch (error) {
+            console.error('Erro ao analisar sentimentos:', error)
+        } finally {
+            loadingAnalysis!.value = false
+        }
     }
 
     const fetchPosts = async () => {
         if (!selectedBrand?.value?.id) return
         loading.value = true
         try {
-            posts.value = await postService.getAllPostsAndItemsFromBrand(
-                { brand_id: selectedBrand.value.id }
-            )
+            posts.value = await postService.getAllPostsAndItemsFromBrand({
+                brand_id: selectedBrand.value.id,
+                sort_by: 'post_date',
+                sort_order: 'desc',
+            })
         } catch (error) {
             console.error('Erro ao buscar publicações:', error)
         } finally {
@@ -65,15 +104,41 @@
     onMounted(() => {
         fetchPosts()
     })
+
+    // Observar mudanças no selectedBrand para recarregar posts automaticamente
+    watch(() => selectedBrand?.value, (newBrand) => {
+        if (newBrand?.id) {
+            fetchPosts()
+        }
+    }, { deep: true })
 </script>
 
 <template>
     <div style="padding-bottom: 500px;">
         <SearchBarFilter />
         
-        <p class="text-body-1 font-weight-bold text-font-secondary my-3 ml-4">
-            <strong>{{ posts?.length }}</strong> publicações
-        </p>
+        <span class="d-flex justify-space-between text-body-1 text-font-secondary my-3 ml-4">
+            <p class="font-weight-bold">
+                {{ posts?.length }} publicações
+            </p>
+
+            <p
+                v-if="loadingAnalysis || loadingExtraction"
+                class="d-flex align-center text-teal"
+            >
+                <v-progress-circular
+                    indeterminate
+                    size="18"
+                    width="2"
+                    color="teal"
+                    class="mr-1"
+                />
+                    {{ loadingAnalysis ?
+                        'Executando análise de sentimentos...' :
+                        'Extraindo novas publicações...'
+                    }}
+            </p>
+        </span>
 
         <v-row v-if="loading">
             <v-col cols="12"  class="d-flex justify-center align-center mt-12">
@@ -124,6 +189,8 @@
                         confirmColor: 'scraper-color',
                         onConfirm: extractPosts
                     })"
+                    :disabled="loadingAnalysis"
+                    :loading="loadingExtraction"
                 >
                     Extrair novas publicações
                 </v-btn>
@@ -148,6 +215,8 @@
                         confirmColor: 'analysis-color',
                         onConfirm: analyzePosts
                     })"
+                    :disabled="posts.length === 0 || loadingExtraction"
+                    :loading="loadingAnalysis"
                 >
                     Executar análise de sentimentos
                 </v-btn>

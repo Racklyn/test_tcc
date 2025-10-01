@@ -31,6 +31,10 @@ export class Post extends AbstractEntity {
     @JoinColumn({ name: 'last_analysis' })
     last_analysis?: Date;
 
+    @Column({ name: 'last_extraction', nullable: true })
+    @JoinColumn({ name: 'last_extraction' })
+    last_extraction?: Date;
+
     @ManyToOne(() => Page, (page) => page.posts, { nullable: false }) //TODO: verificar, aparentemente é possível inserir com page_id sendo nulo
     @JoinColumn({ name: 'page_id' })
     page: Page;

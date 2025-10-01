@@ -64,7 +64,11 @@ export class ItemService {
                     id: id
                 },
                 relations: {
-                    posts: true,
+                    posts: {
+                        comments: {
+                            comment_analysis: true
+                        }
+                    },
                     brand: true
                 }
             });
@@ -73,7 +77,7 @@ export class ItemService {
                 return null;
             }
             
-            return this.toItemResponseDto(item);
+            return this.toItemResponseDtoWithPosts(item);
         } catch(error) {
             console.log(error);
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -375,6 +379,7 @@ export class ItemService {
             url: post.url,
             newest_comment_date: post.newest_comment_date,
             last_analysis: post.last_analysis,
+            last_extraction: post.last_extraction,
             created_date: post.created_date,
             updated_date: post.updated_date,
             page: post.page,
@@ -474,6 +479,7 @@ export class ItemService {
             url: post.url,
             newest_comment_date: post.newest_comment_date,
             last_analysis: post.last_analysis,
+            last_extraction: post.last_extraction,
             created_date: post.created_date,
             updated_date: post.updated_date,
             item: post.item,

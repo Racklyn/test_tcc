@@ -1,8 +1,9 @@
 <script setup lang="ts">
-    import { ref, computed, onMounted, provide } from 'vue'
+    import { ref, computed, onMounted, provide, watch } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import brandService from '@/services/brandService'
     import type { BrandWithItemsAndStatistics } from '@/models/brand'
+    import DefaultDialog from '@/components/DefaultDialog.vue'
 
     const route = useRoute()
     const router = useRouter()
@@ -24,8 +25,38 @@
     const loading = ref(false)
     const error = ref<string | null>(null)
 
-    // Fornecer o brand para os componentes filhos
+    // Estados de loading centralizados
+    const loadingAnalysis = ref(false)
+    const loadingExtraction = ref(false)
+    const isUpdating = ref(false)
+
+    // Estado do dialog de conclusão
+    const showCompletionDialog = ref(false)
+    const dialogConfig = ref({
+        title: '',
+        content: ''
+    })
+
+    const completionMessages = {
+        analysis: {
+            title: 'Análise de sentimentos concluída',
+            content: 'A análise de sentimentos foi executada com sucesso! Os produtos e serviços foram identificados e analisados com base nas publicações.'
+        },
+        extraction: {
+            title: 'Extração de publicações concluída',
+            content: 'A extração de publicações foi executada com sucesso! Novas publicações e comentários foram coletados das páginas da marca.'
+        },
+        updating: {
+            title: 'Atualização de itens concluída',
+            content: 'A atualização dos itens foi executada com sucesso! Todos os produtos e serviços desatualizados foram sincronizados com os dados mais recentes.'
+        }
+    }
+
+    // Fornecer o brand e estados de loading para os componentes filhos
     provide('selectedBrand', brand)
+    provide('loadingAnalysis', loadingAnalysis)
+    provide('loadingExtraction', loadingExtraction)
+    provide('isUpdating', isUpdating)
 
     const brandName = computed(() => {
         return brand.value?.name || '...'
@@ -65,6 +96,36 @@
 
     onMounted(() => {
         fetchBrand()
+    })
+
+    // Watch para recarregar dados quando operações de loading terminam
+    watch([loadingAnalysis, loadingExtraction, isUpdating], ([analysis, extraction, updating], [prevAnalysis, prevExtraction, prevUpdating]) => {
+        // Se algum estado mudou de true para false, recarregar os dados e mostrar dialog
+        if (prevAnalysis && !analysis) {
+            // Análise de sentimentos terminou
+            fetchBrand()
+            showCompletionDialog.value = true
+            dialogConfig.value = {
+                title: completionMessages.analysis.title,
+                content: completionMessages.analysis.content
+            }
+        } else if (prevExtraction && !extraction) {
+            // Extração de publicações terminou
+            fetchBrand()
+            showCompletionDialog.value = true
+            dialogConfig.value = {
+                title: completionMessages.extraction.title,
+                content: completionMessages.extraction.content
+            }
+        } else if (prevUpdating && !updating) {
+            // Atualização de itens terminou
+            fetchBrand()
+            showCompletionDialog.value = true
+            dialogConfig.value = {
+                title: completionMessages.updating.title,
+                content: completionMessages.updating.content
+            }
+        }
     })
 </script>
 
@@ -135,9 +196,18 @@
             </div>
 
             <!-- Conteúdo normal -->
-            <router-view v-else />
+            <router-view v-else @refresh-brand="fetchBrand" />
         </v-container>
     </div>
+
+    <DefaultDialog
+        v-model="showCompletionDialog"
+        :title="dialogConfig.title"
+        :content="dialogConfig.content"
+        confirm-button-text="OK"
+        no-cancel-button
+        @confirm="showCompletionDialog = false"
+    />
 </template>
 
 <style scoped>

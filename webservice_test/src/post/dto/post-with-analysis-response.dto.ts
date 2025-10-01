@@ -49,6 +49,9 @@ export class PostWithAnalysisResponseDto {
     @ApiProperty({ description: 'Data da última análise', required: false })
     last_analysis?: Date;
 
+    @ApiProperty({ description: 'Data da última extração', required: false })
+    last_extraction?: Date;
+
     @ApiProperty({ description: 'Data de criação do registro' })
     created_date: Date;
 

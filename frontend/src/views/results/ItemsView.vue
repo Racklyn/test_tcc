@@ -6,9 +6,17 @@
     import DefaultDialog from '@/components/DefaultDialog.vue'
     import ItemResultsModal from '@/components/results/ItemResultsModal.vue'
     import type { Item } from '@/models/item'
+    import sentimentAnalyzerService from '@/services/sentimentAnalyzer/sentimentAnalyserService'
 
-    // Injetar o brand fornecido pela ResultsView
+
+    // Injetar o brand e estados de loading fornecidos pela ResultsView
     const selectedBrand = inject<Ref<BrandWithItemsAndStatistics | null>>('selectedBrand')
+    const isUpdating = inject<Ref<boolean>>('isUpdating')
+
+    // Definir emits para comunicar com ResultsView
+    const emit = defineEmits<{
+        refreshBrand: []
+    }>()
 
     const items = computed(() => {
         return selectedBrand?.value?.items ?? []
@@ -47,6 +55,11 @@
         }
     }
 
+    const handleItemResultUpdated = () => {
+        // Recarregar dados da marca quando item result for atualizado
+        emit('refreshBrand')
+    }
+
     // Função para abrir o dialog
     const openUpdateDialog = () => {
         if (outdatedCount.value > 0) {
@@ -55,10 +68,30 @@
     }
 
     // Função para atualizar todos os itens
-    const handleUpdateAll = () => {
-        // TODO: Implementar lógica de atualização
-        console.log('Atualizando todos os itens desatualizados...')
+    const handleUpdateAll = async () => {
+        if (!selectedBrand?.value?.id) {
+            console.error('Marca não encontrada')
+            return
+        }
+
+        isUpdating!.value = true
         showDialog.value = false
+        
+        try {
+            console.log('Atualizando todos os itens desatualizados...')
+            
+            const response = await sentimentAnalyzerService.updateAllItemsFromBrand(
+                selectedBrand.value.id
+            )
+            console.log('Resultado da atualização:', response)
+
+        } catch (error) {
+            console.error('Erro ao atualizar itens:', error)
+        } finally {
+            isUpdating!.value = false
+            // Emitir evento para recarregar os dados da marca
+            emit('refreshBrand')
+        }
     }
 </script>
 
@@ -66,14 +99,31 @@
     <div style="padding-bottom: 150px;">
         <SearchBarFilter />
     
-        <p class="text-body-1 font-weight-bold my-3 ml-4">
-            <span class="text-secondary-darken-1 mr-3">
-                {{ productsCount }} produtos
-            </span>
-            <span class="text-secondary">
-                {{ servicesCount }} serviços
-            </span>
-        </p>
+        <span class="d-flex justify-space-between text-body-1 text-font-secondary my-3 ml-4">
+
+            <div class="d-flex align-center font-weight-bold">
+                <span class="text-secondary-darken-1 mr-3">
+                    {{ productsCount }} produtos
+                </span>
+                <span class="text-secondary">
+                    {{ servicesCount }} serviços
+                </span>
+            </div>
+
+            <p
+                v-if="isUpdating"
+                class="d-flex align-center text-teal"
+            >
+                <v-progress-circular
+                    indeterminate
+                    size="18"
+                    width="2"
+                    color="teal"
+                    class="mr-1"
+                />
+                Atualizando itens...
+            </p>
+        </span>
     
     
         <v-row>
@@ -105,11 +155,12 @@
             >
                 <v-btn
                     :disabled="outdatedCount === 0"
+                    :loading="isUpdating"
                     variant="flat"
                     color="primary"
                     size="large"
                     rounded="lg"
-                    append-icon="mdi-sync"
+                    :append-icon="isUpdating ? undefined : 'mdi-sync'"
                     class="font-weight-bold text-body-1"
                     style="color: white !important;"
                     @click="openUpdateDialog"
@@ -141,6 +192,7 @@
         v-model="showItemResultsModal"
         :item_id="selectedItem?.id"
         @item-updated="handleItemUpdated"
+        @item-result-updated="handleItemResultUpdated"
     />
 </template>
 

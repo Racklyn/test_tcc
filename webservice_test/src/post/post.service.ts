@@ -45,6 +45,7 @@ export class PostService {
             post.newest_comment_date = this.getNewestCommentDate(postDto.comments);
             post.last_analysis = postDto.last_analysis;
             post.page = page;
+            post.last_extraction = new Date();
 
             if (postDto.item_id) {
                 const item = await this.itemService.findOneEntity(postDto.item_id);
@@ -257,6 +258,7 @@ export class PostService {
             // Verificação se existem novos comentários
             if (postDto.comments && postDto.comments.length > 0) {
                 post.newest_comment_date = this.getNewestCommentDate(postDto.comments);
+                post.last_extraction = new Date();
             }
 
             // Verificação e atualização do item_id
@@ -448,6 +450,7 @@ export class PostService {
             url: post.url,
             newest_comment_date: post.newest_comment_date,
             last_analysis: post.last_analysis,
+            last_extraction: post.last_extraction,
             created_date: post.created_date,
             updated_date: post.updated_date,
             page: post.page,

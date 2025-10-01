@@ -10,6 +10,7 @@ export type Post = {
     url?: string
     newest_comment_date?: string
     last_analysis?: string
+    last_extraction?: string
     analysis_outdated?: boolean
     average_score?: number
     comments_count?: number

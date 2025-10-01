@@ -5,7 +5,7 @@ from services.brand_service import BrandService
 from pipelines.update_items.pipeline import UpdateItemsPipeline
 from services.item_service import ItemService
 
-def run_analysis(brand_id: int, date_since_str: str) -> tuple[bool, str]:
+def run_analysis(brand_id: int, date_since_str: str=None) -> tuple[bool, str]:
 
     brand = BrandService.getBrandById(brand_id)
 

@@ -5,6 +5,7 @@
     import { scoreToPercent } from '@/utils/commons'
     import ValueChip from './ValueChip.vue'
     import itemService from '@/services/itemService'
+    import sentimentAnalyzerService from '@/services/sentimentAnalyzer/sentimentAnalyserService'
 
     type Props = {
         modelValue: boolean
@@ -14,12 +15,14 @@
     type Emits = {
         (e: 'update:modelValue', value: boolean): void
         (e: 'itemUpdated', itemId: number, updates: Partial<ItemWithPostsAndResult>): void
+        (e: 'itemResultUpdated'): void
     }
 
     const props = defineProps<Props>()
 
     const itemResult = ref<ItemWithPostsAndResult | undefined>()
     const isLoading = ref(true)
+    const isUpdating = ref(false)
 
     const emit = defineEmits<Emits>()
 
@@ -61,6 +64,28 @@
         }
     }
 
+    const runUpdateItemResult = async () => {
+        if (!itemResult.value) {
+            console.error('Item não encontrado')
+            return
+        }
+
+        console.log('Atualizando item result...')
+        isUpdating.value = true
+        try {
+            const response = await sentimentAnalyzerService.updateItem(
+                itemResult.value.id.toString()
+            )
+            console.log('Resultado da atualização do item result:', response)
+        } catch (error) {
+            console.error('Erro ao atualizar item result:', error)
+        } finally {
+            isUpdating.value = false
+            emit('itemResultUpdated')
+            closeModal()
+        }
+    }
+
     const fetchItemResult = async () => {
         if (!props.item_id) return
 
@@ -90,9 +115,11 @@
   <v-dialog
     v-model="isOpen"
     max-width="700"
+    :persistent="isUpdating"
   >
     <v-card
         class="item-results-modal text-font-primary py-2"
+        :loading="isUpdating"
     >
         <div
             class="d-flex flex-column justify-center align-center"
@@ -109,10 +136,11 @@
             <v-card-title class="text-font-primary d-flex align-center justify-center mx-6">
                 <v-btn
                     icon="mdi-window-close"
-                    color="font-secondary"
+                    :color="isUpdating ? 'grey-lighten-1' : 'font-secondary'"
                     variant="text"
                     rounded="lg"
                     class="position-absolute left-0 ml-3"
+                    :readonly="isUpdating"
                     @click="closeModal"
                 />
                 <v-chip
@@ -132,6 +160,7 @@
                     rounded="lg"
                     class="ml-4"
                     v-if="itemResult"
+                    :readonly="isUpdating"
                     @click="setBlockNameFromUpdates"
                 >
                     <v-icon
@@ -156,6 +185,7 @@
         <v-card-text
             v-if="itemResult"
             class="text-font-secondary"
+             :class="{ 'opacity-50': isUpdating }"
         >
             <p
                 class="font-weight-bold text-caption"
@@ -329,6 +359,7 @@
                         variant="tonal"
                         density="comfortable"
                         append-icon="mdi-open-in-new"
+                        :readonly="isUpdating"
                     >
                         "
                         <p
@@ -346,8 +377,23 @@
             v-if="itemResult"
             class="pa-6 pt-2"
         >
+
             <p
-                v-if="itemResult.outdated"
+                v-if="isUpdating"
+                class="d-flex align-center text-body-2 text-primary-darken-1 font-weight-bold"
+            >
+                <v-progress-circular
+                    indeterminate
+                    size="18"
+                    width="2"
+                    color="teal"
+                    class="mr-2"
+                />
+                Atualizando resultados do {{ itemType.toLowerCase() }}. Aguarde...
+            </p>
+
+            <p
+                v-else-if="itemResult.outdated"
                 class="text-body-2 text-font-secondary"
             >
                 <span class="text-error-light">ITEM DESATUALIZADO!</span> Clique para atualizar
@@ -362,7 +408,8 @@
 
             <v-spacer></v-spacer>
             <v-btn
-                :disabled="!itemResult.outdated"
+                :disabled="!itemResult.outdated || isUpdating"
+                :loading="isUpdating"
                 variant="flat"
                 density="comfortable"
                 color="primary"
@@ -371,7 +418,7 @@
                 append-icon="mdi-sync"
                 class="font-weight-bold text-body-1 px-6"
                 style="color: white !important;"
-                @click=""
+                @click="runUpdateItemResult"
             >
                 Atualizar
             </v-btn>

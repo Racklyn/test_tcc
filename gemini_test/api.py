@@ -1,5 +1,6 @@
 from typing import Literal
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from configs.api_configs import ApiConfigs
 from main import run_analysis, update_item, update_all_items_from_brand
@@ -10,6 +11,14 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",  # URL para acessar o Swagger UI
     redoc_url="/redoc"  # URL para acessar o ReDoc
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],  # Frontend URLs
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class DefaultResponse(BaseModel):
@@ -23,7 +32,7 @@ class DefaultResponse(BaseModel):
           description="Executa a análise de comentários para uma marca específica a partir de uma data determinada")
 async def analysis_endpoint(
     brand_id: int = Query(..., description="ID da marca para análise", examples=[1]),
-    date_since_str: str = Query(..., description="Data de início da análise (formato: YYYY-MM-DD)", examples=["2024-01-01"])
+    date_since_str: str | None = Query(None, description="Data de início da análise (formato: YYYY-MM-DD)", examples=["2024-01-01"])
 ):
     """
     Executa a análise de comentários para uma marca específica.

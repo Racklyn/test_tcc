@@ -16,7 +16,7 @@
     })
 
     const updatedAt = computed(() => {
-        return formatDateTime(props.post.updated_date)
+        return formatDateTime(props.post.last_extraction ?? props.post.created_date)
     })
 
     const lastAnalysis = computed(() => {
