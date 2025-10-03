@@ -28,3 +28,23 @@ services:
     volumes: []
     # Comando otimizado para produção
     command: ["npm", "run", "start:prod"]
+
+  # Frontend (Vue.js) - Produção
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "80:80"
+    environment:
+      - WEB_SERVICE_URL=http://webservice:3000
+      - AI_SERVICE_PORT=8000
+      - SCRAPER_SERVICE_PORT=5000
+      - WEB_SERVICE_PORT=3000
+    depends_on:
+      - webservice
+    networks:
+      - brand-analyzer-network
+    volumes: []
+    restart: unless-stopped

@@ -12,6 +12,11 @@ from math import ceil
 import locale
 from datetime import datetime
 from time import sleep
+from dotenv import load_dotenv
+import os
+
+# Carregar variáveis de ambiente do arquivo .env no diretório pai
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 from utils.posts_data_to_string import posts_data_to_string
 from utils.get_text import get_text_with_emojis
 from service.database_conection import DatabaseConnection
@@ -432,7 +437,7 @@ def run_all_pages(pages: list[Page], since_date_str: str = None) -> tuple[bool, 
     posts_since_date = datetime.strptime(since_date_str, '%Y-%m-%d') if since_date_str else None
     n_posts = ScrapperConfigs.N_POSTS
 
-    # TODO: verificar. Se a conta de acesso estiver em inglês, não precisará do seguinte
+    # Se a conta de acesso estiver em inglês, não precisará do seguinte
     locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
 
@@ -440,7 +445,7 @@ def run_all_pages(pages: list[Page], since_date_str: str = None) -> tuple[bool, 
     options = Options()
     #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
     options.add_argument('--disable-dev-tools')
-    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser
+    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser #TODO: descomentar
     options.add_argument('window-size=1600,1000')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
