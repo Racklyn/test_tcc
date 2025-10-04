@@ -54,7 +54,7 @@ def get_comment_date(driver: webdriver.Remote, comment_elem: WebElement) -> date
         comm_date_elem = comment_elem.find_element(By.TAG_NAME, 'li').find_element(By.TAG_NAME, 'a')
         comm_date_elem.send_keys(Keys.SHIFT)
 
-        sleep(1) #sleep(0.5) #TODO: verificar esse tempo. O ideal seria que fosse adaptável
+        sleep(1)
 
         tooltip_date_txt = driver.find_element(By.XPATH, elem_path.TOOLTIP_DATE_TEXT).text
         print(f'--> Date: {tooltip_date_txt}')
@@ -83,31 +83,31 @@ def login(driver: webdriver.Remote, credencials: str = None):
 
     return True
 
+# Essa função será usada quando estivermos logados no Facebook
+# def get_posts_to_be_scrapped(driver: webdriver.Remote, posts_since_date: datetime):
+#     last_height = driver.execute_script('return document.body.scrollHeight')
 
-def get_posts_to_be_scrapped(driver: webdriver.Remote, posts_since_date: datetime):
-    last_height = driver.execute_script('return document.body.scrollHeight')
+#     while True:
+#         curr_post_cards = driver.find_elements(By.XPATH, elem_path.CURRENT_POST_CARD)
+#         print(f'{len(curr_post_cards)} publicações encontradas')
+#         last_post_card = curr_post_cards[-1]
 
-    while True: # TODO: verificar isso
-        curr_post_cards = driver.find_elements(By.XPATH, elem_path.CURRENT_POST_CARD)
-        print(f'{len(curr_post_cards)} publicações encontradas')
-        last_post_card = curr_post_cards[-1]
+#         post_date = get_post_card_date(driver, last_post_card)
 
-        post_date = get_post_card_date(driver, last_post_card)
-
-        # Verificar se data está fora do intervalo desejado
-        if post_date < posts_since_date:
-            return curr_post_cards[:-1]
+#         # Verificar se data está fora do intervalo desejado
+#         if post_date < posts_since_date:
+#             return curr_post_cards[:-1]
         
-        # 'Scrolla' para baixo até onde é possível
-        driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
-        sleep(3) #TODO: verificar se é possível diminuir esse tempo
+#         # 'Scrolla' para baixo até onde é possível
+#         driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+#         sleep(3)
 
-        new_height = driver.execute_script('return document.body.scrollHeight')
+#         new_height = driver.execute_script('return document.body.scrollHeight')
 
-        if last_height == new_height:
-            return curr_post_cards
+#         if last_height == new_height:
+#             return curr_post_cards
         
-        last_height = new_height
+#         last_height = new_height
 
 
 # Código temporário enquanto não logamos no Facebook
@@ -121,6 +121,11 @@ def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_s
 
     while c < max_reps:
         curr_post_cards = driver.find_elements(By.XPATH, elem_path.CURRENT_POST_CARD)
+
+        if len(curr_post_cards) == 0:
+            print('Nenhum elemento encontrado com XPATH "elem_path.CURRENT_POST_CARD" nessa iteração.')
+        else:
+            print(f'{len(curr_post_cards)} "CURRENT_POST_CARD" encontrados nessa iteração.')
 
         if len(curr_post_cards) >= n_posts:
             posts = curr_post_cards[:n_posts]
@@ -186,9 +191,6 @@ def get_posts_data(
             post_title = post_card.find_element(By.XPATH, elem_path.POST_CARD_TITLE).text
             if post_title.endswith('está ao vivo agora.'):
                 continue
-
-            print('Antes de fazer a requisição...')
-            #breakpoint()
 
             # Verificar se publicação já existe no banco
             existing_post = db.generic_getter('post/findByDateAndPage', {
@@ -256,8 +258,6 @@ def get_posts_data(
 
         print('-'*50)
         sleep(2)
-
-        break #TODO: REMOVER ISSO (pegando apenas o 1° post)
 
     return postsDto
 
@@ -345,6 +345,11 @@ def get_post_comments(
 
     comment_elems = dialog_elem.find_elements(By.XPATH, elem_path.COMMENT_ELEMENTS)
     print(f'Elementos de comentário encontrados: {len(comment_elems)}')
+
+    if len(comment_elems) == 0:
+        print('Nenhum elemento encontrado com XPATH "elem_path.COMMENT_ELEMENTS" no dialog. Verifique o XPATH!')
+
+
     comments: list[Comment] = []
 
     # Iterando por todos os elementos de comentário e extraindo cada um
@@ -443,9 +448,9 @@ def run_all_pages(pages: list[Page], since_date_str: str = None) -> tuple[bool, 
 
     service = Service(ChromeDriverManager().install())
     options = Options()
-    #options.add_experimental_option("detach", True) # para manter o browser aberto após o processo 
+    #options.add_experimental_option("detach", True) # para DEBUG, descomente essa linha para manter o browser aberto após a execução
     options.add_argument('--disable-dev-tools')
-    options.add_argument('--headless=new') # para não abrir a interface gráfica do browser #TODO: descomentar
+    options.add_argument('--headless=new') # para DEBUG, comente essa linha se quiser abrir a interface gráfica do browser durante a execução
     options.add_argument('window-size=1600,1000')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-gpu')
@@ -473,9 +478,7 @@ def run_all_pages(pages: list[Page], since_date_str: str = None) -> tuple[bool, 
 def get_all_pages_and_run(brand_id: int, since_date_str: str = None) -> tuple[bool, str]:
     pages = db.generic_getter('page', {'brand_id': brand_id})
 
-    #pages = [p for p in pages if p['id'] == 4] # TODO: remover. Com isso, pega apenas "MotoBRA"
-
-    print(f'{len(pages)} página(s) para extração.')
+    print(f'{len(pages)} página(s) para extração da marca com ID {brand_id}.')
     success, message = run_all_pages(pages, since_date_str)
     return success, message
 
@@ -484,5 +487,4 @@ def get_all_pages_and_run(brand_id: int, since_date_str: str = None) -> tuple[bo
 
 
 if __name__ == '__main__':
-    #'fila.br', 'nike', 'Olympikus', 'SamsungBrasil', 'Lula', 'MotoBRA', 'magazineluiza', 'XiaomiBrasil
     get_all_pages_and_run(brand_id=2) #, since_date_str='2024-01-01'

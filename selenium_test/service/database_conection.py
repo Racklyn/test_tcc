@@ -33,13 +33,20 @@ class DatabaseConnection():
 
     def generic_getter(self, route: str, params: dict) -> json:
         response = self.requests.get(f'{self.base_url}/{route}', params=params)
+        
         if response.status_code == 404:
-            response = dict()
-        else:
-            # TODO: ajustar isso
-            try:
-                response = response.json()
-            except Exception as e:
-                print(f'Erro ao converter resposta para JSON: {e}')
-                response = dict()
-        return response
+            print(f'Nenhum resultado encontrado (404). Rota: {route} . Parâmetros: {params}.')
+            return {}
+
+        # Se a resposta está vazia, apenas retorna {}
+        if not response.text.strip():
+            print(f'Resposta vazia (200 OK). Rota: {route} . Parâmetros: {params}.')
+            return {}
+
+        # Caso tenha conteúdo, tenta converter
+        try:
+            return response.json()
+        except ValueError as e:
+            print(f'Erro ao converter para JSON: {e}')
+            print(f'Corpo recebido: {response.text[:500]}')
+            return {}
