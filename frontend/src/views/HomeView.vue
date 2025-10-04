@@ -21,6 +21,7 @@
             
             const queryParams: BrandQueryParams = {
                 user_id: USER_ID,
+                sort_by: 'name',
             }
             
             const brandsData = await brandService.get(queryParams)

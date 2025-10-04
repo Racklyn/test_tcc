@@ -431,7 +431,7 @@ def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: da
         print(e)
         print('Falha ao coletar informações das publicações nesta página.')
     else:
-        posts_data_to_string(postsDto, 'posts.txt')
+        #posts_data_to_string(postsDto, 'posts.txt') # Para DEBUG, descomente essa linha para salvar os dados extraídos das publicações em um arquivo .txt
         print(f'\nExtração de {len(postsDto)} publicações concluída com sucesso na página {page["title"]}!')
 
         save_or_update_posts(postsDto)

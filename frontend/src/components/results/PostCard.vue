@@ -24,6 +24,10 @@
         return formatDateTime(props.post.last_analysis)
     })
 
+    const isOtherItemType = computed(() => {
+        return !props.post.item && props.post.last_analysis
+    })
+
     const itemType = computed(() => {
         return props.post.item.type === 'product' ? 'PRODUTO' : 'SERVIÇO'
     })
@@ -104,6 +108,40 @@
     
                 <p class="text-subtitle-1 text-truncate">{{ props.post.item.name }}</p>
             </div>
+
+            <div
+                class="d-flex align-center"
+                v-else-if="isOtherItemType"
+            >
+                <v-chip
+                    text="PUBLICAÇÃO DE ENGAJAMENTO"
+                    color="font-secondary"
+                    variant="flat"
+                    density="compact"
+                    rounded="lg"
+                    class="font-weight-bold text-caption justify-center mr-3"
+                />
+
+                <v-tooltip
+                    location="bottom"
+                    open-delay="350"
+                    width="300"
+                >
+                    A publicação não trata de um produto ou serviço específico da marca.
+
+                    <template #activator="{ props }">
+                        <v-icon
+                            v-bind="props"
+                            color="text-font-light-1"
+                            size="18"
+                            class="mr-1"
+                        >
+                            mdi-information-outline
+                        </v-icon>
+                    </template>
+                </v-tooltip>
+            </div>
+
             <p
                 class="text-body-2 text-font-light-1"
                 style="height: 40px;"
