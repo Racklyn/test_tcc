@@ -6,8 +6,8 @@ from configs.api_configs import ApiConfigs
 from main import get_all_pages_and_run
 
 app = FastAPI(
-    title="Extração de Publicações de Páginas de Facebook API",
-    description="API para extração de publicações e comentários de páginas do Facebook de marcas",
+    title="API Web Scraping de Publicações do Facebook",
+    description="API que realiza a extração de publicações e comentários de páginas do Facebook de marcas usando a biblioteca Selenium para a técnica de web scraping.",
     version="1.0.0",
     docs_url="/docs",  # URL para acessar o Swagger UI
     redoc_url="/redoc"  # URL para acessar o ReDoc
@@ -28,14 +28,14 @@ class DefaultResponse(BaseModel):
 
 @app.post('/extractFromAllPagesOfBrand', response_model=DefaultResponse, 
           summary="Extrair dados de todas as páginas de uma marca",
-          description="Extrair dados dos posts mais recentes (com seus comentários) de todas as páginas de uma marca a partir de uma data determinada")
+          description="Extrai dados dos posts mais recentes (com seus comentários) de todas as páginas de uma marca a partir de uma data determinada e salva no banco de dados")
 async def extract_from_all_pages_endpoint(
     brand_id: int = Query(..., description="ID da marca para extração", examples=[1], required=True),
     date_since_str: Optional[str] = Query(None, description="Data de início da extração (formato: YYYY-MM-DD)", examples=["2024-01-01"])
 ):
     """
-    Extrair dados dos posts mais recentes (com seus comentários) de todas as páginas de uma marca a partir de uma data determinada.
-    
+    Extrai dados dos posts mais recentes (com seus comentários) de todas as páginas de uma marca a partir de uma data determinada e salva no banco de dados.
+
     - **brand_id**: ID da marca para extração
     - **date_since_str**: Data de início da extração (formato: YYYY-MM-DD)
     

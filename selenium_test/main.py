@@ -84,7 +84,7 @@ def login(driver: webdriver.Remote, credencials: str = None):
     return True
 
 # Essa função será usada quando estivermos logados no Facebook
-# def get_posts_to_be_scrapped(driver: webdriver.Remote, posts_since_date: datetime):
+# def get_posts_to_be_scrapped_login(driver: webdriver.Remote, posts_since_date: datetime):
 #     last_height = driver.execute_script('return document.body.scrollHeight')
 
 #     while True:
@@ -111,7 +111,7 @@ def login(driver: webdriver.Remote, credencials: str = None):
 
 
 # Código temporário enquanto não logamos no Facebook
-def get_posts_to_be_scrapped_temp(driver: webdriver.Remote, n_posts = 2, posts_since_date: datetime = None) -> list[WebElement]:
+def get_posts_to_be_scrapped(driver: webdriver.Remote, n_posts = 2, posts_since_date: datetime = None) -> list[WebElement]:
     posts = []
     last_height = driver.execute_script('return document.body.scrollHeight')
     c = 0
@@ -410,12 +410,13 @@ def run(driver: webdriver.Remote, page: Page, n_posts: int, posts_since_date: da
     login_success = login(driver)
 
     if not login_success:
+        print(f'Falha ao logar na página {page["title"]}')
         return
     
     sleep(1)
 
-    # post_cards = get_posts_to_be_scrapped(driver=driver,posts_since_date=posts_since_date)
-    post_cards = get_posts_to_be_scrapped_temp(
+    # post_cards = get_posts_to_be_scrapped_login(driver=driver,posts_since_date=posts_since_date)
+    post_cards = get_posts_to_be_scrapped(
         driver,
         n_posts,
         #posts_since_date

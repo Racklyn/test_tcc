@@ -6,8 +6,8 @@ from configs.api_configs import ApiConfigs
 from main import run_analysis, update_item, update_all_items_from_brand
 
 app = FastAPI(
-    title="Analisador de Sentimentos API",
-    description="API para análise de sentimentos de publicações de marcas",
+    title="API Analisador de Sentimentos",
+    description="API para análise de sentimentos de publicações de marcas no Facebook, utilizando uso de IA (Gemini) para realizar as análises.",
     version="1.0.0",
     docs_url="/docs",  # URL para acessar o Swagger UI
     redoc_url="/redoc"  # URL para acessar o ReDoc
@@ -29,13 +29,13 @@ class DefaultResponse(BaseModel):
 
 @app.post('/runAnalysis', response_model=DefaultResponse, 
           summary="Executar Análise de Comentários",
-          description="Executa a análise de comentários para uma marca específica a partir de uma data determinada")
+          description="Para cada um dos posts de uma marca, a partir da data 'date_since_str', identifica o item (produto ou serviço) que é tratado ali e, em seguida, executa a análise de sentimentos para todos os comentários desse post.")
 async def analysis_endpoint(
     brand_id: int = Query(..., description="ID da marca para análise", examples=[1]),
     date_since_str: str | None = Query(None, description="Data de início da análise (formato: YYYY-MM-DD)", examples=["2024-01-01"])
 ):
     """
-    Executa a análise de comentários para uma marca específica.
+    Para cada um dos posts de uma marca, a partir da data 'date_since_str', identifica o item (produto ou serviço) que é tratado ali e, em seguida, executa a análise de sentimentos para todos os comentários desse post.
     
     - **brand_id**: ID da marca para análise
     - **date_since_str**: Data de início da análise (formato: YYYY-MM-DD)
@@ -53,7 +53,7 @@ async def analysis_endpoint(
 
 @app.post('/updateItem', response_model=DefaultResponse,
           summary="Atualizar Item Específico",
-          description="Atualiza um item específico de uma marca")
+          description="Atualiza um item da marca (produto ou serviço) que esteja com status de 'desatualizado', atualizando nome e descrição do item de acordo com os novos posts que tratam sobre o item (se houver). Em seguida, sintetiza o resultado de sua análise de sentimentos, destacando pontos positivos e negativos.")
 async def update_endpoint(
     item_id: int = Query(..., description="ID do item a ser atualizado", examples=[123])
 ):
@@ -75,12 +75,12 @@ async def update_endpoint(
 
 @app.post('/updateAllItemsFromBrand', response_model=DefaultResponse,
           summary="Atualizar Todos os Itens de uma Marca",
-          description="Atualiza todos os itens de uma marca específica")
+          description="Atualiza todos os itens de uma marca (produtos e serviços) que estejam com status de 'desatualizado', atualizando nome e descrição do item de acordo com os novos posts que tratam sobre o item (se houver). Em seguida, sintetiza o resultado de todas as análises de sentimentos para todos os items da marca, de acordo com as últimas análises, destacando pontos positivos e negativos.")
 async def update_all_endpoint(
     brand_id: int = Query(..., description="ID da marca cujos itens serão atualizados", examples=[1])
 ):
     """
-    Atualiza todos os itens de uma marca específica.
+    Atualiza todos os itens de uma marca (produtos e serviços) que estejam com status de 'desatualizado', atualizando nome e descrição do item de acordo com os novos posts que tratam sobre o item (se houver). Em seguida, sintetiza o resultado de todas as análises de sentimentos para todos os items da marca, de acordo com as últimas análises, destacando pontos positivos e negativos.
     
     - **brand_id**: ID da marca cujos itens serão atualizados
     

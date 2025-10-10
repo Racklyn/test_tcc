@@ -13,7 +13,7 @@ from vector_db.vectordatabase import VectorDatabase
 from pipelines.comment_analysis.prompt_config import ITEM_TAG_START, ITEM_TAG_END, ITEM_SEPARATOR, COMMENT_SEPARATOR
 from utils.date_convertion import date_to_str_iso_format
 
-MOST_RELEVANT_ITEMS = 5 #TODO: verificar esse valor, era 3
+MOST_RELEVANT_ITEMS = 5
 
 class CommentAnalysisPipeline:
 

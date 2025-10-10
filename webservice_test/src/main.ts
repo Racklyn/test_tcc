@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   // Ativa o ValidationPipe global com transformação
-  app.useGlobalPipes(new ValidationPipe({ transform: true })); // TODO: verificar
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   app.enableCors({
     origin: ['http://localhost:5173', 'http://localhost:3000'],
@@ -18,7 +18,7 @@ async function bootstrap() {
 
   if (process.env.WEBSERVICE_SWAGGER === 'true') {
     const config = new DocumentBuilder()
-        .setTitle('Brand Analyzer - Swagger')
+        .setTitle('API Brand Analyzer')
         .setVersion('1.0')
         .addTag('user')
         .addTag('brand')
@@ -30,7 +30,7 @@ async function bootstrap() {
         .addTag('itemAnalysisResult')
         .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('docs', app, document);
 
   }
 
