@@ -1,16 +1,36 @@
 # Analisador de marcas e produtos no Facebook
 
-MVP de uma plataforma que permite analisar a repercussão e a reação das pessoas às publicações de marcas no Facebook.
-O objetivo do sistema é avaliar o nível de satisfação do público em relação a novos produtos lançados, promoções ou ideias promovidas pelas empresas.
-Isso permitirá que empresas tomem decisões estratégicas com base no resultado dessas análises.
+MVP de um sistema de análise de sentimentos e monitoramento de marcas no Facebook, desenvolvido para fornecer insights valiosos sobre a percepção do público em relação a produtos e serviços.
 
-O projeto ainda está em desenvolvimento.
+## 💬 Sobre o Sistema
+
+O **Analisador de marcas e produtos no Facebook** é uma solução integrada que combina web scraping inteligente, análise de sentimentos com IA e visualização de dados para transformar o feedback do público em informações estratégicas acionáveis. A versão atual é um MVP, com funcionalidades limitadas e diversas melhorias a serem implementadas.
+
+### Funcionalidades Principais
+
+- **Gestão de Marcas**: Cadastro e gerenciamento completo de marcas com suas páginas do Facebook
+- **Web Scraping Inteligente**: Extração automatizada de publicações e comentários usando Selenium
+- **Análise de Sentimentos com IA**: Identificação automática de produtos/serviços e análise de sentimentos dos comentários das publicações usando Gemini API
+- **Dashboard Interativo**: Interface moderna e responsiva com Vue.js e Vuetify
+- **Estatísticas Detalhadas**: Métricas abrangentes sobre a percepção do público
+- **Atualização Incremental**: Sistema modular que permite atualizações contínuas dos dados
+- **Interface Intuitiva**: Experiência de usuário otimizada para análise e tomada de decisões
+
+### Objetivo
+
+Avaliar o nível de satisfação do público em relação a novos produtos lançados, promoções ou campanhas promovidas pelas empresas, permitindo que sejam tomadas decisões estratégicas baseadas em dados reais de engajamento e sentimentos dos consumidores.
 
 ## 💻 Tecnologias
 
+### Frontend
+- Vue.js 3
+- Vuetify (biblioteca de componentes)
+- Vite (build tool)
+- Vue Router
+
 ### Backend (webservice + BD)
 - NestJS
-- PostgreSQL
+- PostgreSQL (Docker)
 
 ### Sentiment Analyzer
 - Python
@@ -25,13 +45,17 @@ O projeto ainda está em desenvolvimento.
 
 
 
-## 🔧 Executando o projeto com Docker
+## 🔧 Executando o projeto
 
-### Pré-requisitos
+### Execução Completa (Recomendada)
+
+A forma mais simples de executar todo o projeto é através do Docker Compose, que irá subir todos os serviços necessários:
+
+#### Pré-requisitos
 - Docker
 - Docker Compose
 
-### Configuração Inicial
+#### Configuração Inicial
 ```bash
 # 1. Copiar configurações
 cp env.example .env
@@ -43,13 +67,12 @@ nano .env
 chmod +x docker-scripts.sh
 ```
 
-### Comandos Principais
+#### Comandos Principais
 ```bash
 # Iniciar todos os serviços
 docker compose up -d
 # ou
 ./docker-scripts.sh start
-
 
 # Ver logs em tempo real
 ./docker-scripts.sh logs
@@ -61,134 +84,171 @@ docker compose up -d
 ./docker-scripts.sh status
 ```
 
-### Portas de Acesso Padrão
-- **Web Service (NestJS)**: 3000
-- **Sentiment Analyzer (Gemini)**: 8000
-- **Scraper (Selenium)**: 5000
-- **Database (PostgreSQL)**: 5432
+#### Portas de Acesso
+- **Frontend (Vue.js)**: http://localhost:5173
+- **Web Service (NestJS)**: http://localhost:3000
+- **Sentiment Analyzer (Gemini)**: http://localhost:8000
+- **Scraper (Selenium)**: http://localhost:5000
+- **Database (PostgreSQL)**: localhost:5432
 
-### Executando serviços individualmente
-```bash
-# Apenas o banco de dados
-docker compose up -d database
-
-# Apenas o serviço de IA
-docker compose up -d sentiment-analyzer
-
-# Apenas o serviço de scraping
-docker compose up -d scraper
-
-# Apenas o serviço web
-docker compose up -d webservice
-```
-
-### Banco de Dados
+#### Banco de Dados
 - **Host**: `database` (interno) ou `localhost` (externo)
 - **Porta**: `5432`
 - **Usuário**: `postgres`
 - **Senha**: `postgres`
 - **Banco**: `facebook_brand_analyzer`
-- **Rede**: `brand-analyzer-network`
 
 **Comando de acesso:**
 ```bash
 docker compose exec database psql -U postgres -d facebook_brand_analyzer
 ```
 
-## 🔧 Executando o projeto localmente
+### Executando Módulos Individualmente
 
-### Webservice
-Para rodar o banco de dados e o backend, é necessário ter instalado em sua máquina [Docker](https://docs.docker.com/engine/install/) e [Node.js/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-Navegue para o diretório do webservice:
+#### FRONTEND
+
+**Com Docker:**
+```bash
+# Apenas o frontend
+docker compose up -d frontend
+```
+
+**Localmente:**
+Para rodar localmente, é necessário ter instalado [Node.js/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+```shell
+cd frontend/
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+O frontend será executado na porta **5173**. Acesse a aplicação em [http://localhost:5173](http://localhost:5173).
+
+#### WEBSERVICE (Backend)
+
+**Com Docker:**
+```bash
+# Apenas o banco de dados
+docker compose up -d database
+
+# Apenas o serviço web
+docker compose up -d webservice
+```
+
+**Localmente:**
+Para rodar localmente, é necessário ter instalado [Docker](https://docs.docker.com/engine/install/) (para rodar o Postgres) e [Node.js/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ```shell
 cd webservice_test/
-```
-Inicie uma instância do Postgres e crie o banco de dados do sistema executando o seguinte:
-```shell
+
+# Inicie uma instância do Postgres
 docker compose up -d
-```
-Instale as dependências do backend:
-```shell
+
+# Instale as dependências
 npm i
-```
-Por fim, inicie o backend com o comando abaixo:
-```shell
+
+# Inicie o backend
 npm run start:dev
 ```
-O backend será executado, por padrão, na porta **3000**. Para visualizar e interagir com as rotas, é possível acessar o Swagger do projeto em [http://localhost:3000/api](http://localhost:3000/api).
 
-### Scraper
-Para rodar o módulo de scraper, é necessário ter instalado em sua máquina [Python 3](https://www.python.org/downloads/).
-Navegue para o diretório do scraper:
+O backend será executado na porta **3000**. Acesse o Swagger em [http://localhost:3000/docs](http://localhost:3000/docs).
+
+#### SCRAPER
+
+**Com Docker:**
+```bash
+# Apenas o banco de dados
+docker compose up -d database
+
+# Apenas o serviço de scraping
+docker compose up -d scraper
+```
+
+**Localmente:**
+Para rodar localmente, é necessário ter instalado [Python 3](https://www.python.org/downloads/).
+
 ```shell
 cd selenium_test/
-```
-Crie e ative o ambiente virtual do python com os seguintes comandos:
-```shell
-python -m venv .venv      # cria um ambiente virtual para a aplicação
-source .venv/bin/activate      # ativa o ambiente virtual criado
-```
-Instale as dependências do projeto:
-```shell
+
+# Crie e ative o ambiente virtual
+python -m venv .venv
+source .venv/bin/activate
+
+# Instale as dependências
 pip install -r requirements.txt
-```
-Por fim, inicie a API do scraper o código com o seguinte:
-```shell
+
+# Inicie a API do scraper
 python api.py
 ```
 
-Você pode acessar o swagger do scraper em [http://localhost:5000/docs](http://localhost:5000/docs) e e executar as rotas existentes.
+Acesse o Swagger do scraper em [http://localhost:5000/docs](http://localhost:5000/docs).
 
-
-Além disso, é possível executar o scraper com o script "main.py", informando o id da marca que se deseja extrair os dados (brand_id) e a data a partir de quando deve ocorrer a extração, configurando isso na função "get_all_pages_and_run()" ao final do arquivo e, posteriormente, executando com o comando:
-
+**Execução direta do script:**
 ```shell
+# Configure o brand_id e data na função get_all_pages_and_run() no final do arquivo
 python main.py
 ```
 
-### Analisador de sentimentos
-Para rodar o módulo de análise de sentimentos, é necessário ter instalado em sua máquina [Python 3](https://www.python.org/downloads/).
-Navegue para o diretório do analisador:
+#### ANALISADOR DE SENTIMENTOS
+
+**Com Docker:**
+```bash
+# Apenas o banco de dados
+docker compose up -d database
+
+# Apenas o serviço de IA
+docker compose up -d sentiment-analyzer
+```
+
+**Localmente:**
+Para rodar localmente, é necessário ter instalado [Python 3](https://www.python.org/downloads/).
+
 ```shell
 cd gemini_test/
-```
-Crie e ative o ambiente virtual do python com os seguintes comandos:
-```shell
-python -m venv .venv      # cria um ambiente virtual para a aplicação
-source .venv/bin/activate      # ativa o ambiente virtual criado
-```
-Instale as dependências do projeto:
-```shell
-pip install -r requirements.txt
-```
-Configure a variável de ambiente `GEMINI_API_KEY` no arquivo ".env" com a chave da API do Gemini.
 
-Por fim, inicie a API do analisador de sentimentos com o seguinte:
-```shell
+# Crie e ative o ambiente virtual
+python -m venv .venv
+source .venv/bin/activate
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Configure a chave da API do Gemini no arquivo .env
+# GEMINI_API_KEY=sua_chave_aqui
+
+# Inicie a API do analisador
 python api.py
 ```
-Você pode acessar o swagger do analisador de sentimentos em [http://localhost:8000/docs](http://localhost:8000/docs) e e executar as rotas existentes.
 
-Além disso, é possível executar o analisador de sentimentos com o script "main.py", fazendo as configurações desejadas na seção contendo "if __name__ == '__main__':" ao final do arquivo e, por fim, executando com o comando:
+Acesse o Swagger do analisador em [http://localhost:8000/docs](http://localhost:8000/docs).
 
+**Execução direta do script:**
 ```shell
+# Configure as opções desejadas na seção "if __name__ == '__main__':" no final do arquivo
 python main.py
 ```
 
 ## 📄 Documentação
 
-### Webservice
+### Pasta com diagramas e melhorias futuras
+- [Diagramas e melhorias (Google Drive)](https://drive.google.com/drive/folders/1acwxV1NQiazBCRvSl1jhTlvmxF4tiGvR?usp=drive_link)
 
-- Swagger: http://localhost:3000/api
-- Redoc: http://localhost:3000/redoc
+
+### Frontend
+- **Aplicação**: http://localhost:5173
+
+### Webservice (Backend)
+- **Swagger**: http://localhost:3000/docs
+- **Redoc**: http://localhost:3000/redoc
 
 ### Scraper
+- **Swagger**: http://localhost:5000/docs
+- **Redoc**: http://localhost:5000/redoc
 
-- Swagger: http://localhost:5000/docs
-- Redoc: http://localhost:5000/redoc
-
-### Analisador de sentimentos
-
-- Swagger: http://localhost:8000/docs
-- Redoc: http://localhost:8000/redoc
+### Analisador de Sentimentos
+- **Swagger**: http://localhost:8000/docs
+- **Redoc**: http://localhost:8000/redoc
